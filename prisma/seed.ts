@@ -1,0 +1,217 @@
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+async function main() {
+  console.log('🌱 Starting database seed...');
+
+  // Create admin user
+  const adminUser = await prisma.user.upsert({
+    where: { email: 'admin@villagestay.com' },
+    update: {},
+    create: {
+      email: 'admin@villagestay.com',
+      name: 'Admin User',
+      role: 'ADMIN',
+      password: 'hashed_password_here', // TODO: Hash password properly
+    },
+  });
+
+  console.log('✅ Created admin user');
+
+  // Create blog categories
+  const categories = await Promise.all([
+    prisma.category.upsert({
+      where: { slug: 'travel-tips' },
+      update: {},
+      create: {
+        name: 'Travel Tips',
+        slug: 'travel-tips',
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'culture' },
+      update: {},
+      create: {
+        name: 'Culture',
+        slug: 'culture',
+      },
+    }),
+    prisma.category.upsert({
+      where: { slug: 'food' },
+      update: {},
+      create: {
+        name: 'Food',
+        slug: 'food',
+      },
+    }),
+  ]);
+
+  console.log('✅ Created blog categories');
+
+  // Create sample homestays
+  await Promise.all([
+    prisma.homestay.upsert({
+      where: { slug: 'traditional-village-house' },
+      update: {},
+      create: {
+        name: 'Traditional Village House',
+        slug: 'traditional-village-house',
+        description: 'Experience authentic village life in this beautifully preserved traditional house with modern amenities.',
+        address: 'Village Center, Main Street',
+        pricePerNight: 250000,
+        maxGuests: 4,
+        photos: ['/placeholder-homestay-1.jpg'],
+        amenities: ['WiFi', 'Air Conditioning', 'Kitchen', 'Parking'],
+        featured: true,
+        published: true,
+      },
+    }),
+    prisma.homestay.upsert({
+      where: { slug: 'mountain-view-cottage' },
+      update: {},
+      create: {
+        name: 'Mountain View Cottage',
+        slug: 'mountain-view-cottage',
+        description: 'Wake up to stunning mountain views from this cozy cottage surrounded by nature.',
+        address: 'Hilltop Area',
+        pricePerNight: 300000,
+        maxGuests: 2,
+        photos: ['/placeholder-homestay-2.jpg'],
+        amenities: ['WiFi', 'Mountain View', 'Garden', 'Breakfast Included'],
+        featured: true,
+        published: true,
+      },
+    }),
+    prisma.homestay.upsert({
+      where: { slug: 'rice-terrace-retreat' },
+      update: {},
+      create: {
+        name: 'Rice Terrace Retreat',
+        slug: 'rice-terrace-retreat',
+        description: 'Immerse yourself in the beauty of rice terraces with this peaceful retreat.',
+        address: 'Rice Terrace Area',
+        pricePerNight: 275000,
+        maxGuests: 3,
+        photos: ['/placeholder-homestay-3.jpg'],
+        amenities: ['WiFi', 'Terrace View', 'Kitchen', 'Hot Water'],
+        featured: true,
+        published: true,
+      },
+    }),
+  ]);
+
+  console.log('✅ Created sample homestays');
+
+  // Create sample attractions
+  await Promise.all([
+    prisma.attraction.upsert({
+      where: { slug: 'hidden-waterfall' },
+      update: {},
+      create: {
+        name: 'Hidden Waterfall',
+        slug: 'hidden-waterfall',
+        description: 'A beautiful waterfall hidden in the forest, perfect for swimming and photography.',
+        location: '5 km from village center',
+        photos: ['/placeholder-attraction-1.jpg'],
+        featured: true,
+        published: true,
+      },
+    }),
+    prisma.attraction.upsert({
+      where: { slug: 'ancient-rice-terraces' },
+      update: {},
+      create: {
+        name: 'Ancient Rice Terraces',
+        slug: 'ancient-rice-terraces',
+        description: 'Centuries-old rice terraces that showcase traditional farming techniques.',
+        location: '3 km from village center',
+        photos: ['/placeholder-attraction-2.jpg'],
+        featured: true,
+        published: true,
+      },
+    }),
+  ]);
+
+  console.log('✅ Created sample attractions');
+
+  // Create sample culinary items
+  await Promise.all([
+    prisma.culinary.upsert({
+      where: { slug: 'traditional-rice-dish' },
+      update: {},
+      create: {
+        name: 'Traditional Rice Dish',
+        slug: 'traditional-rice-dish',
+        description: 'Authentic village recipe with aromatic spices and fresh local ingredients.',
+        location: 'Available at Warung Mama',
+        priceRange: 'Rp 25.000 - Rp 35.000',
+        photos: ['/placeholder-culinary-1.jpg'],
+        featured: true,
+        published: true,
+      },
+    }),
+    prisma.culinary.upsert({
+      where: { slug: 'smoked-fish-specialty' },
+      update: {},
+      create: {
+        name: 'Smoked Fish Specialty',
+        slug: 'smoked-fish-specialty',
+        description: 'Fresh local fish smoked using traditional methods passed down through generations.',
+        location: 'Available at Warung Pak Budi',
+        priceRange: 'Rp 40.000 - Rp 60.000',
+        photos: ['/placeholder-culinary-2.jpg'],
+        featured: true,
+        published: true,
+      },
+    }),
+  ]);
+
+  console.log('✅ Created sample culinary items');
+
+  // Create sample blog posts
+  await Promise.all([
+    prisma.post.upsert({
+      where: { slug: 'getting-around-the-village' },
+      update: {},
+      create: {
+        title: 'Getting Around the Village: A Visitor\'s Guide',
+        slug: 'getting-around-the-village',
+        excerpt: 'Learn the best ways to explore our village and make the most of your visit.',
+        content: 'Full blog post content goes here...',
+        coverImage: '/placeholder-blog-1.jpg',
+        published: true,
+        authorId: adminUser.id,
+        categoryId: categories[0].id,
+      },
+    }),
+    prisma.post.upsert({
+      where: { slug: 'traditional-ceremonies-explained' },
+      update: {},
+      create: {
+        title: 'Traditional Ceremonies Explained',
+        slug: 'traditional-ceremonies-explained',
+        excerpt: 'Discover the meaning and beauty behind our village\'s traditional ceremonies.',
+        content: 'Full blog post content goes here...',
+        coverImage: '/placeholder-blog-2.jpg',
+        published: true,
+        authorId: adminUser.id,
+        categoryId: categories[1].id,
+      },
+    }),
+  ]);
+
+  console.log('✅ Created sample blog posts');
+
+  console.log('🎉 Database seeding completed!');
+}
+
+main()
+  .then(async () => {
+    await prisma.$disconnect();
+  })
+  .catch(async (e) => {
+    console.error('❌ Error during seeding:', e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });

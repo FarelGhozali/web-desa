@@ -1,103 +1,172 @@
-import Image from "next/image";
+import Link from 'next/link';
+import Container from '@/components/ui/Container';
+import Button from '@/components/ui/Button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div>
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20 md:py-32">
+        <Container>
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              Experience Authentic Village Life
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 text-blue-100">
+              Stay in traditional homestays, explore natural beauty, and taste authentic local cuisine
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/homestays">
+                <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+                  Browse Homestays
+                </Button>
+              </Link>
+              <Link href="/about">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-blue-700">
+                  Learn More
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      {/* Featured Homestays */}
+      <section className="py-16 bg-gray-50">
+        <Container>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Featured Homestays
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Carefully selected accommodations for an authentic village experience
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {/* Placeholder for featured homestays */}
+            {[1, 2, 3].map((i) => (
+              <Card key={i} hover>
+                <div className="h-48 bg-gray-300"></div>
+                <CardHeader>
+                  <CardTitle>Homestay {i}</CardTitle>
+                  <p className="text-sm text-gray-600">Beautiful traditional house</p>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex justify-between items-center">
+                    <span className="text-lg font-semibold text-blue-600">Rp 250.000/night</span>
+                    <Link href={`/homestays/homestay-${i}`}>
+                      <Button size="sm">View Details</Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link href="/homestays">
+              <Button variant="outline" size="lg">
+                View All Homestays
+              </Button>
+            </Link>
+          </div>
+        </Container>
+      </section>
+
+      {/* Attractions & Culinary Preview */}
+      <section className="py-16">
+        <Container>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Attractions */}
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                Natural Attractions
+              </h2>
+              <p className="text-gray-600 mb-6">
+                Explore breathtaking landscapes, waterfalls, rice terraces, and hidden gems in our village.
+              </p>
+              <Link href="/attractions">
+                <Button variant="outline">
+                  Discover Attractions
+                </Button>
+              </Link>
+            </div>
+
+            {/* Culinary */}
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                Local Cuisine
+              </h2>
+              <p className="text-gray-600 mb-6">
+                Taste authentic traditional dishes and discover the rich culinary heritage of our village.
+              </p>
+              <Link href="/culinary">
+                <Button variant="outline">
+                  Explore Cuisine
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Latest Blog Posts */}
+      <section className="py-16 bg-gray-50">
+        <Container>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Latest Stories
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Read about village life, travel tips, and local insights
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {/* Placeholder for blog posts */}
+            {[1, 2, 3].map((i) => (
+              <Card key={i} hover>
+                <div className="h-48 bg-gray-300"></div>
+                <CardHeader>
+                  <CardTitle>Blog Post {i}</CardTitle>
+                  <p className="text-sm text-gray-600">
+                    A short excerpt of the blog post content goes here...
+                  </p>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link href="/blog">
+              <Button variant="outline" size="lg">
+                Read More Articles
+              </Button>
+            </Link>
+          </div>
+        </Container>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-blue-600 text-white">
+        <Container>
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Ready to Experience Village Life?
+            </h2>
+            <p className="text-xl mb-8 text-blue-100">
+              Book your stay today and create unforgettable memories
+            </p>
+            <Link href="/homestays">
+              <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+                Book Now
+              </Button>
+            </Link>
+          </div>
+        </Container>
+      </section>
     </div>
   );
 }
