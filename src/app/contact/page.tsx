@@ -4,124 +4,107 @@ import Input from '@/components/ui/Input';
 import Textarea from '@/components/ui/Textarea';
 import Button from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import Badge from '@/components/ui/Badge';
 
 export const metadata: Metadata = {
-  title: 'Contact Us',
-  description: 'Get in touch with us for any questions about homestays, bookings, or visiting our village.',
+  title: 'Hubungi Kami',
+  description: 'Sampaikan pertanyaan seputar homestay, itinerary, atau kolaborasi komunitas bersama Desa Harmoni.',
 };
 
 export default function ContactPage() {
   return (
-    <div className="py-12">
-      <Container size="lg">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Contact Us
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Have questions? We&apos;re here to help! Send us a message and we&apos;ll get back to you as soon as possible.
+    <div className="py-16">
+      <Container size="lg" className="space-y-12">
+        <div className="text-center space-y-4">
+          <Badge className="mx-auto bg-emerald-100/80 text-emerald-900 ring-emerald-300/40">Hubungi kami</Badge>
+          <h1 className="text-3xl md:text-4xl">Kami siap membantu perjalanan desa impian Anda.</h1>
+          <p className="mx-auto max-w-2xl text-stone-600">
+            Tulis pesan singkat mengenai kebutuhan perjalanan Anda. Tim koordinator desa akan merespon dalam 24 jam
+            kerja dengan rekomendasi homestay dan aktivitas terbaik.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Contact Form */}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
-            <Card>
+            <Card className="bg-white">
               <CardHeader>
-                <CardTitle>Send us a message</CardTitle>
+                <CardTitle>Kirim pesan</CardTitle>
               </CardHeader>
               <CardContent>
                 <form className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Input
-                      label="Full Name"
-                      placeholder="John Doe"
-                      required
-                    />
-                    <Input
-                      type="email"
-                      label="Email"
-                      placeholder="john@example.com"
-                      required
-                    />
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <Input label="Nama lengkap" placeholder="Nama Anda" required />
+                    <Input type="email" label="Email" placeholder="nama@email.com" required />
                   </div>
 
-                  <Input
-                    label="Subject"
-                    placeholder="What is this regarding?"
-                    required
-                  />
+                  <Input label="Subjek" placeholder="Contoh: Rencana liburan keluarga" required />
 
                   <Textarea
-                    label="Message"
-                    placeholder="Tell us more about your inquiry..."
+                    label="Pesan"
+                    placeholder="Ceritakan tanggal perjalanan, jumlah tamu, dan pengalaman yang Anda minati..."
                     rows={6}
                     required
                   />
 
                   <Button type="submit" size="lg">
-                    Send Message
+                    Kirim pesan
                   </Button>
                 </form>
               </CardContent>
             </Card>
           </div>
 
-          {/* Contact Information */}
           <div className="space-y-6">
-            <Card>
+            <Card className="bg-gradient-to-br from-emerald-600/10 via-white to-emerald-100/40">
               <CardHeader>
-                <CardTitle>Contact Information</CardTitle>
+                <CardTitle>Informasi desa</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 text-sm text-stone-700">
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                  <p className="text-gray-600">info@villagestay.com</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Email</p>
+                  <p>hello@villagestay.com</p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Phone</h3>
-                  <p className="text-gray-600">+62 123 456 7890</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Telepon</p>
+                  <p>+62 123 456 7890</p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Address</h3>
-                  <p className="text-gray-600">
-                    Village Center<br />
-                    District Name<br />
-                    Regency, Province
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Alamat</p>
+                  <p>
+                    Balai Desa Harmoni<br />
+                    Jl. Persawahan No. 12<br />
+                    Kabupaten Ciamis, Jawa Barat
                   </p>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-white">
               <CardHeader>
-                <CardTitle>Office Hours</CardTitle>
+                <CardTitle>Jam operasional</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Monday - Friday</span>
-                    <span className="font-medium">9:00 - 17:00</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Saturday</span>
-                    <span className="font-medium">9:00 - 14:00</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Sunday</span>
-                    <span className="font-medium">Closed</span>
-                  </div>
+              <CardContent className="space-y-2 text-sm text-stone-600">
+                <div className="flex justify-between border-b border-stone-200/60 pb-2">
+                  <span>Senin - Jumat</span>
+                  <span className="font-semibold text-emerald-700">09.00 - 17.00</span>
+                </div>
+                <div className="flex justify-between border-b border-stone-200/60 pb-2">
+                  <span>Sabtu</span>
+                  <span className="font-semibold text-emerald-700">09.00 - 14.00</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Minggu</span>
+                  <span className="font-semibold text-emerald-700">Tutup</span>
                 </div>
               </CardContent>
             </Card>
           </div>
         </div>
 
-        {/* Map */}
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Find Us</h2>
-          <div className="h-96 bg-gray-300 rounded-lg flex items-center justify-center">
-            <p className="text-gray-500">Map will be displayed here</p>
+        <div className="space-y-4">
+          <h2 className="text-2xl">Peta desa</h2>
+          <div className="flex h-96 items-center justify-center rounded-3xl border border-dashed border-emerald-200 bg-emerald-50/60 text-stone-500">
+            Peta digital akan ditampilkan di sini
           </div>
         </div>
       </Container>

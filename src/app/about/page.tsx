@@ -1,78 +1,94 @@
 import type { Metadata } from 'next';
 import Container from '@/components/ui/Container';
+import Badge from '@/components/ui/Badge';
 
 export const metadata: Metadata = {
-  title: 'About Our Village',
-  description: 'Learn about the rich history, culture, and unique characteristics of our village.',
+  title: 'Tentang Desa Harmoni',
+  description: 'Kenali sejarah, budaya, dan gaya hidup masyarakat Desa Harmoni yang menyambut setiap tamu seperti keluarga.',
 };
 
 export default function AboutPage() {
   return (
-    <div className="py-12">
-      <Container size="md">
-        {/* Hero Image */}
-        <div className="h-96 bg-gray-300 rounded-lg mb-8"></div>
+    <div className="py-16">
+      <Container size="md" className="space-y-12">
+        <div className="relative overflow-hidden rounded-3xl">
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-emerald-700 to-amber-600 opacity-80" />
+          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 20% 20%, rgba(255,255,255,0.2) 0, rgba(255,255,255,0) 55%)' }} />
+          <div className="relative flex flex-col gap-6 px-8 py-16 text-white md:flex-row md:items-end md:justify-between">
+            <div className="max-w-xl space-y-4">
+              <Badge className="bg-white/20 text-white ring-white/40">Cerita Desa</Badge>
+              <h1 className="text-4xl md:text-5xl">Tentang Desa Harmoni</h1>
+              <p className="text-lg text-emerald-50/90">
+                Desa kami tumbuh dengan prinsip gotong royong—mengundang tamu untuk ikut menjaga alam, budaya,
+                dan kearifan lokal yang diwariskan turun-temurun.
+              </p>
+            </div>
+            <div className="rounded-3xl bg-white/10 px-6 py-4 text-center text-sm font-semibold uppercase tracking-[0.3em] text-emerald-50">
+              Berdiri sejak 1821
+            </div>
+          </div>
+        </div>
 
-        <article className="prose prose-lg max-w-none">
-          <h1>About Our Village</h1>
-          
-          <p className="lead">
-            Welcome to our beautiful village, where tradition meets natural beauty and 
-            authentic experiences await every visitor.
-          </p>
+        <article className="space-y-10">
+          <section className="space-y-4">
+            <h2 className="text-3xl">Jejak sejarah yang dijaga</h2>
+            <p className="text-lg text-stone-600">
+              Desa Harmoni berdiri di kaki perbukitan yang kaya mata air. Warga generasi awal membuka sawah berteras
+              dan menanam pohon pelindung agar sumber air tetap terjaga. Kini, kami tetap memegang teguh adat sambil
+              menyambut tamu yang ingin belajar dari alam.
+            </p>
+          </section>
 
-          <h2>Our History</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod 
-            tempor incididunt ut labore et dolore magna aliqua. Our village was founded 
-            over 200 years ago and has maintained its cultural heritage while welcoming 
-            visitors from around the world.
-          </p>
+          <section className="grid gap-8 md:grid-cols-2">
+            <div className="space-y-4">
+              <h3 className="text-2xl">Budaya & tradisi</h3>
+              <p className="text-stone-600">
+                Setiap minggu, kami mengadakan latihan tari jaipong dan gamelan untuk anak-anak desa. Tamu dapat ikut
+                serta mencoba alat musik tradisional atau sekadar menikmati suasana hangat di pendopo.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <h3 className="text-2xl">Keindahan alam</h3>
+              <p className="text-stone-600">
+                Hamparan sawah, sungai kecil, dan kebun kopi adalah pemandangan sehari-hari kami. Jalur trekking ringan
+                tersedia bagi tamu yang ingin mengawali pagi dengan udara segar dan pemandangan matahari terbit.
+              </p>
+            </div>
+          </section>
 
-          <h2>Culture & Traditions</h2>
-          <p>
-            The people of our village are known for their warm hospitality and rich 
-            cultural traditions. From traditional dances to local crafts, we take pride 
-            in preserving and sharing our heritage with visitors.
-          </p>
+          <section className="space-y-4">
+            <h3 className="text-2xl">Pariwisata berkelanjutan</h3>
+            <p className="text-stone-600">
+              Setiap reservasi homestay menyisihkan dana konservasi untuk menjaga hutan desa, mendukung UMKM perempuan,
+              dan membiayai beasiswa anak petani. Kami percaya wisata bisa menjadi jalan untuk saling menguatkan.
+            </p>
+          </section>
 
-          <h2>Natural Beauty</h2>
-          <p>
-            Surrounded by lush green landscapes, our village offers breathtaking views 
-            of mountains, rice terraces, and pristine natural attractions. The environment 
-            is clean, peaceful, and perfect for those seeking to escape the hustle and 
-            bustle of city life.
-          </p>
-
-          <h2>Sustainable Tourism</h2>
-          <p>
-            We are committed to sustainable tourism practices that benefit both our 
-            community and the environment. By staying in our homestays and supporting 
-            local businesses, you contribute directly to the well-being of our village.
-          </p>
-
-          <h2>Visit Us</h2>
-          <p>
-            Whether you&apos;re looking for adventure, relaxation, or cultural immersion, 
-            our village has something for everyone. We invite you to experience authentic 
-            village life and create memories that will last a lifetime.
-          </p>
+          <section className="space-y-4">
+            <h3 className="text-2xl">Bergabunglah dengan keluarga kami</h3>
+            <p className="text-stone-600">
+              Kami mengundang Anda merasakan keseharian yang sederhana namun bermakna. Kenali gaya hidup bertani,
+              belajar memasak makanan warisan, dan pulang dengan pandangan baru tentang arti kebersamaan.
+            </p>
+          </section>
         </article>
 
-        {/* Stats Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-          <div className="text-center p-6 bg-blue-50 rounded-lg">
-            <p className="text-4xl font-bold text-blue-600 mb-2">200+</p>
-            <p className="text-gray-600">Years of History</p>
-          </div>
-          <div className="text-center p-6 bg-green-50 rounded-lg">
-            <p className="text-4xl font-bold text-green-600 mb-2">50+</p>
-            <p className="text-gray-600">Local Homestays</p>
-          </div>
-          <div className="text-center p-6 bg-yellow-50 rounded-lg">
-            <p className="text-4xl font-bold text-yellow-600 mb-2">10+</p>
-            <p className="text-gray-600">Natural Attractions</p>
-          </div>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {[{
+            value: '200+',
+            label: 'Tahun sejarah',
+          }, {
+            value: '58',
+            label: 'Keluarga homestay',
+          }, {
+            value: '17',
+            label: 'Atraksi alam',
+          }].map((item) => (
+            <div key={item.label} className="rounded-3xl bg-emerald-50/80 p-8 text-center">
+              <p className="text-4xl font-semibold text-emerald-800">{item.value}</p>
+              <p className="mt-2 text-sm font-semibold uppercase tracking-[0.3em] text-emerald-700">{item.label}</p>
+            </div>
+          ))}
         </div>
       </Container>
     </div>

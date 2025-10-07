@@ -1,59 +1,63 @@
 import type { Metadata } from 'next';
 import Container from '@/components/ui/Container';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Blog',
-  description: 'Read about village life, travel tips, cultural insights, and local stories.',
+  title: 'Jurnal Desa',
+  description: 'Kumpulan cerita warga, panduan perjalanan, dan inspirasi hidup sederhana dari Desa Harmoni.',
 };
+
+const categories = [
+  { label: 'Semua', variant: 'default' as const },
+  { label: 'Tips Perjalanan', variant: 'info' as const },
+  { label: 'Budaya', variant: 'success' as const },
+  { label: 'Kuliner', variant: 'warning' as const },
+];
 
 export default function BlogPage() {
   // TODO: Fetch blog posts from database
   const posts = [1, 2, 3, 4, 5, 6]; // Placeholder
 
   return (
-    <div className="py-12">
-      <Container>
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Village Stories & Travel Tips
-          </h1>
-          <p className="text-lg text-gray-600">
-            Discover insights about village life, local culture, and travel tips
+    <div className="py-16">
+      <Container className="space-y-10">
+        <div className="space-y-4 text-center">
+          <Badge className="mx-auto bg-emerald-100/80 text-emerald-900 ring-emerald-300/40">Jurnal Desa</Badge>
+          <h1 className="text-3xl md:text-4xl">Cerita yang membuat Anda rindu akan suasana desa.</h1>
+          <p className="mx-auto max-w-2xl text-stone-600">
+            Telusuri kisah-kisah warga, rekomendasi aktivitas akhir pekan, hingga resep keluarga yang bisa Anda coba
+            sepulang dari sini.
           </p>
         </div>
 
-        {/* Categories */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          <Badge variant="default">All</Badge>
-          <Badge variant="info">Travel Tips</Badge>
-          <Badge variant="success">Culture</Badge>
-          <Badge variant="warning">Food</Badge>
+        <div className="flex flex-wrap justify-center gap-2">
+          {categories.map((category) => (
+            <Badge key={category.label} variant={category.variant}>
+              {category.label}
+            </Badge>
+          ))}
         </div>
 
-        {/* Blog Posts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((id) => (
             <Link key={id} href={`/blog/post-${id}`}>
-              <Card hover>
-                <div className="h-48 bg-gray-300"></div>
-                <CardHeader>
-                  <div className="flex items-center gap-2 mb-2">
-                    <Badge variant="info">Travel Tips</Badge>
-                    <span className="text-xs text-gray-500">March 15, 2024</span>
+              <Card hover className="bg-white">
+                <div className="h-48 rounded-3xl bg-[radial-gradient(circle_at_top,_rgba(46,127,82,0.4),_rgba(46,127,82,0.05))]" />
+                <CardHeader className="space-y-4">
+                  <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
+                    <Badge variant="info">Tips Perjalanan</Badge>
+                    <span>21 Mei 2024</span>
                   </div>
-                  <CardTitle>Blog Post Title {id}</CardTitle>
-                  <p className="text-sm text-gray-600">
-                    A compelling excerpt of the blog post that makes readers want to click and read more...
-                  </p>
+                  <CardTitle>Tiga jalur sepeda favorit warga</CardTitle>
+                  <CardDescription className="text-stone-600">
+                    Rute sepeda menyusuri pematang sawah, kebun kopi, hingga spot melihat matahari terbenam terbaik.
+                  </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
-                    <span>By Admin</span>
-                  </div>
+                <CardContent className="flex items-center gap-3 text-sm text-stone-500">
+                  <div className="h-8 w-8 rounded-full bg-emerald-100" />
+                  <span>Oleh Tim Pemandu Desa</span>
                 </CardContent>
               </Card>
             </Link>

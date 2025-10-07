@@ -9,20 +9,20 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', fullWidth = false, children, ...props }, ref) => {
-    const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
+    const baseStyles = 'inline-flex items-center justify-center font-semibold uppercase tracking-[0.15em] rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
     
     const variants = {
-      primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
-      secondary: 'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500',
-      outline: 'border-2 border-blue-600 text-blue-600 hover:bg-blue-50 focus:ring-blue-500',
-      ghost: 'text-gray-700 hover:bg-gray-100 focus:ring-gray-500',
-      danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
+      primary: 'bg-emerald-700 text-white hover:bg-emerald-800 focus-visible:ring-emerald-500 focus-visible:ring-offset-stone-100',
+      secondary: 'bg-amber-500 text-stone-900 hover:bg-amber-400 focus-visible:ring-amber-500 focus-visible:ring-offset-stone-100',
+      outline: 'border-2 border-emerald-700 text-emerald-700 hover:bg-emerald-50 focus-visible:ring-emerald-500 focus-visible:ring-offset-stone-100',
+      ghost: 'text-stone-700 hover:bg-emerald-50 focus-visible:ring-emerald-500 focus-visible:ring-offset-stone-100',
+      danger: 'bg-rose-600 text-white hover:bg-rose-700 focus-visible:ring-rose-500 focus-visible:ring-offset-stone-100',
     };
     
     const sizes = {
-      sm: 'px-3 py-1.5 text-sm',
-      md: 'px-4 py-2 text-base',
-      lg: 'px-6 py-3 text-lg',
+      sm: 'px-4 py-2 text-xs',
+      md: 'px-6 py-3 text-sm',
+      lg: 'px-8 py-3.5 text-base',
     };
     
     return (

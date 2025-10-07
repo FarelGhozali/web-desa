@@ -8,18 +8,18 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
   ({ className, variant = 'default', children, ...props }, ref) => {
     const variants = {
-      default: 'bg-gray-100 text-gray-800',
-      success: 'bg-green-100 text-green-800',
-      warning: 'bg-yellow-100 text-yellow-800',
-      danger: 'bg-red-100 text-red-800',
-      info: 'bg-blue-100 text-blue-800',
+      default: 'bg-emerald-100/70 text-emerald-800 ring-1 ring-inset ring-emerald-700/20',
+      success: 'bg-lime-100/80 text-lime-800 ring-1 ring-inset ring-lime-700/20',
+      warning: 'bg-amber-100/80 text-amber-800 ring-1 ring-inset ring-amber-700/20',
+      danger: 'bg-rose-100/80 text-rose-800 ring-1 ring-inset ring-rose-700/20',
+      info: 'bg-sky-100/80 text-sky-800 ring-1 ring-inset ring-sky-700/20',
     };
     
     return (
       <span
         ref={ref}
         className={cn(
-          'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
+          'inline-flex items-center rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]',
           variants[variant],
           className
         )}

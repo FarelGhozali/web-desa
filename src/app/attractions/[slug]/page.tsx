@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 import Container from '@/components/ui/Container';
 
 type Props = {
@@ -19,32 +18,31 @@ export default async function AttractionDetailPage({ params }: Props) {
   const { slug } = await params;
   // TODO: Fetch attraction from database by slug
   // const attraction = await prisma.attraction.findUnique({ where: { slug } });
-  // if (!attraction) notFound();
 
   return (
-    <div className="py-12">
+    <div className="py-16">
       <Container size="lg">
         {/* Photo Gallery */}
         <div className="mb-8">
-          <div className="h-96 bg-gray-300 rounded-lg mb-4"></div>
+          <div className="mb-4 h-96 rounded-3xl bg-[radial-gradient(circle_at_top,_rgba(47,127,82,0.35),_rgba(47,127,82,0.05))]"></div>
           <div className="grid grid-cols-4 gap-4">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-24 bg-gray-300 rounded-lg"></div>
+              <div key={i} className="h-24 rounded-2xl bg-emerald-100/70"></div>
             ))}
           </div>
         </div>
 
         {/* Content */}
-        <article className="max-w-3xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+        <article className="mx-auto max-w-3xl space-y-6">
+          <h1 className="text-4xl text-stone-900">
             Attraction {slug}
           </h1>
           
-          <div className="flex items-center gap-4 mb-8 text-gray-600">
-            <span>📍 Village Area</span>
+          <div className="mb-6 flex items-center gap-4 text-stone-600">
+            <span>📍 Kawasan desa</span>
           </div>
 
-          <div className="prose prose-lg max-w-none">
+          <div className="prose prose-lg max-w-none text-stone-600">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod 
               tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
@@ -59,9 +57,9 @@ export default async function AttractionDetailPage({ params }: Props) {
 
           {/* Map Placeholder */}
           <div className="mt-8">
-            <h2 className="text-2xl font-semibold mb-4">Location</h2>
-            <div className="h-64 bg-gray-300 rounded-lg flex items-center justify-center">
-              <p className="text-gray-500">Map will be displayed here</p>
+            <h2 className="mb-4 text-2xl">Lokasi</h2>
+            <div className="flex h-64 items-center justify-center rounded-3xl border border-dashed border-emerald-200 bg-emerald-50/60 text-stone-500">
+              Peta akan ditampilkan di sini
             </div>
           </div>
         </article>

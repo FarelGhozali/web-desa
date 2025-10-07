@@ -2,62 +2,98 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* About Section */}
-          <div className="col-span-1 md:col-span-2">
-            <h3 className="text-white text-xl font-bold mb-4">Village Stay</h3>
-            <p className="text-sm mb-4">
-              Experience authentic village life with our carefully selected homestays. 
-              Discover local culture, cuisine, and natural beauty.
+    <footer className="relative mt-20 bg-gradient-to-br from-emerald-950 via-emerald-900 to-stone-950 text-emerald-50">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-20"
+        aria-hidden
+        style={{
+          backgroundImage:
+            'radial-gradient(circle at 25% 25%, rgba(255,255,255,0.2) 0, rgba(255,255,255,0) 55%), radial-gradient(circle at 75% 0%, rgba(255,255,255,0.18) 0, rgba(255,255,255,0) 45%)',
+        }}
+      />
+      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-4">
+          {/* Brand Story */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center gap-4">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-800/60 text-3xl">
+                🌿
+              </span>
+              <div>
+                <h3 className="text-2xl font-semibold tracking-tight text-white">Village Stay</h3>
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-200">
+                  Harmony with nature
+                </p>
+              </div>
+            </div>
+            <p className="mt-6 max-w-xl text-sm leading-relaxed text-emerald-100/80">
+              We connect mindful travelers with families in our village. Every stay supports local artisans,
+              preserves traditions, and helps our fields and forests thrive for generations to come.
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Explore */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/homestays" className="hover:text-white transition-colors">
-                  Homestays
-                </Link>
-              </li>
-              <li>
-                <Link href="/attractions" className="hover:text-white transition-colors">
-                  Attractions
-                </Link>
-              </li>
-              <li>
-                <Link href="/culinary" className="hover:text-white transition-colors">
-                  Culinary
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="hover:text-white transition-colors">
-                  Blog
-                </Link>
-              </li>
+            <h4 className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-200">Explore</h4>
+            <ul className="mt-5 space-y-3 text-sm">
+              {[
+                { href: '/homestays', label: 'Homestays' },
+                { href: '/attractions', label: 'Nature Trails' },
+                { href: '/culinary', label: 'Village Cuisine' },
+                { href: '/blog', label: 'Village Stories' },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="transition hover:text-emerald-200"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Visit */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Contact</h4>
-            <ul className="space-y-2 text-sm">
-              <li>Email: info@villagestay.com</li>
-              <li>Phone: +62 123 456 7890</li>
+            <h4 className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-200">Visit Us</h4>
+            <ul className="mt-5 space-y-3 text-sm text-emerald-100/80">
               <li>
-                <Link href="/contact" className="hover:text-white transition-colors">
-                  Contact Form
-                </Link>
+                <span className="block font-semibold text-white">Village Stay Cooperative</span>
+                Jl. Persawahan No. 12<br />
+                Desa Harmoni, Jawa Barat
+              </li>
+              <li>
+                <span className="block font-semibold text-white">Email</span>
+                <a href="mailto:hello@villagestay.com" className="transition hover:text-emerald-200">
+                  hello@villagestay.com
+                </a>
+              </li>
+              <li>
+                <span className="block font-semibold text-white">Phone</span>
+                <a href="tel:+621234567890" className="transition hover:text-emerald-200">
+                  +62 123 456 7890
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-sm text-center">
-          <p>&copy; {new Date().getFullYear()} Village Stay. All rights reserved.</p>
+        <div className="mt-16 border-t border-white/10 pt-8 text-sm text-emerald-200/80">
+          <div className="flex flex-col gap-4 text-center lg:flex-row lg:items-center lg:justify-between">
+            <p>&copy; {new Date().getFullYear()} Village Stay Cooperative. Crafted with love from our village.</p>
+            <div className="flex items-center justify-center gap-6">
+              <Link href="/about" className="transition hover:text-emerald-200">
+                Our Story
+              </Link>
+              <Link href="/blog" className="transition hover:text-emerald-200">
+                Village Journal
+              </Link>
+              <Link href="/contact" className="transition hover:text-emerald-200">
+                Contact
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

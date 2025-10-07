@@ -1,169 +1,336 @@
 import Link from 'next/link';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import Badge from '@/components/ui/Badge';
+
+const highlightFeatures = [
+  {
+    icon: '🏡',
+    title: 'Stay with Local Families',
+    description: 'Wake up to the aroma of freshly steamed rice and stories shared over morning coffee.',
+  },
+  {
+    icon: '🌿',
+    title: 'Hands-on Experiences',
+    description: 'Join farmers in the fields, learn traditional crafts, and cook over wood-fired stoves.',
+  },
+  {
+    icon: '🪕',
+    title: 'Culture & Warmth',
+    description: 'Feel the rhythm of village music, evening fireflies, and heartfelt community gatherings.',
+  },
+];
+
+const experienceHighlights = [
+  {
+    icon: '🌅',
+    title: 'Dawn Terraces Walk',
+    blurb: 'Follow our guides through emerald rice terraces and misty hillsides at sunrise.',
+  },
+  {
+    icon: '🥥',
+    title: 'Coconut Harvest',
+    blurb: 'Climb with local farmers, collect fresh coconuts, and enjoy sweet kelapa muda together.',
+  },
+  {
+    icon: '🔥',
+    title: 'Night Bonfire Tales',
+    blurb: 'Gather around the fire for storytelling, traditional songs, and starlit skies.',
+  },
+];
 
 export default function HomePage() {
   return (
-    <div>
+    <div className="space-y-24">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20 md:py-32">
-        <Container>
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Experience Authentic Village Life
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-blue-100">
-              Stay in traditional homestays, explore natural beauty, and taste authentic local cuisine
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/homestays">
-                <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-                  Browse Homestays
-                </Button>
-              </Link>
-              <Link href="/about">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-blue-700">
-                  Learn More
-                </Button>
-              </Link>
+      <section className="relative overflow-hidden">
+        <div
+          className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-emerald-800 to-stone-900"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0 opacity-30"
+          aria-hidden
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25) 0, rgba(255,255,255,0) 55%), radial-gradient(circle at 80% 0%, rgba(255,255,255,0.2) 0, rgba(255,255,255,0) 40%)',
+          }}
+        />
+        <Container className="relative py-20 md:py-28">
+          <div className="grid items-center gap-16 md:grid-cols-2">
+            <div className="space-y-8 text-emerald-50">
+              <Badge className="bg-white/15 text-white ring-white/30">Desa Harmoni, Jawa Barat</Badge>
+              <div className="space-y-6">
+                <h1 className="text-4xl leading-tight md:text-6xl">
+                  Rasakan hangatnya hidup di pedesaan, langsung dari sumbernya.
+                </h1>
+                <p className="text-lg text-emerald-100/90 md:text-xl">
+                  Menginap di homestay nyaman milik warga, belajar dari alam, dan pulang dengan cerita yang tak
+                  terlupakan.
+                </p>
+              </div>
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <Link href="/homestays">
+                  <Button size="lg">Cari Homestay</Button>
+                </Link>
+                <Link href="/about">
+                  <Button size="lg" variant="ghost" className="bg-white/10 text-white hover:bg-white/20">
+                    Kenali Desa Kami
+                  </Button>
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 gap-6 text-left sm:grid-cols-3">
+                {[{ label: 'Keluarga tuan rumah', value: '58+' }, { label: 'Pengalaman autentik', value: '24' }, { label: 'Rekomendasi tamu', value: '97%' }].map((stat) => (
+                  <div key={stat.label} className="rounded-2xl bg-white/10 p-4">
+                    <p className="text-2xl font-semibold text-white">{stat.value}</p>
+                    <p className="text-xs font-medium uppercase tracking-[0.3em] text-emerald-100/80">
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="absolute -left-6 top-10 hidden h-32 w-32 rounded-full bg-emerald-600/30 blur-3xl md:block" />
+              <div className="absolute -right-16 bottom-8 hidden h-40 w-40 rounded-full bg-amber-400/40 blur-3xl md:block" />
+              <Card className="relative border-white/10 bg-white/10 text-white shadow-2xl">
+                <div className="h-56 bg-gradient-to-br from-emerald-700/40 via-emerald-500/30 to-amber-400/30 backdrop-blur-sm">
+                  <div className="flex h-full items-end justify-between px-6 py-6">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-100/80">
+                        Panorama Desa
+                      </p>
+                      <p className="text-lg font-semibold">Bukit Cempaka</p>
+                    </div>
+                    <span className="rounded-full bg-white/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em]">
+                      Sunrise
+                    </span>
+                  </div>
+                </div>
+                <CardHeader>
+                  <CardTitle className="text-white">Jadwal tur desa</CardTitle>
+                  <CardDescription className="text-emerald-100/80">
+                    06.00 Trekking sawah • 10.00 Membatik • 18.30 Api unggun & cerita rakyat
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3 text-sm text-emerald-100/80">
+                    <p>“Keluarga Bu Sari membuat kami serasa tinggal dengan saudara sendiri.”</p>
+                    <div className="flex items-center gap-3">
+                      <div className="h-10 w-10 rounded-full bg-white/20" />
+                      <div>
+                        <p className="text-sm font-semibold text-white">Rina & Adi</p>
+                        <p className="text-xs text-emerald-100/70">Jakarta • Menginap 3 malam</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* Featured Homestays */}
-      <section className="py-16 bg-gray-50">
+      {/* Features */}
+      <section>
         <Container>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Featured Homestays
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Mengapa memilih kami</p>
+            <h2 className="mt-4 text-3xl md:text-4xl">
+              Setiap perjalanan adalah kolaborasi hangat antara tamu dan warga desa.
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Carefully selected accommodations for an authentic village experience
+          </div>
+          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+            {highlightFeatures.map((feature) => (
+              <Card key={feature.title} hover className="bg-white">
+                <CardHeader className="flex flex-col gap-4">
+                  <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-2xl">
+                    {feature.icon}
+                  </span>
+                  <CardTitle>{feature.title}</CardTitle>
+                  <CardDescription className="text-stone-600">
+                    {feature.description}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Featured Homestays */}
+      <section className="relative">
+        <div
+          className="absolute inset-x-0 top-0 h-full w-full bg-gradient-to-b from-white via-amber-50/60 to-transparent"
+          aria-hidden
+        />
+        <Container className="relative">
+          <div className="flex flex-col gap-6 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Rekomendasi warga</p>
+            <h2 className="text-3xl md:text-4xl">Homestay pilihan dengan keramahan khas pedesaan.</h2>
+            <p className="mx-auto max-w-2xl text-stone-600">
+              Semua homestay kami kurasi langsung bersama warga untuk memastikan kenyamanan, kebersihan, dan
+              pengalaman autentik.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            {/* Placeholder for featured homestays */}
+          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
             {[1, 2, 3].map((i) => (
               <Card key={i} hover>
-                <div className="h-48 bg-gray-300"></div>
-                <CardHeader>
-                  <CardTitle>Homestay {i}</CardTitle>
-                  <p className="text-sm text-gray-600">Beautiful traditional house</p>
-                </CardHeader>
+                <div className="relative h-56 overflow-hidden">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(79,121,66,0.5),_rgba(79,121,66,0.05))]" />
+                  <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80')] bg-cover bg-center opacity-60" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-900/70 via-stone-900/10 to-transparent" />
+                  <div className="relative flex h-full flex-col justify-end p-6 text-white">
+                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-200/80">
+                      Homestay {i}
+                    </p>
+                    <p className="text-lg font-semibold">Rumah Kayu Lembah Padi</p>
+                  </div>
+                </div>
                 <CardContent>
-                  <div className="flex justify-between items-center">
-                    <span className="text-lg font-semibold text-blue-600">Rp 250.000/night</span>
-                    <Link href={`/homestays/homestay-${i}`}>
-                      <Button size="sm">View Details</Button>
-                    </Link>
+                  <div className="space-y-4 text-sm text-stone-600">
+                    <p>✅ Sarapan dari kebun sendiri • 🛏 2 kamar tidur • 🚿 Air panas</p>
+                    <div className="flex items-center justify-between text-stone-700">
+                      <span className="text-lg font-semibold text-emerald-700">Rp 280.000 / malam</span>
+                      <Link href={`/homestays/homestay-${i}`} className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
+                        Lihat Detail →
+                      </Link>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
 
-          <div className="text-center">
+          <div className="mt-10 flex justify-center">
             <Link href="/homestays">
               <Button variant="outline" size="lg">
-                View All Homestays
+                Lihat semua homestay
               </Button>
             </Link>
           </div>
         </Container>
       </section>
 
-      {/* Attractions & Culinary Preview */}
-      <section className="py-16">
-        <Container>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Attractions */}
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Natural Attractions
-              </h2>
-              <p className="text-gray-600 mb-6">
-                Explore breathtaking landscapes, waterfalls, rice terraces, and hidden gems in our village.
-              </p>
-              <Link href="/attractions">
-                <Button variant="outline">
-                  Discover Attractions
-                </Button>
-              </Link>
+      {/* Experiences */}
+      <section>
+        <Container className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+          <div className="space-y-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Pengalaman khas desa</p>
+            <h2 className="text-3xl md:text-4xl">Ikuti ritme alam dan budaya kami setiap hari.</h2>
+            <p className="text-stone-600">
+              Dari bertani bersama warga hingga belajar menenun tikar pandan, kami menyiapkan rangkaian kegiatan yang
+              bisa Anda pilih sesuai minat. Semua aktivitas dipandu langsung oleh pelaku lokal.
+            </p>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+              {experienceHighlights.map((item) => (
+                <div key={item.title} className="flex flex-col gap-3 rounded-3xl bg-emerald-50/80 p-5">
+                  <span className="text-2xl">{item.icon}</span>
+                  <p className="text-sm font-semibold text-emerald-900">{item.title}</p>
+                  <p className="text-sm text-emerald-800/80">{item.blurb}</p>
+                </div>
+              ))}
             </div>
-
-            {/* Culinary */}
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Local Cuisine
-              </h2>
-              <p className="text-gray-600 mb-6">
-                Taste authentic traditional dishes and discover the rich culinary heritage of our village.
-              </p>
-              <Link href="/culinary">
-                <Button variant="outline">
-                  Explore Cuisine
-                </Button>
-              </Link>
-            </div>
+            <Link href="/attractions" className="inline-flex text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
+              Jelajahi kegiatan lainnya →
+            </Link>
           </div>
+
+          <Card className="bg-gradient-to-b from-emerald-600/10 via-white to-amber-100/40">
+            <CardHeader>
+              <CardTitle className="text-2xl">Rangkaian akhir pekan</CardTitle>
+              <CardDescription>
+                Ideal untuk keluarga atau komunitas kecil. Kami siapkan itinerary fleksibel selama 2 malam.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-start gap-3 text-sm text-stone-700">
+                <span className="mt-0.5 text-lg">🌾</span>
+                <span>
+                  <strong>Sabtu pagi:</strong> Panen sayur organik & workshop memasak lalapan khas desa.
+                </span>
+              </div>
+              <div className="flex items-start gap-3 text-sm text-stone-700">
+                <span className="mt-0.5 text-lg">🚣</span>
+                <span>
+                  <strong>Sabtu sore:</strong> Susur sungai dengan perahu bambu ditemani anak-anak desa.
+                </span>
+              </div>
+              <div className="flex items-start gap-3 text-sm text-stone-700">
+                <span className="mt-0.5 text-lg">🌙</span>
+                <span>
+                  <strong>Minggu malam:</strong> Api unggun, jagung bakar, dan pertunjukan angklung.
+                </span>
+              </div>
+            </CardContent>
+          </Card>
         </Container>
       </section>
 
-      {/* Latest Blog Posts */}
-      <section className="py-16 bg-gray-50">
-        <Container>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Latest Stories
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Read about village life, travel tips, and local insights
+      {/* Stories */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-white to-emerald-50" aria-hidden />
+        <Container className="relative">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Cerita terbaru</p>
+            <h2 className="mt-4 text-3xl md:text-4xl">Cerita dari warga dan tamu yang pernah singgah.</h2>
+            <p className="mt-6 text-stone-600">
+              Blog kami berisi tips perjalanan, resep kuliner, kisah sukses UMKM desa, dan ritual adat yang masih
+              terjaga.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            {/* Placeholder for blog posts */}
+          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
             {[1, 2, 3].map((i) => (
-              <Card key={i} hover>
-                <div className="h-48 bg-gray-300"></div>
-                <CardHeader>
-                  <CardTitle>Blog Post {i}</CardTitle>
-                  <p className="text-sm text-gray-600">
-                    A short excerpt of the blog post content goes here...
-                  </p>
+              <Card key={i} hover className="bg-white">
+                <div className="h-48 rounded-3xl bg-[radial-gradient(circle_at_top,_rgba(130,180,90,0.35),_rgba(130,180,90,0.05))]" />
+                <CardHeader className="space-y-4">
+                  <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
+                    <span>17 Juli 2024</span>
+                    <span className="h-1 w-1 rounded-full bg-emerald-700" />
+                    <span>Kisah Desa</span>
+                  </div>
+                  <CardTitle>Jejak kopi robusta di lereng kami</CardTitle>
+                  <CardDescription className="text-stone-600">
+                    Bagaimana Pak Danu merawat kebun kopi warisan dan membuka kelas cupping untuk pengunjung.
+                  </CardDescription>
                 </CardHeader>
               </Card>
             ))}
           </div>
 
-          <div className="text-center">
+          <div className="mt-10 flex justify-center">
             <Link href="/blog">
-              <Button variant="outline" size="lg">
-                Read More Articles
-              </Button>
+              <Button variant="ghost">Baca cerita lainnya</Button>
             </Link>
           </div>
         </Container>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-blue-600 text-white">
-        <Container>
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Experience Village Life?
-            </h2>
-            <p className="text-xl mb-8 text-blue-100">
-              Book your stay today and create unforgettable memories
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-900 via-emerald-700 to-emerald-900" aria-hidden />
+        <Container className="relative py-16">
+          <div className="mx-auto max-w-3xl text-center text-white">
+            <h2 className="text-3xl md:text-4xl">Siap menikmati akhir pekan bernuansa pedesaan?</h2>
+            <p className="mt-6 text-lg text-emerald-100/90">
+              Tim kami akan membantu menyesuaikan pengalaman sesuai minat Anda—dari kuliner, kerajinan, hingga petualangan alam.
             </p>
-            <Link href="/homestays">
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-                Book Now
-              </Button>
-            </Link>
+            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link href="/contact">
+                <Button size="lg" className="bg-white text-emerald-800 hover:bg-emerald-50">
+                  Konsultasi itinerary
+                </Button>
+              </Link>
+              <Link href="/homestays">
+                <Button size="lg" variant="ghost" className="bg-white/10 text-white hover:bg-white/20">
+                  Pesan homestay sekarang
+                </Button>
+              </Link>
+            </div>
           </div>
         </Container>
       </section>

@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import Container from '@/components/ui/Container';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Natural Attractions',
-  description: 'Explore the breathtaking natural beauty of our village. Discover waterfalls, rice terraces, and hidden gems.',
+  title: 'Panorama Alam Desa',
+  description: 'Susuri air terjun tersembunyi, sawah bertingkat, dan hutan bambu yang menjadi kebanggaan Desa Harmoni.',
 };
 
 export default function AttractionsPage() {
@@ -13,32 +14,42 @@ export default function AttractionsPage() {
   const attractions = [1, 2, 3, 4, 5, 6]; // Placeholder
 
   return (
-    <div className="py-12">
-      <Container>
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Natural Attractions
-          </h1>
-          <p className="text-lg text-gray-600">
-            Explore the breathtaking natural beauty and hidden gems of our village
+    <div className="py-16">
+      <Container className="space-y-10">
+        <div className="space-y-4 text-center">
+          <Badge className="mx-auto bg-emerald-100/80 text-emerald-900 ring-emerald-300/50">Panorama Alam</Badge>
+          <h1 className="text-3xl md:text-4xl">Jelajahi kekayaan alam yang kami jaga bersama.</h1>
+          <p className="mx-auto max-w-2xl text-stone-600">
+            Setiap jalur trekking dan destinasi alam kami rawat bersama kelompok warga. Ajak pemandu lokal untuk
+            mengetahui cerita dan legenda yang menyertai setiap sudut desa.
           </p>
         </div>
 
-        {/* Attractions Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {attractions.map((id) => (
             <Link key={id} href={`/attractions/attraction-${id}`}>
-              <Card hover>
-                <div className="h-64 bg-gray-300"></div>
-                <CardHeader>
-                  <CardTitle>Attraction {id}</CardTitle>
-                  <p className="text-sm text-gray-600">
-                    Beautiful natural landscape worth visiting
-                  </p>
+              <Card hover className="bg-white">
+                <div className="relative h-56 overflow-hidden rounded-3xl">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(34,139,93,0.45),_rgba(34,139,93,0.05))]" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-900/10 to-emerald-900/60" />
+                  <div className="relative flex h-full flex-col justify-between p-6 text-white">
+                    <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em]">
+                      <span>Wisata {id}</span>
+                      <span>Guide lokal</span>
+                    </div>
+                    <p className="text-lg font-semibold">Lembah Bambu Angin</p>
+                  </div>
+                </div>
+                <CardHeader className="space-y-3">
+                  <CardTitle>Keasrian alam yang menenangkan</CardTitle>
+                  <CardDescription className="text-stone-600">
+                    Ikuti jalur bambu hingga air terjun mini tersembunyi. Sesi teh serai hangat menanti di akhir tur.
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <span>📍 5 km from village center</span>
+                  <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
+                    <span>📍 5 km dari balai desa</span>
+                    <span>⏱ 2 jam</span>
                   </div>
                 </CardContent>
               </Card>

@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
-import Badge from '@/components/ui/Badge';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -21,20 +19,19 @@ export default async function HomestayDetailPage({ params }: Props) {
   const { slug } = await params;
   // TODO: Fetch homestay from database by slug
   // const homestay = await prisma.homestay.findUnique({ where: { slug } });
-  // if (!homestay) notFound();
 
   return (
-    <div className="py-12">
+    <div className="py-16">
       <Container>
         {/* Photo Gallery */}
         <div className="mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="h-96 bg-gray-300 rounded-lg"></div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="h-96 rounded-3xl bg-[radial-gradient(circle_at_top,_rgba(47,127,82,0.35),_rgba(47,127,82,0.05))]"></div>
             <div className="grid grid-cols-2 gap-4">
-              <div className="h-[186px] bg-gray-300 rounded-lg"></div>
-              <div className="h-[186px] bg-gray-300 rounded-lg"></div>
-              <div className="h-[186px] bg-gray-300 rounded-lg"></div>
-              <div className="h-[186px] bg-gray-300 rounded-lg"></div>
+              <div className="h-[186px] rounded-3xl bg-emerald-100/70"></div>
+              <div className="h-[186px] rounded-3xl bg-emerald-100/70"></div>
+              <div className="h-[186px] rounded-3xl bg-emerald-100/70"></div>
+              <div className="h-[186px] rounded-3xl bg-emerald-100/70"></div>
             </div>
           </div>
         </div>
@@ -42,21 +39,21 @@ export default async function HomestayDetailPage({ params }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            <h1 className="mb-4 text-4xl text-stone-900">
               Homestay {slug}
             </h1>
             
-            <div className="flex items-center gap-4 mb-6">
+            <div className="mb-6 flex items-center gap-4">
               <div className="flex items-center">
-                <span className="text-yellow-500">★★★★★</span>
-                <span className="ml-2 text-gray-600">4.8 (24 reviews)</span>
+                <span className="text-amber-500">★★★★★</span>
+                <span className="ml-2 text-stone-600">4.8 (24 ulasan)</span>
               </div>
-              <span className="text-gray-600">📍 Village Center</span>
+              <span className="text-stone-600">📍 Pusat Desa</span>
             </div>
 
             <div className="prose max-w-none mb-8">
-              <h2 className="text-2xl font-semibold mb-4">About this homestay</h2>
-              <p className="text-gray-600">
+              <h2 className="text-2xl">Tentang homestay ini</h2>
+              <p className="text-stone-600">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod 
                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
                 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -65,8 +62,8 @@ export default async function HomestayDetailPage({ params }: Props) {
 
             {/* Amenities */}
             <div className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">Amenities</h2>
-              <div className="grid grid-cols-2 gap-4">
+              <h2 className="mb-4 text-2xl">Fasilitas</h2>
+              <div className="grid grid-cols-2 gap-4 text-stone-600">
                 <div className="flex items-center gap-2">
                   <span>✓</span>
                   <span>Free WiFi</span>
@@ -88,21 +85,21 @@ export default async function HomestayDetailPage({ params }: Props) {
 
             {/* Reviews */}
             <div className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">Guest Reviews</h2>
+              <h2 className="mb-4 text-2xl">Testimoni tamu</h2>
               <div className="space-y-4">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="border-b pb-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+                  <div key={i} className="border-b border-stone-200/70 pb-4">
+                    <div className="mb-2 flex items-center gap-2">
+                      <div className="h-10 w-10 rounded-full bg-emerald-100"></div>
                       <div>
-                        <p className="font-semibold">Guest {i}</p>
-                        <div className="flex items-center gap-2">
-                          <span className="text-yellow-500 text-sm">★★★★★</span>
-                          <span className="text-sm text-gray-500">2 weeks ago</span>
+                        <p className="font-semibold">Tamu {i}</p>
+                        <div className="flex items-center gap-2 text-xs text-stone-500">
+                          <span className="text-amber-500">★★★★★</span>
+                          <span>2 minggu lalu</span>
                         </div>
                       </div>
                     </div>
-                    <p className="text-gray-600">
+                    <p className="text-stone-600">
                       Great experience! The host was very welcoming and the place was clean and comfortable.
                     </p>
                   </div>
@@ -113,39 +110,39 @@ export default async function HomestayDetailPage({ params }: Props) {
 
           {/* Booking Card */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24 bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <div className="sticky top-24 rounded-3xl border border-emerald-100/70 bg-white/90 p-6 shadow-lg backdrop-blur">
               <div className="mb-6">
-                <span className="text-3xl font-bold text-blue-600">Rp 250.000</span>
-                <span className="text-gray-600"> / night</span>
+                <span className="text-3xl font-semibold text-emerald-700">Rp 250.000</span>
+                <span className="text-stone-600"> / malam</span>
               </div>
 
               {/* Booking Form */}
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.3em] text-stone-600">
                     Check-in
                   </label>
                   <input
                     type="date"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full rounded-xl border border-stone-200/80 bg-white/85 px-3 py-2 text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-100"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.3em] text-stone-600">
                     Check-out
                   </label>
                   <input
                     type="date"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full rounded-xl border border-stone-200/80 bg-white/85 px-3 py-2 text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-100"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Guests
+                  <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.3em] text-stone-600">
+                    Tamu
                   </label>
-                  <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <select className="w-full rounded-xl border border-stone-200/80 bg-white/85 px-3 py-2 text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-100">
                     <option>1 guest</option>
                     <option>2 guests</option>
                     <option>3 guests</option>
@@ -154,20 +151,20 @@ export default async function HomestayDetailPage({ params }: Props) {
                 </div>
 
                 <Button fullWidth size="lg">
-                  Book Now
+                  Pesan sekarang
                 </Button>
 
-                <p className="text-xs text-center text-gray-500">
-                  You won&apos;t be charged yet
+                <p className="text-center text-xs text-stone-500">
+                  Anda belum akan ditagih
                 </p>
               </div>
 
-              <div className="mt-6 pt-6 border-t">
-                <div className="flex justify-between text-sm mb-2">
-                  <span className="text-gray-600">Rp 250.000 × 3 nights</span>
+              <div className="mt-6 border-t border-stone-200/70 pt-6 text-sm text-stone-700">
+                <div className="mb-2 flex justify-between">
+                  <span>Rp 250.000 × 3 malam</span>
                   <span>Rp 750.000</span>
                 </div>
-                <div className="flex justify-between font-semibold pt-2 border-t">
+                <div className="flex justify-between border-t border-stone-200/70 pt-2 font-semibold text-stone-900">
                   <span>Total</span>
                   <span>Rp 750.000</span>
                 </div>

@@ -26,34 +26,34 @@ export default async function BlogPostPage({ params }: Props) {
   // if (!post || !post.published) notFound();
 
   return (
-    <div className="py-12">
+    <div className="py-16">
       <Container size="md">
-        <article>
+        <article className="space-y-10">
           {/* Header */}
-          <header className="mb-8">
-            <div className="flex items-center gap-2 mb-4">
-              <Badge variant="info">Travel Tips</Badge>
-              <span className="text-sm text-gray-500">March 15, 2024</span>
+          <header className="space-y-6">
+            <div className="flex items-center gap-2">
+              <Badge variant="info">Tips Perjalanan</Badge>
+              <span className="text-sm text-stone-500">15 Maret 2024</span>
             </div>
-            
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+
+            <h1 className="text-4xl text-stone-900 md:text-5xl">
               Blog Post Title {slug}
             </h1>
 
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
+              <div className="h-12 w-12 rounded-full bg-emerald-100"></div>
               <div>
-                <p className="font-medium text-gray-900">Admin Name</p>
-                <p className="text-sm text-gray-500">Village Guide</p>
+                <p className="font-medium text-stone-900">Admin Desa</p>
+                <p className="text-sm text-stone-500">Pemandu Desa Harmoni</p>
               </div>
             </div>
           </header>
 
           {/* Cover Image */}
-          <div className="h-96 bg-gray-300 rounded-lg mb-8"></div>
+          <div className="h-96 rounded-3xl bg-[radial-gradient(circle_at_top,_rgba(46,127,82,0.35),_rgba(46,127,82,0.08))]"></div>
 
           {/* Content */}
-          <div className="prose prose-lg max-w-none">
+          <div className="prose prose-lg max-w-none text-stone-600">
             <p className="lead">
               This is an engaging introduction to the blog post that captures the reader&apos;s attention 
               and provides a preview of what they&apos;ll learn.
@@ -88,26 +88,26 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
 
           {/* Share Section */}
-          <div className="mt-8 pt-8 border-t">
-            <p className="text-sm text-gray-500 mb-4">Share this article:</p>
-            <div className="flex gap-4">
-              <button className="text-blue-600 hover:text-blue-700">Facebook</button>
-              <button className="text-blue-400 hover:text-blue-500">Twitter</button>
-              <button className="text-blue-700 hover:text-blue-800">LinkedIn</button>
+          <div className="border-t border-stone-200/70 pt-8">
+            <p className="mb-4 text-sm text-stone-500">Bagikan artikel ini:</p>
+            <div className="flex gap-4 text-sm font-semibold uppercase tracking-[0.3em]">
+              <button className="text-emerald-700 transition hover:text-emerald-900">Facebook</button>
+              <button className="text-emerald-700 transition hover:text-emerald-900">Instagram</button>
+              <button className="text-emerald-700 transition hover:text-emerald-900">WhatsApp</button>
             </div>
           </div>
 
           {/* Related Posts */}
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold mb-6">Related Articles</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-6">
+            <h2 className="text-2xl text-stone-900">Artikel terkait</h2>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {[1, 2].map((i) => (
                 <Link key={i} href={`/blog/related-post-${i}`} className="group">
-                  <div className="h-48 bg-gray-300 rounded-lg mb-3 group-hover:opacity-90 transition-opacity"></div>
-                  <h3 className="font-semibold text-lg group-hover:text-blue-600 transition-colors">
+                  <div className="mb-3 h-48 rounded-3xl bg-[radial-gradient(circle_at_top,_rgba(130,180,90,0.4),_rgba(130,180,90,0.08))] transition-opacity group-hover:opacity-90"></div>
+                  <h3 className="text-lg font-semibold text-stone-900 transition-colors group-hover:text-emerald-700">
                     Related Article Title {i}
                   </h3>
-                  <p className="text-sm text-gray-600 mt-2">
+                  <p className="mt-2 text-sm text-stone-600">
                     A brief description of the related article...
                   </p>
                 </Link>

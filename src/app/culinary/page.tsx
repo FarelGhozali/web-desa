@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import Container from '@/components/ui/Container';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Local Cuisine',
-  description: 'Discover authentic traditional dishes and the rich culinary heritage of our village.',
+  title: 'Kuliner Desa',
+  description: 'Cicipi hidangan warisan keluarga Desa Harmoni yang dimasak dari bahan-bahan segar hasil kebun sendiri.',
 };
 
 export default function CulinaryPage() {
@@ -14,37 +14,41 @@ export default function CulinaryPage() {
   const culinaryItems = [1, 2, 3, 4, 5, 6]; // Placeholder
 
   return (
-    <div className="py-12">
-      <Container>
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Local Cuisine
-          </h1>
-          <p className="text-lg text-gray-600">
-            Taste authentic traditional dishes and discover our culinary heritage
+    <div className="py-16">
+      <Container className="space-y-10">
+        <div className="space-y-4 text-center">
+          <Badge className="mx-auto bg-amber-100/80 text-amber-900 ring-amber-300/40">Warisan Rasa</Badge>
+          <h1 className="text-3xl md:text-4xl">Resep rumahan yang diwariskan, siap dinikmati setiap tamu.</h1>
+          <p className="mx-auto max-w-2xl text-stone-600">
+            Dari sarapan bubur gurih hingga jamuan makan malam bersama keluarga host, setiap hidangan dimasak dari hasil
+            kebun, kolam, dan kebun rempah warga sendiri.
           </p>
         </div>
 
-        {/* Culinary Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {culinaryItems.map((id) => (
             <Link key={id} href={`/culinary/dish-${id}`}>
-              <Card hover>
-                <div className="h-64 bg-gray-300"></div>
-                <CardHeader>
-                  <div className="flex items-center justify-between mb-2">
-                    <CardTitle>Traditional Dish {id}</CardTitle>
-                    <Badge variant="info">Popular</Badge>
+              <Card hover className="bg-white">
+                <div className="relative h-56 overflow-hidden rounded-3xl">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(220,153,60,0.45),_rgba(220,153,60,0.05))]" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-stone-900/10 to-stone-900/50" />
+                  <div className="relative flex h-full flex-col justify-between p-6 text-white">
+                    <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-amber-100/80">
+                      <span>Hidangan {id}</span>
+                      <Badge className="bg-white/20 text-white ring-white/30">Favorit</Badge>
+                    </div>
+                    <p className="text-lg font-semibold">Nasi liwet daun kelapa</p>
                   </div>
-                  <p className="text-sm text-gray-600">
-                    Authentic village recipe passed down through generations
-                  </p>
+                </div>
+                <CardHeader className="space-y-3">
+                  <CardTitle>Rasa yang menyatukan</CardTitle>
+                  <CardDescription className="text-stone-600">
+                    Dinikmati bersama sambal terasi, lalapan segar, dan teh serai hangat hasil kebun sendiri.
+                  </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-600">📍 Available at local warung</span>
-                    <span className="font-semibold text-blue-600">Rp 25.000</span>
-                  </div>
+                <CardContent className="flex items-center justify-between text-sm text-stone-600">
+                  <span>📍 Tersedia di Warung Bu Wati</span>
+                  <span className="font-semibold text-emerald-700">Rp 25.000</span>
                 </CardContent>
               </Card>
             </Link>
