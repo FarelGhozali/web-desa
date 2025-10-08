@@ -161,11 +161,10 @@ export default function HomePage() {
       </section>
 
       {/* Featured Homestays */}
-      <section className="relative">
-        <div
-          className="absolute inset-x-0 top-0 h-full w-full bg-gradient-to-b from-white via-amber-50/60 to-transparent"
-          aria-hidden
-        />
+      <section className="relative overflow-hidden py-20">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#fdf8f1] via-[#f1e1c8] to-[#e0caa4]" aria-hidden />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(255,255,255,0.65),transparent_55%)]" aria-hidden />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,rgba(37,88,58,0.18),transparent_60%)]" aria-hidden />
         <Container className="relative">
           <div className="flex flex-col gap-6 text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Rekomendasi warga</p>
@@ -178,24 +177,39 @@ export default function HomePage() {
 
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
             {[1, 2, 3].map((i) => (
-              <Card key={i} hover>
-                <div className="relative h-56 overflow-hidden">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(79,121,66,0.5),_rgba(79,121,66,0.05))]" />
-                  <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80')] bg-cover bg-center opacity-60" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-stone-900/70 via-stone-900/10 to-transparent" />
-                  <div className="relative flex h-full flex-col justify-end p-6 text-white">
-                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-200/80">
-                      Homestay {i}
-                    </p>
-                    <p className="text-lg font-semibold">Rumah Kayu Lembah Padi</p>
+              <Card key={i} hover className="bg-white/90 backdrop-blur">
+                <div className="relative h-56 overflow-hidden rounded-3xl">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(79,121,66,0.45),_rgba(79,121,66,0.08))]" />
+                  <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80')] bg-cover bg-center opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-stone-900/10 to-transparent" />
+                  <div className="relative flex h-full flex-col justify-end p-6">
+                    <div className="rounded-2xl bg-white/90 p-4 text-stone-800 shadow-lg">
+                      <p className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-700">
+                        Homestay {i}
+                      </p>
+                      <p className="text-lg font-semibold">Rumah Kayu Lembah Padi</p>
+                      <p className="text-xs text-stone-500">Dusun Sumber Rejeki</p>
+                    </div>
                   </div>
                 </div>
                 <CardContent>
                   <div className="space-y-4 text-sm text-stone-600">
-                    <p>✅ Sarapan dari kebun sendiri • 🛏 2 kamar tidur • 🚿 Air panas</p>
+                    <ul className="space-y-2">
+                      {[ 'Sarapan dari kebun sendiri', '2 kamar tidur', 'Air panas' ].map((perk) => (
+                        <li key={perk} className="flex items-center gap-2">
+                          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                            ✔
+                          </span>
+                          <span>{perk}</span>
+                        </li>
+                      ))}
+                    </ul>
                     <div className="flex items-center justify-between text-stone-700">
                       <span className="text-lg font-semibold text-emerald-700">Rp 280.000 / malam</span>
-                      <Link href={`/homestays/homestay-${i}`} className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
+                      <Link
+                        href={`/homestays/homestay-${i}`}
+                        className="inline-flex items-center gap-2 rounded-full border border-emerald-700 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700 transition hover:bg-emerald-700 hover:text-white"
+                      >
                         Lihat Detail →
                       </Link>
                     </div>
