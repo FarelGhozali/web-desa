@@ -285,13 +285,13 @@ export default function HomePage() {
       </section>
 
       {/* Stories */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden py-20">
         <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-white to-emerald-50" aria-hidden />
         <Container className="relative">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Cerita terbaru</p>
-            <h2 className="mt-4 text-3xl md:text-4xl">Cerita dari warga dan tamu yang pernah singgah.</h2>
-            <p className="mt-6 text-stone-600">
+            <h2 className="mt-4 text-3xl text-emerald-900 md:text-4xl">Cerita dari warga dan tamu yang pernah singgah.</h2>
+            <p className="mt-6 text-stone-700">
               Blog kami berisi tips perjalanan, resep kuliner, kisah sukses UMKM desa, dan ritual adat yang masih
               terjaga.
             </p>
@@ -299,16 +299,16 @@ export default function HomePage() {
 
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
             {[1, 2, 3].map((i) => (
-              <Card key={i} hover className="bg-white">
-                <div className="h-48 rounded-3xl bg-[radial-gradient(circle_at_top,_rgba(130,180,90,0.35),_rgba(130,180,90,0.05))]" />
+              <Card key={i} hover className="bg-white shadow-lg shadow-emerald-900/5 ring-1 ring-emerald-900/10">
+                <div className="h-48 rounded-3xl bg-[radial-gradient(circle_at_top,_rgba(84,140,78,0.35),_rgba(232,241,224,0.4))]" />
                 <CardHeader className="space-y-4">
-                  <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
+                  <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-800">
                     <span>17 Juli 2024</span>
                     <span className="h-1 w-1 rounded-full bg-emerald-700" />
                     <span>Kisah Desa</span>
                   </div>
-                  <CardTitle>Jejak kopi robusta di lereng kami</CardTitle>
-                  <CardDescription className="text-stone-600">
+                  <CardTitle className="text-emerald-900">Jejak kopi robusta di lereng kami</CardTitle>
+                  <CardDescription className="text-stone-700">
                     Bagaimana Pak Danu merawat kebun kopi warisan dan membuka kelas cupping untuk pengunjung.
                   </CardDescription>
                 </CardHeader>
@@ -324,8 +324,8 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* CTA Section */}
-      <section className="relative overflow-hidden">
+  {/* CTA Section */}
+  <section className="relative overflow-hidden -mt-24 -mb-24">
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-900 via-emerald-700 to-emerald-900" aria-hidden />
         <Container className="relative py-16">
           <div className="mx-auto max-w-3xl text-center text-white">

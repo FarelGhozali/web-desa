@@ -8,9 +8,9 @@ const navLinks = [
   { href: '/homestays', label: 'Homestays' },
   { href: '/attractions', label: 'Attractions' },
   { href: '/culinary', label: 'Culinary' },
-  { href: '/blog', label: 'Blog' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
+  { href: '/blog', label: 'Blog' },
 ];
 
 export default function Header() {
@@ -38,8 +38,8 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex md:items-center md:gap-8">
+          {/* Desktop Navigation (centered) */}
+          <div className="hidden md:flex md:items-center md:gap-8 md:flex-1 md:justify-center">
             {navLinks.map((item) => (
               <Link
                 key={item.href}
@@ -51,14 +51,8 @@ export default function Header() {
             ))}
           </div>
 
-          {/* Desktop Actions */}
+          {/* Desktop Actions (right) */}
           <div className="hidden items-center gap-4 md:flex">
-            <Link
-              href="/blog"
-              className="text-sm font-semibold uppercase tracking-[0.2em] text-stone-600 transition-colors hover:text-emerald-700"
-            >
-              Stories
-            </Link>
             <Link
               href="/homestays"
               className="inline-flex items-center justify-center rounded-full bg-emerald-700 px-6 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-white shadow-sm transition hover:bg-emerald-800 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-100"
@@ -111,6 +105,21 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
+            {/* Mobile menu: include Contact and Blog explicitly */}
+            <Link
+              href="/contact"
+              onClick={closeMenu}
+              className="block rounded-lg px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-stone-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700"
+            >
+              Contact
+            </Link>
+            <Link
+              href="/blog"
+              onClick={closeMenu}
+              className="block rounded-lg px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-stone-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700"
+            >
+              Blog
+            </Link>
             <Link
               href="/homestays"
               onClick={closeMenu}
