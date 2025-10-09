@@ -161,7 +161,7 @@ export default function HomePage() {
       </section>
 
       {/* Featured Homestays */}
-      <section className="relative overflow-hidden py-20">
+      <section className="relative overflow-hidden py-20 stories">
         <div className="absolute inset-0 bg-gradient-to-b from-[#fdf8f1] via-[#f1e1c8] to-[#e0caa4]" aria-hidden />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(255,255,255,0.65),transparent_55%)]" aria-hidden />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,rgba(37,88,58,0.18),transparent_60%)]" aria-hidden />
@@ -284,8 +284,8 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Stories */}
-      <section className="relative overflow-hidden py-20">
+  {/* Stories */}
+  <section className="relative overflow-hidden py-20 stories">
         <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-white to-emerald-50" aria-hidden />
         <Container className="relative">
           <div className="mx-auto max-w-2xl text-center">

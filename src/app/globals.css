@@ -38,6 +38,14 @@ h6 {
   color: var(--foreground);
 }
 
+/* Improve visibility for the Stories section heading */
+.stories h2 {
+  color: #0f3b20; /* slightly darker emerald for strong contrast */
+  font-weight: 700;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6), 0 6px 18px rgba(15,59,32,0.07);
+  line-height: 1.15;
+}
+
 a {
   color: var(--accent);
   text-decoration: none;
