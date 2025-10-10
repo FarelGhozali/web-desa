@@ -55,7 +55,7 @@ export default function Header() {
           <div className="hidden items-center gap-4 md:flex">
             <Link
               href="/homestays"
-              className="inline-flex items-center justify-center rounded-full bg-emerald-700 px-6 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-white shadow-sm transition hover:bg-emerald-800 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-100"
+              className="inline-flex items-center justify-center rounded-full bg-emerald-700 px-6 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-emerald-50 shadow-sm transition hover:bg-emerald-800 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-100" style={{color:'#F4F7ED'}} 
             >
               Book a Stay
             </Link>
@@ -123,7 +123,7 @@ export default function Header() {
             <Link
               href="/homestays"
               onClick={closeMenu}
-              className="flex items-center justify-center rounded-full bg-emerald-700 px-4 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-white shadow-sm transition hover:bg-emerald-800 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-50"
+              className="flex items-center justify-center rounded-full bg-emerald-700 px-4 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-emerald-50 shadow-sm transition hover:bg-emerald-800 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-50" style={{color:'#F4F7ED'}} 
             >
               Book a Stay
             </Link>
