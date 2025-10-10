@@ -19,7 +19,7 @@ export default function CulinaryPage() {
         <div className="space-y-4 text-center">
           <Badge className="mx-auto bg-amber-100/80 text-amber-900 ring-amber-300/40">Warisan Rasa</Badge>
           <h1 className="text-3xl md:text-4xl">Resep rumahan yang diwariskan, siap dinikmati setiap tamu.</h1>
-          <p className="mx-auto max-w-2xl text-stone-600">
+          <p className="mx-auto max-w-2xl text-emerald-50">
             Dari sarapan bubur gurih hingga jamuan makan malam bersama keluarga host, setiap hidangan dimasak dari hasil
             kebun, kolam, dan kebun rempah warga sendiri.
           </p>

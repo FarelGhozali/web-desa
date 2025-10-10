@@ -18,7 +18,7 @@ export default function ContactPage() {
         <div className="text-center space-y-4">
           <Badge className="mx-auto bg-emerald-100/80 text-emerald-900 ring-emerald-300/40">Hubungi kami</Badge>
           <h1 className="text-3xl md:text-4xl">Kami siap membantu perjalanan desa impian Anda.</h1>
-          <p className="mx-auto max-w-2xl text-stone-600">
+          <p className="mx-auto max-w-2xl text-emerald-50">
             Tulis pesan singkat mengenai kebutuhan perjalanan Anda. Tim koordinator desa akan merespon dalam 24 jam
             kerja dengan rekomendasi homestay dan aktivitas terbaik.
           </p>

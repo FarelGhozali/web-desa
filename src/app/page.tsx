@@ -235,7 +235,7 @@ export default function HomePage() {
           <div className="space-y-6">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Pengalaman khas desa</p>
             <h2 className="text-3xl md:text-4xl">Ikuti ritme alam dan budaya kami setiap hari.</h2>
-            <p className="text-stone-600">
+            <p className="text-emerald-50">
               Dari bertani bersama warga hingga belajar menenun tikar pandan, kami menyiapkan rangkaian kegiatan yang
               bisa Anda pilih sesuai minat. Semua aktivitas dipandu langsung oleh pelaku lokal.
             </p>

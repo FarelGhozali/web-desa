@@ -26,7 +26,7 @@ export default function BlogPage() {
         <div className="space-y-4 text-center">
           <Badge className="mx-auto bg-emerald-100/80 text-emerald-900 ring-emerald-300/40">Jurnal Desa</Badge>
           <h1 className="text-3xl md:text-4xl">Cerita yang membuat Anda rindu akan suasana desa.</h1>
-          <p className="mx-auto max-w-2xl text-stone-600">
+          <p className="mx-auto max-w-2xl text-emerald-50">
             Telusuri kisah-kisah warga, rekomendasi aktivitas akhir pekan, hingga resep keluarga yang bisa Anda coba
             sepulang dari sini.
           </p>

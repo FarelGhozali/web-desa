@@ -19,7 +19,7 @@ export default function AttractionsPage() {
         <div className="space-y-4 text-center">
           <Badge className="mx-auto bg-emerald-100/80 text-emerald-900 ring-emerald-300/50">Panorama Alam</Badge>
           <h1 className="text-3xl md:text-4xl">Jelajahi kekayaan alam yang kami jaga bersama.</h1>
-          <p className="mx-auto max-w-2xl text-stone-600">
+          <p className="mx-auto max-w-2xl text-emerald-50">
             Setiap jalur trekking dan destinasi alam kami rawat bersama kelompok warga. Ajak pemandu lokal untuk
             mengetahui cerita dan legenda yang menyertai setiap sudut desa.
           </p>

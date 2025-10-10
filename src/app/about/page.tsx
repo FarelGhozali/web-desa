@@ -32,7 +32,7 @@ export default function AboutPage() {
         <article className="space-y-10">
           <section className="space-y-4">
             <h2 className="text-3xl">Jejak sejarah yang dijaga</h2>
-            <p className="text-lg text-stone-600">
+            <p className="text-lg text-emerald-50">
               Desa Harmoni berdiri di kaki perbukitan yang kaya mata air. Warga generasi awal membuka sawah berteras
               dan menanam pohon pelindung agar sumber air tetap terjaga. Kini, kami tetap memegang teguh adat sambil
               menyambut tamu yang ingin belajar dari alam.
@@ -42,14 +42,14 @@ export default function AboutPage() {
           <section className="grid gap-8 md:grid-cols-2">
             <div className="space-y-4">
               <h3 className="text-2xl">Budaya & tradisi</h3>
-              <p className="text-stone-600">
+              <p className="text-emerald-50">
                 Setiap minggu, kami mengadakan latihan tari jaipong dan gamelan untuk anak-anak desa. Tamu dapat ikut
                 serta mencoba alat musik tradisional atau sekadar menikmati suasana hangat di pendopo.
               </p>
             </div>
             <div className="space-y-4">
               <h3 className="text-2xl">Keindahan alam</h3>
-              <p className="text-stone-600">
+              <p className="text-emerald-50">
                 Hamparan sawah, sungai kecil, dan kebun kopi adalah pemandangan sehari-hari kami. Jalur trekking ringan
                 tersedia bagi tamu yang ingin mengawali pagi dengan udara segar dan pemandangan matahari terbit.
               </p>
@@ -58,7 +58,7 @@ export default function AboutPage() {
 
           <section className="space-y-4">
             <h3 className="text-2xl">Pariwisata berkelanjutan</h3>
-            <p className="text-stone-600">
+            <p className="text-emerald-50">
               Setiap reservasi homestay menyisihkan dana konservasi untuk menjaga hutan desa, mendukung UMKM perempuan,
               dan membiayai beasiswa anak petani. Kami percaya wisata bisa menjadi jalan untuk saling menguatkan.
             </p>
@@ -66,7 +66,7 @@ export default function AboutPage() {
 
           <section className="space-y-4">
             <h3 className="text-2xl">Bergabunglah dengan keluarga kami</h3>
-            <p className="text-stone-600">
+            <p className="text-emerald-50">
               Kami mengundang Anda merasakan keseharian yang sederhana namun bermakna. Kenali gaya hidup bertani,
               belajar memasak makanan warisan, dan pulang dengan pandangan baru tentang arti kebersamaan.
             </p>
