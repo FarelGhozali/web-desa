@@ -55,26 +55,41 @@ export default function ContactPage() {
           </div>
 
           <div className="space-y-6">
-            <Card className="bg-gradient-to-br from-emerald-600/10 via-white to-emerald-100/40">
-              <CardHeader>
-                <CardTitle>Informasi desa</CardTitle>
+            <Card className="relative overflow-hidden border border-emerald-100/80 bg-white/95 shadow-lg shadow-emerald-900/5">
+              <div
+                className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-emerald-200/50 via-transparent to-transparent"
+                aria-hidden
+              />
+              <CardHeader className="relative pb-2">
+                <CardTitle className="text-emerald-950">Informasi desa</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4 text-sm text-stone-700">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Email</p>
-                  <p>hello@villagestay.com</p>
+              <CardContent className="relative space-y-5 text-sm text-stone-700">
+                <div className="flex items-start gap-3 rounded-2xl border border-emerald-100/70 bg-white/80 p-4">
+                  <span className="mt-1 text-lg text-emerald-700">📧</span>
+                  <div className="space-y-1">
+                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Email</p>
+                    <p className="text-base font-medium text-emerald-900">hello@villagestay.com</p>
+                    <p className="text-xs text-stone-500">Balas dalam 24 jam kerja</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Telepon</p>
-                  <p>+62 123 456 7890</p>
+                <div className="flex items-start gap-3 rounded-2xl border border-emerald-100/70 bg-white/80 p-4">
+                  <span className="mt-1 text-lg text-emerald-700">☎️</span>
+                  <div className="space-y-1">
+                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Telepon</p>
+                    <p className="text-base font-medium text-emerald-900">+62 123 456 7890</p>
+                    <p className="text-xs text-stone-500">Senin - Sabtu • 09.00 - 17.00</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Alamat</p>
-                  <p>
-                    Balai Desa Harmoni<br />
-                    Jl. Persawahan No. 12<br />
-                    Kabupaten Ciamis, Jawa Barat
-                  </p>
+                <div className="flex items-start gap-3 rounded-2xl border border-emerald-100/70 bg-white/80 p-4">
+                  <span className="mt-1 text-lg text-emerald-700">📍</span>
+                  <div className="space-y-1">
+                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Alamat</p>
+                    <p className="text-base font-medium text-emerald-900">Balai Desa Harmoni</p>
+                    <p className="text-sm leading-relaxed text-stone-600">
+                      Jl. Persawahan No. 12<br />
+                      Kabupaten Ciamis, Jawa Barat
+                    </p>
+                  </div>
                 </div>
               </CardContent>
             </Card>

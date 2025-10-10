@@ -271,52 +271,52 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <Card className="relative overflow-hidden border-none bg-transparent p-0 shadow-[0_38px_80px_-40px_rgba(12,74,64,0.55)] backdrop-blur-0">
+          <Card className="relative overflow-hidden border border-emerald-100/70 bg-white/95 p-0 shadow-[0_36px_68px_-36px_rgba(15,118,110,0.45)]">
             <div
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_-10%,rgba(255,255,255,0.45),transparent_55%),radial-gradient(circle_at_90%_0%,rgba(244,220,164,0.35),transparent_70%)]"
+              className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-emerald-200/60 via-transparent to-transparent"
               aria-hidden
             />
-            <div className="relative rounded-3xl bg-gradient-to-b from-[#0c2f28] via-white to-[#f6d9a4] p-[1px]">
-              <div className="relative rounded-[26px] bg-white/95 p-8 text-stone-800 shadow-[0_26px_60px_-38px_rgba(12,74,64,0.65)] sm:p-10">
-                <div className="space-y-6">
-                  <div className="space-y-3">
-                    <span className="inline-flex items-center gap-2 rounded-full bg-emerald-100/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-900">
-                      Weekend itinerary
+            <div
+              className="pointer-events-none absolute -left-20 top-10 h-40 w-40 rounded-full bg-emerald-300/20 blur-3xl"
+              aria-hidden
+            />
+            <div
+              className="pointer-events-none absolute -right-24 bottom-8 h-48 w-48 rounded-full bg-amber-200/30 blur-3xl"
+              aria-hidden
+            />
+            <div className="relative flex flex-col gap-8 p-8 sm:p-10">
+              <div className="space-y-4">
+                <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-800 shadow-sm">
+                  Weekend itinerary
+                </span>
+                <h3 className="text-2xl font-semibold text-emerald-950">Rangkaian akhir pekan</h3>
+                <p className="max-w-lg text-sm leading-relaxed text-stone-600 sm:text-base">
+                  Ideal untuk keluarga atau komunitas kecil. Nikmati dua malam aktivitas fleksibel yang merangkum alam,
+                  kuliner, dan budaya desa.
+                </p>
+              </div>
+
+              <div className="grid gap-4">
+                {weekendSchedule.map((item) => (
+                  <div
+                    key={item.title}
+                    className="relative flex items-start gap-4 rounded-2xl border border-emerald-100/80 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-emerald-200 hover:shadow-md"
+                  >
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-lg text-emerald-700">
+                      {item.icon}
                     </span>
-                    <h3 className="text-2xl font-semibold text-stone-900">Rangkaian akhir pekan</h3>
-                    <p className="max-w-lg text-sm leading-relaxed text-stone-600 sm:text-base">
-                      Ideal untuk keluarga atau komunitas kecil. Nikmati dua malam penuh aktivitas fleksibel yang
-                      menggabungkan alam, kuliner, dan budaya desa.
-                    </p>
+                    <div className="space-y-1 text-sm sm:text-base">
+                      <p className="font-semibold text-emerald-950">{item.title}</p>
+                      <p className="text-stone-600">{item.description}</p>
+                    </div>
+                    <div className="absolute inset-y-0 left-0 w-1 rounded-l-2xl bg-gradient-to-b from-emerald-300 via-emerald-400 to-emerald-500" aria-hidden />
                   </div>
+                ))}
+              </div>
 
-                  <div className="grid gap-3">
-                    {weekendSchedule.map((item) => (
-                      <div
-                        key={item.title}
-                        className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-white via-white to-amber-50/60 p-5 shadow-[0_16px_40px_-30px_rgba(58,95,11,0.35)] ring-1 ring-emerald-900/10 transition duration-300 hover:shadow-[0_26px_60px_-28px_rgba(12,74,64,0.5)]"
-                      >
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(16,94,80,0.08),transparent_65%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
-                        <div className="relative flex items-start gap-4">
-                          <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-100 text-lg">
-                            {item.icon}
-                          </span>
-                          <div className="space-y-1 text-sm sm:text-base">
-                            <p className="font-semibold text-stone-900">
-                              {item.title}
-                            </p>
-                            <p className="text-stone-600">{item.description}</p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
-                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-emerald-800">2N</span>
-                    <span>Cocok untuk keluarga dengan anak usia sekolah & komunitas kecil</span>
-                  </div>
-                </div>
+              <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-emerald-800">2N</span>
+                <span>Cocok untuk keluarga dengan anak usia sekolah & komunitas kecil</span>
               </div>
             </div>
           </Card>
