@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -48,8 +48,8 @@ model Homestay {
   address       String
   pricePerNight Int
   maxGuests     Int
-  photos        String[] // Array of image URLs
-  amenities     String[] // Array of amenity names
+  photos        String   @db.Text
+  amenities     String   @db.Text
   latitude      Float?
   longitude     Float?
   featured      Boolean  @default(false)
@@ -135,7 +135,7 @@ model Attraction {
   name        String
   slug        String   @unique
   description String   @db.Text
-  photos      String[] // Array of image URLs
+  photos      String   @db.Text 
   location    String
   latitude    Float?
   longitude   Float?
@@ -152,7 +152,7 @@ model Culinary {
   name        String
   slug        String   @unique
   description String   @db.Text
-  photos      String[] // Array of image URLs
+  photos      String   @db.Text 
   location    String
   latitude    Float?
   longitude   Float?
