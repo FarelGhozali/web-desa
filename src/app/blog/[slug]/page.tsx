@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params }: Props) {
           <div className="h-96 rounded-3xl bg-[radial-gradient(circle_at_top,_rgba(46,127,82,0.35),_rgba(46,127,82,0.08))]"></div>
 
           {/* Content */}
-          <div className="prose prose-lg max-w-none text-stone-600">
+          <div className="prose prose-lg max-w-none text-emerald-50">
             <p className="lead">
               This is an engaging introduction to the blog post that captures the reader&apos;s attention 
               and provides a preview of what they&apos;ll learn.
@@ -107,7 +107,7 @@ export default async function BlogPostPage({ params }: Props) {
                   <h3 className="text-lg font-semibold text-stone-900 transition-colors group-hover:text-emerald-700">
                     Related Article Title {i}
                   </h3>
-                  <p className="mt-2 text-sm text-stone-600">
+                  <p className="mt-2 text-sm text-emerald-50">
                     A brief description of the related article...
                   </p>
                 </Link>
