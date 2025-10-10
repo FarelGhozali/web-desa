@@ -40,6 +40,24 @@ const experienceHighlights = [
   },
 ];
 
+const weekendSchedule = [
+  {
+    icon: '🌾',
+    title: 'Sabtu pagi',
+    description: 'Panen sayur organik & workshop memasak lalapan khas desa.',
+  },
+  {
+    icon: '🚣',
+    title: 'Sabtu sore',
+    description: 'Susur sungai dengan perahu bambu ditemani anak-anak desa.',
+  },
+  {
+    icon: '🌙',
+    title: 'Minggu malam',
+    description: 'Api unggun, jagung bakar, dan pertunjukan angklung.',
+  },
+];
+
 export default function HomePage() {
   return (
     <div className="space-y-24">
@@ -253,33 +271,54 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <Card className="bg-gradient-to-b from-emerald-600/10 via-white to-amber-100/40">
-            <CardHeader>
-              <CardTitle className="text-2xl">Rangkaian akhir pekan</CardTitle>
-              <CardDescription>
-                Ideal untuk keluarga atau komunitas kecil. Kami siapkan itinerary fleksibel selama 2 malam.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-start gap-3 text-sm text-stone-700">
-                <span className="mt-0.5 text-lg">🌾</span>
-                <span>
-                  <strong>Sabtu pagi:</strong> Panen sayur organik & workshop memasak lalapan khas desa.
-                </span>
+          <Card className="relative overflow-hidden border-none bg-transparent p-0 shadow-[0_38px_80px_-40px_rgba(12,74,64,0.55)] backdrop-blur-0">
+            <div
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_-10%,rgba(255,255,255,0.45),transparent_55%),radial-gradient(circle_at_90%_0%,rgba(244,220,164,0.35),transparent_70%)]"
+              aria-hidden
+            />
+            <div className="relative rounded-3xl bg-gradient-to-b from-[#0c2f28] via-white to-[#f6d9a4] p-[1px]">
+              <div className="relative rounded-[26px] bg-white/95 p-8 text-stone-800 shadow-[0_26px_60px_-38px_rgba(12,74,64,0.65)] sm:p-10">
+                <div className="space-y-6">
+                  <div className="space-y-3">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-emerald-100/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-900">
+                      Weekend itinerary
+                    </span>
+                    <h3 className="text-2xl font-semibold text-stone-900">Rangkaian akhir pekan</h3>
+                    <p className="max-w-lg text-sm leading-relaxed text-stone-600 sm:text-base">
+                      Ideal untuk keluarga atau komunitas kecil. Nikmati dua malam penuh aktivitas fleksibel yang
+                      menggabungkan alam, kuliner, dan budaya desa.
+                    </p>
+                  </div>
+
+                  <div className="grid gap-3">
+                    {weekendSchedule.map((item) => (
+                      <div
+                        key={item.title}
+                        className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-white via-white to-amber-50/60 p-5 shadow-[0_16px_40px_-30px_rgba(58,95,11,0.35)] ring-1 ring-emerald-900/10 transition duration-300 hover:shadow-[0_26px_60px_-28px_rgba(12,74,64,0.5)]"
+                      >
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(16,94,80,0.08),transparent_65%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
+                        <div className="relative flex items-start gap-4">
+                          <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-100 text-lg">
+                            {item.icon}
+                          </span>
+                          <div className="space-y-1 text-sm sm:text-base">
+                            <p className="font-semibold text-stone-900">
+                              {item.title}
+                            </p>
+                            <p className="text-stone-600">{item.description}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
+                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-emerald-800">2N</span>
+                    <span>Cocok untuk keluarga dengan anak usia sekolah & komunitas kecil</span>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-start gap-3 text-sm text-stone-700">
-                <span className="mt-0.5 text-lg">🚣</span>
-                <span>
-                  <strong>Sabtu sore:</strong> Susur sungai dengan perahu bambu ditemani anak-anak desa.
-                </span>
-              </div>
-              <div className="flex items-start gap-3 text-sm text-stone-700">
-                <span className="mt-0.5 text-lg">🌙</span>
-                <span>
-                  <strong>Minggu malam:</strong> Api unggun, jagung bakar, dan pertunjukan angklung.
-                </span>
-              </div>
-            </CardContent>
+            </div>
           </Card>
         </Container>
       </section>

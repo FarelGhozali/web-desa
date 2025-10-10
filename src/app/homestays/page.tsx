@@ -22,7 +22,7 @@ export default function HomestaysPage() {
             <div className="space-y-4">
               <Badge className="bg-emerald-100/80 text-emerald-900 ring-emerald-300/40">Pilihan Warga</Badge>
               <div className="space-y-3">
-                <h1 className="text-3xl md:text-4xl">Daftar homestay hangat untuk menyatu dengan kehidupan desa.</h1>
+                <h1 className="text-3xl md:text-4xl text-stone-600">Daftar homestay hangat untuk menyatu dengan kehidupan desa.</h1>
                 <p className="text-stone-600">
                   Setiap rumah menawarkan kisah unik: dari pondok bambu di tepi sawah sampai rumah kayu di lereng bukit.
                   Nikmati sarapan rumahan, percakapan malam hari, dan panorama alam yang menenangkan.
@@ -57,10 +57,10 @@ export default function HomestaysPage() {
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(47,127,82,0.35),_rgba(47,127,82,0.05))]" />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-900/10 to-emerald-900/60" />
                 <div className="relative flex h-full flex-col justify-between p-5 text-white">
-                  <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-emerald-100/80">
-                    <span>Homestay {id}</span>
-                    <span>Desa Utara</span>
-                  </div>
+                    <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-emerald-900">
+                      <span>Homestay {id}</span>
+                      <span>Desa Utara</span>
+                    </div>
                   <p className="text-lg font-semibold">Rumah Panggung Srikandi</p>
                 </div>
               </div>

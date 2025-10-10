@@ -36,7 +36,7 @@ export default async function BlogPostPage({ params }: Props) {
               <span className="text-sm text-stone-500">15 Maret 2024</span>
             </div>
 
-            <h1 className="text-4xl text-stone-900 md:text-5xl">
+            <h1 className="text-4xl text-stone-50 md:text-5xl">
               Blog Post Title {slug}
             </h1>
 

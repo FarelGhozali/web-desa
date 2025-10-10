@@ -39,7 +39,7 @@ export default async function HomestayDetailPage({ params }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2">
-            <h1 className="mb-4 text-4xl text-stone-900">
+            <h1 className="mb-4 text-4xl text-stone-50">
               Homestay {slug}
             </h1>
             
@@ -53,7 +53,7 @@ export default async function HomestayDetailPage({ params }: Props) {
 
             <div className="prose max-w-none mb-8">
               <h2 className="text-2xl">Tentang homestay ini</h2>
-              <p className="text-stone-600">
+              <p className="text-emerald-50">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod 
                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
                 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -63,7 +63,7 @@ export default async function HomestayDetailPage({ params }: Props) {
             {/* Amenities */}
             <div className="mb-8">
               <h2 className="mb-4 text-2xl">Fasilitas</h2>
-              <div className="grid grid-cols-2 gap-4 text-stone-600">
+              <div className="grid grid-cols-2 gap-4 text-emerald-50">
                 <div className="flex items-center gap-2">
                   <span>✓</span>
                   <span>Free WiFi</span>
@@ -99,7 +99,7 @@ export default async function HomestayDetailPage({ params }: Props) {
                         </div>
                       </div>
                     </div>
-                    <p className="text-stone-600">
+                    <p className="text-emerald-50">
                       Great experience! The host was very welcoming and the place was clean and comfortable.
                     </p>
                   </div>
