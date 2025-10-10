@@ -161,14 +161,14 @@ export default function HomePage() {
       </section>
 
       {/* Featured Homestays */}
-      <section className="relative overflow-hidden py-20 stories">
+      <section className="relative overflow-hidden py-20">
         <div className="absolute inset-0 bg-gradient-to-b from-[#fdf8f1] via-[#f1e1c8] to-[#e0caa4]" aria-hidden />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(255,255,255,0.65),transparent_55%)]" aria-hidden />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,rgba(37,88,58,0.18),transparent_60%)]" aria-hidden />
         <Container className="relative">
           <div className="flex flex-col gap-6 text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Rekomendasi warga</p>
-            <h2 className="text-3xl md:text-4xl">Homestay pilihan dengan keramahan khas pedesaan.</h2>
+            <h2 className="text-3xl md:text-4xl text-emerald-900">Homestay pilihan dengan keramahan khas pedesaan.</h2>
             <p className="mx-auto max-w-2xl text-stone-600">
               Semua homestay kami kurasi langsung bersama warga untuk memastikan kenyamanan, kebersihan, dan
               pengalaman autentik.
@@ -285,7 +285,7 @@ export default function HomePage() {
       </section>
 
   {/* Stories */}
-  <section className="relative overflow-hidden py-20 stories">
+  <section className="relative overflow-hidden py-20">
         <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-white to-emerald-50" aria-hidden />
         <Container className="relative">
           <div className="mx-auto max-w-2xl text-center">
