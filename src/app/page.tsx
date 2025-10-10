@@ -212,7 +212,7 @@ export default function HomePage() {
                 </div>
                 <CardContent>
                   <div className="space-y-4 text-sm text-stone-600">
-                    <ul className="space-y-2">
+                    <ul className="space-y-4 mt-4">
                       {[ 'Sarapan dari kebun sendiri', '2 kamar tidur', 'Air panas' ].map((perk) => (
                         <li key={perk} className="flex items-center gap-2">
                           <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
