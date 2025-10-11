@@ -1,14 +1,18 @@
+
 import type { Metadata } from 'next';
 import Container from '@/components/ui/Container';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
+import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Jurnal Desa',
   description: 'Kumpulan cerita warga, panduan perjalanan, dan inspirasi hidup sederhana dari Desa Harmoni.',
 };
 
+
+// TODO: Optionally fetch categories from DB if needed
 const categories = [
   { label: 'Semua', variant: 'default' as const },
   { label: 'Tips Perjalanan', variant: 'info' as const },
@@ -16,9 +20,17 @@ const categories = [
   { label: 'Kuliner', variant: 'warning' as const },
 ];
 
-export default function BlogPage() {
-  // TODO: Fetch blog posts from database
-  const posts = [1, 2, 3, 4, 5, 6]; // Placeholder
+// Server Component
+export default async function BlogPage() {
+  const posts = await prisma.post.findMany({
+    where: { published: true },
+    orderBy: { createdAt: 'desc' },
+    take: 12,
+    include: {
+      author: true,
+      category: true,
+    },
+  });
 
   return (
     <div className="py-16">
@@ -41,23 +53,35 @@ export default function BlogPage() {
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((id) => (
-            <Link key={id} href={`/blog/post-${id}`}>
+          {posts.map((post) => (
+            <Link key={post.id} href={`/blog/${post.slug}`}>
               <Card hover className="bg-white">
-                <div className="h-48 rounded-3xl bg-[radial-gradient(circle_at_top,_rgba(46,127,82,0.4),_rgba(46,127,82,0.05))]" />
+                {post.coverImage && (
+                  <div className="h-48 rounded-3xl overflow-hidden">
+                    <img
+                      src={post.coverImage}
+                      alt={post.title}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                )}
                 <CardHeader className="space-y-4">
                   <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
-                    <Badge variant="info">Tips Perjalanan</Badge>
-                    <span>21 Mei 2024</span>
+                    <Badge variant={post.category?.slug === 'travel-tips' ? 'info' : post.category?.slug === 'culture' ? 'success' : post.category?.slug === 'food' ? 'warning' : 'default'}>
+                      {post.category?.name || 'Lainnya'}
+                    </Badge>
+                    <span>{post.createdAt.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
                   </div>
-                  <CardTitle>Tiga jalur sepeda favorit warga</CardTitle>
+                  <CardTitle>{post.title}</CardTitle>
                   <CardDescription className="text-stone-600">
-                    Rute sepeda menyusuri pematang sawah, kebun kopi, hingga spot melihat matahari terbenam terbaik.
+                    {post.excerpt || post.content.slice(0, 100) + '...'}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex items-center gap-3 text-sm text-stone-500">
-                  <div className="h-8 w-8 rounded-full bg-emerald-100" />
-                  <span>Oleh Tim Pemandu Desa</span>
+                  <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center font-bold text-emerald-700">
+                    {post.author?.name ? post.author.name[0] : 'A'}
+                  </div>
+                  <span>Oleh {post.author?.name || 'Admin'}</span>
                 </CardContent>
               </Card>
             </Link>

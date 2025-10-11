@@ -1,17 +1,27 @@
+
 import type { Metadata } from 'next';
 import Container from '@/components/ui/Container';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
+import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Kuliner Desa',
   description: 'Cicipi hidangan warisan keluarga Desa Harmoni yang dimasak dari bahan-bahan segar hasil kebun sendiri.',
 };
-
-export default function CulinaryPage() {
-  // TODO: Fetch culinary items from database
-  const culinaryItems = [1, 2, 3, 4, 5, 6]; // Placeholder
+// Server Component
+export default async function CulinaryPage() {
+  const culinaryRaw = await prisma.culinary.findMany({
+    where: { published: true },
+    orderBy: { createdAt: 'desc' },
+    take: 12,
+  });
+  // Parse JSON fields
+  const culinaryItems = culinaryRaw.map((c) => ({
+    ...c,
+    photos: c.photos ? JSON.parse(c.photos) : [],
+  }));
 
   return (
     <div className="py-16">
@@ -26,29 +36,36 @@ export default function CulinaryPage() {
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {culinaryItems.map((id) => (
-            <Link key={id} href={`/culinary/dish-${id}`}>
+          {culinaryItems.map((item) => (
+            <Link key={item.id} href={`/culinary/${item.slug}`}>
               <Card hover className="bg-white">
                 <div className="relative h-56 overflow-hidden rounded-3xl">
+                  {item.photos[0] && (
+                    <img
+                      src={item.photos[0]}
+                      alt={item.name}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(220,153,60,0.45),_rgba(220,153,60,0.05))]" />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-stone-900/10 to-stone-900/50" />
                   <div className="relative flex h-full flex-col justify-between p-6 text-white">
                     <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-amber-100/80">
-                      <span>Hidangan {id}</span>
+                      <span>{item.name}</span>
                       <Badge className="bg-white/20 text-white ring-white/30">Favorit</Badge>
                     </div>
-                    <p className="text-lg font-semibold">Nasi liwet daun kelapa</p>
+                    <p className="text-lg font-semibold line-clamp-2">{item.description}</p>
                   </div>
                 </div>
                 <CardHeader className="space-y-3">
-                  <CardTitle>Rasa yang menyatukan</CardTitle>
+                  <CardTitle>{item.name}</CardTitle>
                   <CardDescription className="text-stone-600">
-                    Dinikmati bersama sambal terasi, lalapan segar, dan teh serai hangat hasil kebun sendiri.
+                    {item.description}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex items-center justify-between text-sm text-stone-600">
-                  <span>📍 Tersedia di Warung Bu Wati</span>
-                  <span className="font-semibold text-emerald-700">Rp 25.000</span>
+                  <span>📍 {item.location}</span>
+                  <span className="font-semibold text-emerald-700">{item.priceRange || '-'}</span>
                 </CardContent>
               </Card>
             </Link>

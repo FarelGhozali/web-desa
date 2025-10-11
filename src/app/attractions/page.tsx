@@ -1,17 +1,27 @@
+
 import type { Metadata } from 'next';
 import Container from '@/components/ui/Container';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
+import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Panorama Alam Desa',
   description: 'Susuri air terjun tersembunyi, sawah bertingkat, dan hutan bambu yang menjadi kebanggaan Desa Harmoni.',
 };
-
-export default function AttractionsPage() {
-  // TODO: Fetch attractions from database
-  const attractions = [1, 2, 3, 4, 5, 6]; // Placeholder
+// Server Component
+export default async function AttractionsPage() {
+  const attractionsRaw = await prisma.attraction.findMany({
+    where: { published: true },
+    orderBy: { createdAt: 'desc' },
+    take: 12,
+  });
+  // Parse JSON fields
+  const attractions = attractionsRaw.map((a) => ({
+    ...a,
+    photos: a.photos ? JSON.parse(a.photos) : [],
+  }));
 
   return (
     <div className="py-16">
@@ -26,30 +36,37 @@ export default function AttractionsPage() {
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {attractions.map((id) => (
-            <Link key={id} href={`/attractions/attraction-${id}`}>
+          {attractions.map((attraction) => (
+            <Link key={attraction.id} href={`/attractions/${attraction.slug}`}>
               <Card hover className="bg-white">
                 <div className="relative h-56 overflow-hidden rounded-3xl">
+                  {attraction.photos[0] && (
+                    <img
+                      src={attraction.photos[0]}
+                      alt={attraction.name}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(34,139,93,0.45),_rgba(34,139,93,0.05))]" />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-900/10 to-emerald-900/60" />
                   <div className="relative flex h-full flex-col justify-between p-6 text-white">
                     <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em]">
-                      <span>Wisata {id}</span>
-                      <span>Guide lokal</span>
+                      <span>{attraction.name}</span>
+                      <span>{attraction.location}</span>
                     </div>
-                    <p className="text-lg font-semibold">Lembah Bambu Angin</p>
+                    <p className="text-lg font-semibold line-clamp-2">{attraction.description}</p>
                   </div>
                 </div>
                 <CardHeader className="space-y-3">
-                  <CardTitle>Keasrian alam yang menenangkan</CardTitle>
+                  <CardTitle>{attraction.name}</CardTitle>
                   <CardDescription className="text-stone-600">
-                    Ikuti jalur bambu hingga air terjun mini tersembunyi. Sesi teh serai hangat menanti di akhir tur.
+                    {attraction.description}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
-                    <span>📍 5 km dari balai desa</span>
-                    <span>⏱ 2 jam</span>
+                    <span>📍 {attraction.location}</span>
+                    <span>⏱ {attraction.latitude && attraction.longitude ? 'Ada koordinat' : 'Tanpa koordinat'}</span>
                   </div>
                 </CardContent>
               </Card>

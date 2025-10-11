@@ -1,18 +1,29 @@
+
 import type { Metadata } from 'next';
 import Container from '@/components/ui/Container';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
+import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Homestay Desa',
   description: 'Temukan homestay pilihan warga Desa Harmoni dengan keramahan autentik dan pengalaman lokal yang tulus.',
 };
-
-export default function HomestaysPage() {
-  // TODO: Fetch homestays from database
-  const homestays = [1, 2, 3, 4, 5, 6]; // Placeholder
+// Server Component
+export default async function HomestaysPage() {
+  const homestaysRaw = await prisma.homestay.findMany({
+    where: { published: true },
+    orderBy: { createdAt: 'desc' },
+    take: 12,
+  });
+  // Parse JSON fields
+  const homestays = homestaysRaw.map((h) => ({
+    ...h,
+    photos: h.photos ? JSON.parse(h.photos) : [],
+    amenities: h.amenities ? JSON.parse(h.amenities) : [],
+  }));
 
   return (
     <div className="py-16">
@@ -51,34 +62,43 @@ export default function HomestaysPage() {
 
         {/* Homestay Grid */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {homestays.map((id) => (
-            <Card key={id} hover className="bg-white">
+          {homestays.map((homestay) => (
+            <Card key={homestay.id} hover className="bg-white">
               <div className="relative h-48 overflow-hidden rounded-3xl">
+                {homestay.photos[0] && (
+                  <img
+                    src={homestay.photos[0]}
+                    alt={homestay.name}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                )}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(47,127,82,0.35),_rgba(47,127,82,0.05))]" />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-900/10 to-emerald-900/60" />
                 <div className="relative flex h-full flex-col justify-between p-5 text-white">
-                    <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-emerald-900">
-                      <span>Homestay {id}</span>
-                      <span>Desa Utara</span>
-                    </div>
-                  <p className="text-lg font-semibold">Rumah Panggung Srikandi</p>
+                  <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-emerald-900">
+                    <span>{homestay.name}</span>
+                    <span>{homestay.address}</span>
+                  </div>
+                  <p className="text-lg font-semibold line-clamp-2">{homestay.description}</p>
                 </div>
               </div>
               <CardHeader className="space-y-4">
-                <CardTitle>Pengalaman khas warga</CardTitle>
+                <CardTitle>{homestay.name}</CardTitle>
                 <CardDescription className="text-stone-600">
-                  Ikuti kelas memasak sayur lodeh bersama Ibu Dewi, atau jelajah kebun kopi keluarga setiap pagi.
+                  {homestay.amenities && Array.isArray(homestay.amenities)
+                    ? homestay.amenities.join(', ')
+                    : ''}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4 text-sm text-stone-600">
                 <div className="flex items-center justify-between">
-                  <span>� Maks 4 tamu</span>
-                  <span>🛏 2 kamar tidur</span>
+                  <span>👥 Maks {homestay.maxGuests} tamu</span>
+                  <span>🛏 {homestay.amenities?.length || 0} fasilitas</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-lg font-semibold text-emerald-700">Rp 260.000 / malam</span>
+                  <span className="text-lg font-semibold text-emerald-700">Rp {homestay.pricePerNight.toLocaleString('id-ID')} / malam</span>
                   <Link
-                    href={`/homestays/homestay-${id}`}
+                    href={`/homestays/${homestay.slug}`}
                     className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700"
                   >
                     Lihat detail →

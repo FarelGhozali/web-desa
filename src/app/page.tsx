@@ -1,8 +1,10 @@
+
 import Link from 'next/link';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
+import { prisma } from '@/lib/prisma';
 
 const highlightFeatures = [
   {
@@ -58,7 +60,27 @@ const weekendSchedule = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Featured homestays
+  const homestaysRaw = await prisma.homestay.findMany({
+    where: { published: true, featured: true },
+    orderBy: { createdAt: 'desc' },
+    take: 3,
+  });
+  const homestays = homestaysRaw.map((h) => ({
+    ...h,
+    photos: h.photos ? JSON.parse(h.photos) : [],
+    amenities: h.amenities ? JSON.parse(h.amenities) : [],
+  }));
+
+  // Latest blog posts
+  const posts = await prisma.post.findMany({
+    where: { published: true },
+    orderBy: { createdAt: 'desc' },
+    take: 3,
+    include: { category: true },
+  });
+
   return (
     <div className="space-y-24">
       {/* Hero Section */}
@@ -194,26 +216,32 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
-            {[1, 2, 3].map((i) => (
-              <Card key={i} hover className="bg-white/90 backdrop-blur">
+            {homestays.map((homestay) => (
+              <Card key={homestay.id} hover className="bg-white/90 backdrop-blur">
                 <div className="relative h-56 overflow-hidden rounded-3xl">
+                  {homestay.photos[0] && (
+                    <img
+                      src={homestay.photos[0]}
+                      alt={homestay.name}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(79,121,66,0.45),_rgba(79,121,66,0.08))]" />
-                  <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80')] bg-cover bg-center opacity-80" />
                   <div className="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-stone-900/10 to-transparent" />
                   <div className="relative flex h-full flex-col justify-end p-6">
                     <div className="rounded-2xl bg-white/90 p-4 text-stone-800 shadow-lg">
                       <p className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-700">
-                        Homestay {i}
+                        {homestay.name}
                       </p>
-                      <p className="text-lg font-semibold">Rumah Kayu Lembah Padi</p>
-                      <p className="text-xs text-stone-500">Dusun Sumber Rejeki</p>
+                      <p className="text-lg font-semibold">{homestay.description.slice(0, 40)}...</p>
+                      <p className="text-xs text-stone-500">{homestay.address}</p>
                     </div>
                   </div>
                 </div>
                 <CardContent>
                   <div className="space-y-4 text-sm text-stone-600">
                     <ul className="space-y-4 mt-4">
-                      {[ 'Sarapan dari kebun sendiri', '2 kamar tidur', 'Air panas' ].map((perk) => (
+                      {homestay.amenities?.slice(0, 3).map((perk: string) => (
                         <li key={perk} className="flex items-center gap-2">
                           <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
                             ✔
@@ -223,9 +251,9 @@ export default function HomePage() {
                       ))}
                     </ul>
                     <div className="flex items-center justify-between text-stone-700">
-                      <span className="text-lg font-semibold text-emerald-700">Rp 280.000 / malam</span>
+                      <span className="text-lg font-semibold text-emerald-700">Rp {homestay.pricePerNight.toLocaleString('id-ID')} / malam</span>
                       <Link
-                        href={`/homestays/homestay-${i}`}
+                        href={`/homestays/${homestay.slug}`}
                         className="inline-flex items-center gap-2 rounded-full border border-emerald-700 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700 transition hover:bg-emerald-700 hover:text-white"
                       >
                         Lihat Detail →
@@ -337,18 +365,26 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
-            {[1, 2, 3].map((i) => (
-              <Card key={i} hover className="bg-white shadow-lg shadow-emerald-900/5 ring-1 ring-emerald-900/10">
-                <div className="h-48 rounded-3xl bg-[radial-gradient(circle_at_top,_rgba(84,140,78,0.35),_rgba(232,241,224,0.4))]" />
+            {posts.map((post) => (
+              <Card key={post.id} hover className="bg-white shadow-lg shadow-emerald-900/5 ring-1 ring-emerald-900/10">
+                {post.coverImage && (
+                  <div className="h-48 rounded-3xl overflow-hidden">
+                    <img
+                      src={post.coverImage}
+                      alt={post.title}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                )}
                 <CardHeader className="space-y-4">
                   <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-800">
-                    <span>17 Juli 2024</span>
+                    <span>{post.createdAt.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
                     <span className="h-1 w-1 rounded-full bg-emerald-700" />
-                    <span>Kisah Desa</span>
+                    <span>{post.category?.name || 'Kisah Desa'}</span>
                   </div>
-                  <CardTitle className="text-emerald-900">Jejak kopi robusta di lereng kami</CardTitle>
+                  <CardTitle className="text-emerald-900">{post.title}</CardTitle>
                   <CardDescription className="text-stone-700">
-                    Bagaimana Pak Danu merawat kebun kopi warisan dan membuka kelas cupping untuk pengunjung.
+                    {post.excerpt || post.content.slice(0, 100) + '...'}
                   </CardDescription>
                 </CardHeader>
               </Card>
