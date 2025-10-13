@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Input from "@/components/ui/Input";
@@ -10,11 +10,22 @@ import Button from "@/components/ui/Button";
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const { data: session, status } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (status === "authenticated" && session) {
+      router.push(callbackUrl);
+    }
+  }, [status, session, router, callbackUrl]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,13 +39,17 @@ export default function LoginPage() {
         redirect: false,
       });
 
+      console.log("Login result:", result);
+
       if (result?.error) {
         setError(result.error);
       } else if (result?.ok) {
-        router.push("/");
+        // Force refresh to get new session
+        router.push(callbackUrl);
         router.refresh();
       }
-    } catch {
+    } catch (err) {
+      console.error("Login error:", err);
       setError("Terjadi kesalahan. Silakan coba lagi.");
     } finally {
       setLoading(false);
