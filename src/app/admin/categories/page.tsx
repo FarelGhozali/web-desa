@@ -1,7 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import AdminLayout from '@/components/layout/AdminLayout';
+import AdminPageHeader from '@/components/admin/AdminPageHeader';
+import AdminToolbar from '@/components/admin/AdminToolbar';
 import { Card } from '@/components/ui/Card';
 import {
   Table,
@@ -30,10 +32,17 @@ export default function CategoriesPage() {
   const [newCategory, setNewCategory] = useState({ name: '', slug: '' });
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editCategory, setEditCategory] = useState({ name: '', slug: '' });
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     fetchCategories();
   }, []);
+
+  const filteredCategories = useMemo(() => {
+    return categories.filter((category) =>
+      category.name.toLowerCase().includes(search.toLowerCase()),
+    );
+  }, [categories, search]);
 
   const fetchCategories = async () => {
     try {
@@ -131,23 +140,61 @@ export default function CategoriesPage() {
   return (
     <AdminLayout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold font-heading">Manajemen Kategori</h1>
-            <p className="text-stone-600 mt-1">Kelola kategori blog</p>
+        <AdminPageHeader
+          title="Kategori Konten"
+          description="Susun kategori artikel agar pembaca mudah menemukan topik yang relevan."
+          actions={
+            <Button onClick={() => setIsAdding(true)} variant="primary">
+              + Tambah Kategori
+            </Button>
+          }
+          stats={[
+            { label: 'Total Kategori', value: loading ? '…' : categories.length },
+            {
+              label: 'Kategori Populer',
+              value:
+                loading || categories.length === 0
+                  ? '…'
+                  : categories.reduce((prev, current) =>
+                      current._count.posts > prev._count.posts ? current : prev,
+                    categories[0],
+                  ).name,
+            },
+            {
+              label: 'Kategori Tanpa Artikel',
+              value: loading
+                ? '…'
+                : categories.filter((category) => category._count.posts === 0).length,
+            },
+          ]}
+        />
+
+        <AdminToolbar>
+          <div className="flex w-full flex-col gap-3 md:flex-row md:items-center">
+            <div className="flex-1">
+              <Input
+                placeholder="Cari kategori"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+              />
+            </div>
+            <Button variant="outline" size="sm" onClick={() => fetchCategories()}>
+              Segarkan Data
+            </Button>
           </div>
-          <Button onClick={() => setIsAdding(true)}>+ Tambah Kategori</Button>
-        </div>
+        </AdminToolbar>
 
         {isAdding && (
-          <Card className="p-6">
-            <h3 className="font-bold font-heading text-lg mb-4">Tambah Kategori Baru</h3>
-            <form onSubmit={handleAdd} className="space-y-4">
+          <Card className="border-dashed border-emerald-400 bg-emerald-50/40 p-6">
+            <h3 className="mb-4 text-lg font-semibold text-stone-900">
+              Tambah Kategori Baru
+            </h3>
+            <form onSubmit={handleAdd} className="grid gap-4 md:grid-cols-2">
               <Input
                 label="Nama Kategori"
                 value={newCategory.name}
-                onChange={(e) => {
-                  const name = e.target.value;
+                onChange={(event) => {
+                  const name = event.target.value;
                   setNewCategory({
                     name,
                     slug: generateSlug(name),
@@ -158,12 +205,12 @@ export default function CategoriesPage() {
               <Input
                 label="Slug"
                 value={newCategory.slug}
-                onChange={(e) =>
-                  setNewCategory({ ...newCategory, slug: e.target.value })
+                onChange={(event) =>
+                  setNewCategory({ ...newCategory, slug: event.target.value })
                 }
                 required
               />
-              <div className="flex gap-2">
+              <div className="flex items-center gap-2 md:col-span-2">
                 <Button type="submit">Simpan</Button>
                 <Button
                   type="button"
@@ -180,117 +227,124 @@ export default function CategoriesPage() {
           </Card>
         )}
 
-        <Card className="p-6">
+        <Card className="p-0">
           {loading ? (
-            <div className="text-center py-8">
-              <p className="text-stone-500">Memuat data...</p>
+            <div className="flex flex-col items-center justify-center gap-2 px-8 py-20 text-center">
+              <div className="h-12 w-12 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
+              <p className="text-sm text-stone-500">Memuat kategori…</p>
             </div>
-          ) : categories.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-stone-500">Belum ada kategori</p>
+          ) : filteredCategories.length === 0 ? (
+            <div className="flex flex-col items-center justify-center gap-3 px-8 py-20 text-center">
+              <p className="text-base font-semibold text-stone-700">
+                Tidak ada kategori sesuai pencarian.
+              </p>
+              <p className="text-sm text-stone-500">
+                Coba kata kunci lain atau tambah kategori baru.
+              </p>
             </div>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Nama</TableHead>
-                  <TableHead>Slug</TableHead>
-                  <TableHead>Jumlah Post</TableHead>
-                  <TableHead>Aksi</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {categories.map((category) => (
-                  <TableRow key={category.id}>
-                    {editingId === category.id ? (
-                      <>
-                        <TableCell>
-                          <Input
-                            value={editCategory.name}
-                            onChange={(e) => {
-                              const name = e.target.value;
-                              setEditCategory({
-                                name,
-                                slug: generateSlug(name),
-                              });
-                            }}
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <Input
-                            value={editCategory.slug}
-                            onChange={(e) =>
-                              setEditCategory({
-                                ...editCategory,
-                                slug: e.target.value,
-                              })
-                            }
-                          />
-                        </TableCell>
-                        <TableCell>{category._count.posts}</TableCell>
-                        <TableCell>
-                          <div className="flex gap-2">
-                            <Button
-                              size="sm"
-                              onClick={handleEdit}
-                            >
-                              Simpan
-                            </Button>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => {
-                                setEditingId(null);
-                                setEditCategory({ name: '', slug: '' });
-                              }}
-                            >
-                              Batal
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </>
-                    ) : (
-                      <>
-                        <TableCell>
-                          <div className="font-medium">{category.name}</div>
-                        </TableCell>
-                        <TableCell>
-                          <code className="text-sm bg-stone-100 px-2 py-1 rounded">
-                            {category.slug}
-                          </code>
-                        </TableCell>
-                        <TableCell>{category._count.posts}</TableCell>
-                        <TableCell>
-                          <div className="flex gap-2">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => {
-                                setEditingId(category.id);
+            <div className="p-6">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Nama</TableHead>
+                    <TableHead>Slug</TableHead>
+                    <TableHead>Jumlah Artikel</TableHead>
+                    <TableHead>Aksi</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredCategories.map((category) => (
+                    <TableRow key={category.id}>
+                      {editingId === category.id ? (
+                        <>
+                          <TableCell>
+                            <Input
+                              value={editCategory.name}
+                              onChange={(event) => {
+                                const name = event.target.value;
                                 setEditCategory({
-                                  name: category.name,
-                                  slug: category.slug,
+                                  name,
+                                  slug: generateSlug(name),
                                 });
                               }}
-                            >
-                              Edit
-                            </Button>
-                            <Button
-                              variant="danger"
-                              size="sm"
-                              onClick={() => handleDelete(category.id)}
-                              disabled={category._count.posts > 0}
-                            >
-                              Hapus
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </>
-                    )}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <Input
+                              value={editCategory.slug}
+                              onChange={(event) =>
+                                setEditCategory({
+                                  ...editCategory,
+                                  slug: event.target.value,
+                                })
+                              }
+                            />
+                          </TableCell>
+                          <TableCell>{category._count.posts}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <Button size="sm" onClick={handleEdit}>
+                                Simpan
+                              </Button>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => {
+                                  setEditingId(null);
+                                  setEditCategory({ name: '', slug: '' });
+                                }}
+                              >
+                                Batal
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </>
+                      ) : (
+                        <>
+                          <TableCell>
+                            <p className="text-sm font-semibold text-stone-900">
+                              {category.name}
+                            </p>
+                          </TableCell>
+                          <TableCell>
+                            <code className="rounded-md bg-stone-100 px-3 py-1 text-xs text-stone-600">
+                              {category.slug}
+                            </code>
+                          </TableCell>
+                          <TableCell>{category._count.posts}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => {
+                                  setEditingId(category.id);
+                                  setEditCategory({
+                                    name: category.name,
+                                    slug: category.slug,
+                                  });
+                                }}
+                              >
+                                Edit
+                              </Button>
+                              <Button
+                                variant="danger"
+                                size="sm"
+                                onClick={() => handleDelete(category.id)}
+                                disabled={category._count.posts > 0}
+                              >
+                                Hapus
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </>
+                      )}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           )}
         </Card>
       </div>

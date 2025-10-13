@@ -1,9 +1,10 @@
 'use client';
 
+import { ReactNode, useEffect } from 'react';
 import { useSession, signOut } from 'next-auth/react';
-import { ReactNode } from 'react';
 import Sidebar from './Sidebar';
 import Button from '../ui/Button';
+import { formatDate } from '@/lib/utils';
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -11,27 +12,35 @@ interface AdminLayoutProps {
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
   const { data: session } = useSession();
+  const todayLabel = formatDate(new Date());
+
+  useEffect(() => {
+    document.body.dataset.adminPage = 'true';
+    return () => {
+      delete document.body.dataset.adminPage;
+    };
+  }, []);
 
   return (
-    <div className="flex min-h-screen bg-stone-50">
+    <div className="flex min-h-screen bg-stone-100">
       <Sidebar />
       
-      <div className="flex-1 ml-64">
-        {/* Top Bar */}
-        <header className="bg-white border-b border-stone-200 sticky top-0 z-10">
-          <div className="px-8 py-4 flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold font-heading text-stone-900">
+      <div className="flex-1 md:ml-64">
+        <header className="sticky top-0 z-20 border-b border-stone-200/60 bg-white/80 backdrop-blur">
+          <div className="flex flex-col gap-4 px-6 py-4 md:flex-row md:items-center md:justify-between md:px-10">
+            <div className="space-y-1">
+              <p className="text-xs uppercase tracking-[0.35em] text-emerald-500">
                 Admin Dashboard
-              </h1>
-              <p className="text-sm text-stone-600">
-                Kelola konten dan data website Village Stay
               </p>
+              <h2 className="text-xl font-semibold text-stone-900 md:text-2xl">
+                Kelola Village Stay
+              </h2>
+              <p className="text-xs text-stone-500 md:text-sm">{todayLabel}</p>
             </div>
-            
-            <div className="flex items-center gap-4">
-              <div className="text-right">
-                <p className="text-sm font-medium text-stone-900">
+
+            <div className="flex items-center gap-4 rounded-2xl border border-stone-200 bg-white/70 px-4 py-3 shadow-sm">
+              <div>
+                <p className="text-sm font-semibold text-stone-900">
                   {session?.user?.name || session?.user?.email}
                 </p>
                 <p className="text-xs text-stone-500">Administrator</p>
@@ -47,8 +56,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           </div>
         </header>
 
-        {/* Main Content */}
-        <main className="p-8">
+        <main className="space-y-8 px-6 py-8 md:px-10 md:py-10">
           {children}
         </main>
       </div>
