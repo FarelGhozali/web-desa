@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import type { BookingStatus, UserRole } from '@prisma/client';
 import AdminLayout from '@/components/layout/AdminLayout';
 import Button from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
@@ -20,12 +21,22 @@ interface DashboardStats {
   totalAttractions: number;
   totalCulinary: number;
   pendingBookings: number;
-  recentBookings: Array<
-    Awaited<ReturnType<typeof prisma.booking.findMany>>[number]
-  >;
-  recentUsers: Array<
-    Awaited<ReturnType<typeof prisma.user.findMany>>[number]
-  >;
+  recentBookings: Array<{
+    id: string;
+    status: BookingStatus;
+    checkInDate: Date;
+    checkOutDate: Date;
+    createdAt: Date;
+    homestay: { name: string };
+    user: { name: string | null; email: string };
+  }>;
+  recentUsers: Array<{
+    id: string;
+    name: string | null;
+    email: string;
+    role: UserRole;
+    createdAt: Date;
+  }>;
 }
 
 async function getDashboardStats(): Promise<DashboardStats> {
@@ -37,8 +48,6 @@ async function getDashboardStats(): Promise<DashboardStats> {
     totalAttractions,
     totalCulinary,
     pendingBookings,
-    recentBookings,
-    recentUsers,
   ] = await Promise.all([
     prisma.homestay.count(),
     prisma.booking.count(),
@@ -47,6 +56,9 @@ async function getDashboardStats(): Promise<DashboardStats> {
     prisma.attraction.count(),
     prisma.culinary.count(),
     prisma.booking.count({ where: { status: 'PENDING' } }),
+  ]);
+
+  const [recentBookings, recentUsers] = await Promise.all([
     prisma.booking.findMany({
       take: 5,
       orderBy: { createdAt: 'desc' },
