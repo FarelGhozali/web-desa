@@ -1,5 +1,6 @@
 
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Container from '@/components/ui/Container';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
@@ -41,10 +42,13 @@ export default async function CulinaryPage() {
               <Card hover className="bg-white">
                 <div className="relative h-56 overflow-hidden rounded-3xl">
                   {item.photos[0] && (
-                    <img
+                    <Image
                       src={item.photos[0]}
                       alt={item.name}
-                      className="absolute inset-0 h-full w-full object-cover"
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover"
+                      unoptimized
                     />
                   )}
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(220,153,60,0.45),_rgba(220,153,60,0.05))]" />

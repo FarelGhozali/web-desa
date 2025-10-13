@@ -1,5 +1,6 @@
 
 import Link from 'next/link';
+import Image from 'next/image';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -220,10 +221,13 @@ export default async function HomePage() {
               <Card key={homestay.id} hover className="bg-white/90 backdrop-blur">
                 <div className="relative h-56 overflow-hidden rounded-3xl">
                   {homestay.photos[0] && (
-                    <img
+                    <Image
                       src={homestay.photos[0]}
                       alt={homestay.name}
-                      className="absolute inset-0 h-full w-full object-cover"
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover"
+                      unoptimized
                     />
                   )}
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(79,121,66,0.45),_rgba(79,121,66,0.08))]" />
@@ -368,11 +372,14 @@ export default async function HomePage() {
             {posts.map((post) => (
               <Card key={post.id} hover className="bg-white shadow-lg shadow-emerald-900/5 ring-1 ring-emerald-900/10">
                 {post.coverImage && (
-                  <div className="h-48 rounded-3xl overflow-hidden">
-                    <img
+                  <div className="relative h-48 overflow-hidden rounded-3xl">
+                    <Image
                       src={post.coverImage}
                       alt={post.title}
-                      className="h-full w-full object-cover"
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover"
+                      unoptimized
                     />
                   </div>
                 )}

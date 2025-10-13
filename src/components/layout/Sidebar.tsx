@@ -52,10 +52,8 @@ const navItems: NavItem[] = [
     href: '/admin/users',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-5 w-5">
-        <circle cx="9" cy="9" r="3" />
-        <path d="M3 20c0-3.3 3-6 6-6" strokeLinecap="round" />
-        <path d="M15 11.5a3 3 0 1 0 0-6" />
-        <path d="M18 20c0-2.2-1.4-4-3.2-5" strokeLinecap="round" />
+        <circle cx="12" cy="8" r="3" strokeLinejoin="round" />
+        <path d="M6 20a6 6 0 0 1 12 0" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
@@ -95,12 +93,15 @@ const navItems: NavItem[] = [
     label: 'Culinary',
     href: '/admin/culinary',
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-5 w-5">
-        <path d="M6 3v9" strokeLinecap="round" />
-        <path d="M10 3v9" strokeLinecap="round" />
-        <path d="M6 12h4v4a2 2 0 0 1-2 2h0a2 2 0 0 1-2-2z" strokeLinejoin="round" />
-        <path d="M15 3h3l-1 9h-3z" strokeLinejoin="round" />
-        <path d="M14 19.5c1 .5 2 .5 3 0" strokeLinecap="round" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5">
+        <path d="M7 4v5.5" strokeLinecap="round" />
+        <path d="M8.75 4v5.5" strokeLinecap="round" />
+        <path d="M10.5 4v5.5" strokeLinecap="round" />
+        <path d="M6.5 9.5h4.5" strokeLinecap="round" />
+        <path d="M8.5 9.5V17a2 2 0 0 0 4 0v-2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="16.5" cy="6.5" r="2" strokeLinejoin="round" />
+        <path d="M16.5 8.5v7.5" strokeLinecap="round" />
+        <path d="M15.6 17.8c.8.6 2 .6 2.8 0" strokeLinecap="round" />
       </svg>
     ),
   },
@@ -143,8 +144,9 @@ export default function Sidebar() {
             Navigasi
           </p>
           {navItems.map((item) => {
-            const isActive =
-              pathname === item.href || pathname.startsWith(item.href + '/');
+            const isActive = item.href === '/admin'
+              ? pathname === '/admin'
+              : pathname === item.href || pathname.startsWith(item.href + '/');
 
             return (
               <Link
@@ -170,21 +172,7 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      <div className="space-y-4 border-t border-white/10 px-6 py-6">
-        <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-5 backdrop-blur">
-          <p className="text-xs uppercase tracking-[0.35em] text-white/40">Support</p>
-          <p className="mt-2 text-sm text-white/80">
-            Butuh bantuan? Tim kami siap membantu pengelolaan homestay setiap hari.
-          </p>
-          <Link
-            href="/contact"
-            className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-emerald-200 transition hover:text-emerald-100"
-          >
-            Hubungi Kami
-            <span aria-hidden className="text-base">→</span>
-          </Link>
-        </div>
-
+      <div className="border-t border-white/10 px-6 py-6">
         <Link
           href="/"
           className="flex items-center gap-3 rounded-2xl border border-white/10 px-4 py-3 text-sm font-medium text-white/70 transition hover:border-emerald-400/40 hover:text-white"

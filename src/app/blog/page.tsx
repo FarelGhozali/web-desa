@@ -1,5 +1,6 @@
 
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Container from '@/components/ui/Container';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
@@ -57,11 +58,14 @@ export default async function BlogPage() {
             <Link key={post.id} href={`/blog/${post.slug}`}>
               <Card hover className="bg-white">
                 {post.coverImage && (
-                  <div className="h-48 rounded-3xl overflow-hidden">
-                    <img
+                  <div className="relative h-48 overflow-hidden rounded-3xl">
+                    <Image
                       src={post.coverImage}
                       alt={post.title}
-                      className="h-full w-full object-cover"
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover"
+                      unoptimized
                     />
                   </div>
                 )}

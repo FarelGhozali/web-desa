@@ -185,8 +185,8 @@ export default async function AdminDashboardPage() {
             <Card className="p-6">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <h2 className="text-lg font-semibold font-heading">Pintasan Manajemen</h2>
-                  <p className="mt-1 text-sm text-stone-500">
+                  <h2 className="text-lg font-semibold text-stone-900 font-heading">Pintasan Manajemen</h2>
+                  <p className="mt-1 text-sm text-stone-600">
                     Navigasi cepat ke area yang paling sering Anda gunakan.
                   </p>
                 </div>
@@ -220,8 +220,8 @@ export default async function AdminDashboardPage() {
           </div>
 
           <Card className="flex h-full flex-col justify-between p-6">
-            <h2 className="text-lg font-semibold font-heading">Quick Actions</h2>
-            <p className="mt-2 text-sm text-stone-500">
+            <h2 className="text-lg font-semibold text-stone-900 font-heading">Quick Actions</h2>
+            <p className="mt-2 text-sm text-stone-600">
               Tambahkan aset baru dan jaga konten tetap segar.
             </p>
             <div className="mt-6 grid grid-cols-1 gap-3">
@@ -240,7 +240,7 @@ export default async function AdminDashboardPage() {
         <section className="grid grid-cols-1 gap-6 2xl:grid-cols-3">
           <Card className="p-6 2xl:col-span-2">
             <div className="flex items-center justify-between gap-4">
-              <h2 className="text-lg font-semibold font-heading">Booking Terbaru</h2>
+              <h2 className="text-lg font-semibold text-stone-900 font-heading">Booking Terbaru</h2>
               <Link href="/admin/bookings">
                 <Button variant="ghost" size="sm">
                   Pantau Booking
@@ -296,7 +296,7 @@ export default async function AdminDashboardPage() {
           <div className="space-y-6">
             <Card className="p-6">
               <div className="flex items-center justify-between gap-4">
-                <h2 className="text-lg font-semibold font-heading">Pengguna Baru</h2>
+                <h2 className="text-lg font-semibold text-stone-900 font-heading">Pengguna Baru</h2>
                 <Link href="/admin/users">
                   <Button variant="ghost" size="sm">
                     Kelola Pengguna
@@ -337,8 +337,8 @@ export default async function AdminDashboardPage() {
             </Card>
 
             <Card className="p-6">
-              <h2 className="text-lg font-semibold font-heading">Konten Aktif</h2>
-              <p className="mt-2 text-sm text-stone-500">
+              <h2 className="text-lg font-semibold text-stone-900 font-heading">Konten Aktif</h2>
+              <p className="mt-2 text-sm text-stone-600">
                 Pastikan katalog destinasi tetap relevan bagi calon tamu.
               </p>
               <dl className="mt-6 space-y-4">
