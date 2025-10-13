@@ -3,6 +3,7 @@ import { Nunito, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import AuthProvider from '@/components/providers/AuthProvider';
 import { cn } from '@/lib/utils';
 
 const bodyFont = Nunito({
@@ -44,13 +45,15 @@ export default function RootLayout({
           'bg-stone-50 text-stone-900 antialiased'
         )}
       >
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
-        </div>
+        <AuthProvider>
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );

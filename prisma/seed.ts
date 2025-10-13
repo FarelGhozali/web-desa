@@ -5,6 +5,10 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🌱 Starting database seed...');
 
+  // Hash admin password with bcrypt (10 rounds)
+  const bcrypt = await import('bcryptjs');
+  const hashedPassword = await bcrypt.hash('admin123', 10);
+
   // Create admin user
   const adminUser = await prisma.user.upsert({
     where: { email: 'admin@villagestay.com' },
@@ -13,7 +17,8 @@ async function main() {
       email: 'admin@villagestay.com',
       name: 'Admin User',
       role: 'ADMIN',
-      password: 'hashed_password_here', // TODO: Hash password properly
+      // Password: admin123 (hashed with bcrypt)
+      password: hashedPassword,
     },
   });
 

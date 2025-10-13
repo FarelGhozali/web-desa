@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useSession, signOut } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 
 const navLinks = [
@@ -15,9 +16,15 @@ const navLinks = [
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data: session, status } = useSession();
+  const isLoading = status === 'loading';
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const closeMenu = () => setIsMenuOpen(false);
+
+  const handleSignOut = async () => {
+    await signOut({ callbackUrl: '/' });
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-emerald-100/60 bg-[rgba(253,248,241,0.92)] backdrop-blur-xl">
@@ -53,12 +60,36 @@ export default function Header() {
 
           {/* Desktop Actions (right) */}
           <div className="hidden items-center gap-4 md:flex">
-            <Link
-              href="/homestays"
-              className="inline-flex items-center justify-center rounded-full bg-emerald-700 px-6 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-emerald-50 shadow-sm transition hover:bg-emerald-800 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-100" style={{color:'#F4F7ED'}} 
-            >
-              Book a Stay
-            </Link>
+            {!isLoading && session ? (
+              <>
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-stone-600">
+                    Halo, <span className="font-semibold">{session.user.name || session.user.email}</span>
+                  </span>
+                  <button
+                    onClick={handleSignOut}
+                    className="inline-flex items-center justify-center rounded-full border border-emerald-700 px-5 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700 transition hover:bg-emerald-50 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="inline-flex items-center justify-center rounded-full border border-emerald-700 px-5 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700 transition hover:bg-emerald-50 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  className="inline-flex items-center justify-center rounded-full bg-emerald-700 px-6 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-emerald-50 shadow-sm transition hover:bg-emerald-800 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-100" style={{color:'#F4F7ED'}} 
+                >
+                  Register
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -120,13 +151,41 @@ export default function Header() {
             >
               Blog
             </Link>
-            <Link
-              href="/homestays"
-              onClick={closeMenu}
-              className="flex items-center justify-center rounded-full bg-emerald-700 px-4 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-emerald-50 shadow-sm transition hover:bg-emerald-800 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-50" style={{color:'#F4F7ED'}} 
-            >
-              Book a Stay
-            </Link>
+            {/* Mobile Auth Actions */}
+            {!isLoading && session ? (
+              <>
+                <div className="block rounded-lg bg-emerald-50 px-4 py-3 text-sm">
+                  <p className="font-semibold text-stone-900">{session.user.name || 'User'}</p>
+                  <p className="text-xs text-stone-600">{session.user.email}</p>
+                </div>
+                <button
+                  onClick={() => {
+                    closeMenu();
+                    handleSignOut();
+                  }}
+                  className="flex w-full items-center justify-center rounded-full border border-emerald-700 px-4 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-emerald-700 transition hover:bg-emerald-50"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  onClick={closeMenu}
+                  className="flex items-center justify-center rounded-full border border-emerald-700 px-4 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-emerald-700 transition hover:bg-emerald-50"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  onClick={closeMenu}
+                  className="flex items-center justify-center rounded-full bg-emerald-700 px-4 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-emerald-50 shadow-sm transition hover:bg-emerald-800 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-50" style={{color:'#F4F7ED'}} 
+                >
+                  Register
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </nav>
