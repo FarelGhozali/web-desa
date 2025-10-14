@@ -151,7 +151,7 @@ export default async function HomePage() {
                   </div>
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-white">Jadwal tur desa</CardTitle>
+                  <h2 className="text-xl font-semibold tracking-tight text-white">Jadwal tur desa</h2>
                   <CardDescription className="text-emerald-100/80">
                     06.00 Trekking sawah • 10.00 Membatik • 18.30 Api unggun & cerita rakyat
                   </CardDescription>
