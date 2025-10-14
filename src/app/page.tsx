@@ -85,7 +85,7 @@ export default async function HomePage() {
   return (
     <div className="space-y-24">
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
+      <section className="relative min-h-screen overflow-hidden flex items-center justify-center">
         <div
           className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-emerald-800 to-stone-900"
           aria-hidden
@@ -98,7 +98,7 @@ export default async function HomePage() {
               'radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25) 0, rgba(255,255,255,0) 55%), radial-gradient(circle at 80% 0%, rgba(255,255,255,0.2) 0, rgba(255,255,255,0) 40%)',
           }}
         />
-        <Container className="relative py-20 md:py-28">
+        <Container className="relative py-12 md:py-16 w-full -mt-12 md:-mt-16">
           <div className="grid items-center gap-16 md:grid-cols-2">
             <div className="space-y-8 text-emerald-50">
               <Badge className="bg-white/15 text-white ring-white/30">Desa Harmoni, Jawa Barat</Badge>
