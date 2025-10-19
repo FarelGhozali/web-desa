@@ -37,6 +37,7 @@ export async function GET(request: NextRequest) {
               id: true,
               name: true,
               slug: true,
+              pricePerNight: true,
             },
           },
         },
@@ -47,8 +48,18 @@ export async function GET(request: NextRequest) {
       prisma.booking.count({ where }),
     ]);
 
+    // Convert BigInt for JSON serialization
+    const parsedBookings = bookings.map((booking) => ({
+      ...booking,
+      totalPrice: Number(booking.totalPrice),
+      homestay: booking.homestay ? {
+        ...booking.homestay,
+        pricePerNight: Number(booking.homestay.pricePerNight),
+      } : null,
+    }));
+
     return NextResponse.json({
-      bookings,
+      bookings: parsedBookings,
       pagination: {
         page,
         limit,

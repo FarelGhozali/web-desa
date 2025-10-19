@@ -243,7 +243,7 @@ async function main() {
         checkInDate: nextWeek,
         checkOutDate: nextWeekEnd,
         numberOfGuests: 2,
-        totalPrice: homestays[0].pricePerNight * 3n,
+        totalPrice: (homestays[0].pricePerNight as unknown as bigint) * BigInt(3),
         status: 'PENDING',
         userId: sampleUser.id,
         homestayId: homestays[0].id,

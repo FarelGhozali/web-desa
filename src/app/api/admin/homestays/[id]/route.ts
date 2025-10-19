@@ -39,9 +39,10 @@ export async function GET(
       );
     }
 
-    // Parse JSON fields
+    // Parse JSON fields and convert BigInt
     const parseData = {
       ...homestay,
+      pricePerNight: Number(homestay.pricePerNight),
       photos: typeof homestay.photos === 'string' ? JSON.parse(homestay.photos) : homestay.photos,
       amenities: typeof homestay.amenities === 'string' ? JSON.parse(homestay.amenities) : homestay.amenities,
     };
@@ -129,7 +130,13 @@ export async function PATCH(
       },
     });
 
-    return NextResponse.json(homestay);
+    // Convert BigInt for JSON serialization
+    const response = {
+      ...homestay,
+      pricePerNight: Number(homestay.pricePerNight),
+    };
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Error updating homestay:', error);
     return NextResponse.json(

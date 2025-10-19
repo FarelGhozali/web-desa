@@ -103,7 +103,17 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json(booking, { status: 201 });
+    // Convert BigInt for JSON serialization
+    const response = {
+      ...booking,
+      totalPrice: Number(booking.totalPrice),
+      homestay: booking.homestay ? {
+        ...booking.homestay,
+        pricePerNight: Number(booking.homestay.pricePerNight),
+      } : null,
+    };
+
+    return NextResponse.json(response, { status: 201 });
   } catch (error) {
     console.error('Booking error:', error);
     return NextResponse.json(
@@ -140,7 +150,17 @@ export async function GET() {
       orderBy: { createdAt: 'desc' },
     });
 
-    return NextResponse.json(bookings);
+    // Convert BigInt for JSON serialization
+    const parsedBookings = bookings.map((booking) => ({
+      ...booking,
+      totalPrice: Number(booking.totalPrice),
+      homestay: booking.homestay ? {
+        ...booking.homestay,
+        pricePerNight: Number(booking.homestay.pricePerNight),
+      } : null,
+    }));
+
+    return NextResponse.json(parsedBookings);
   } catch (error) {
     console.error('Get bookings error:', error);
     return NextResponse.json(

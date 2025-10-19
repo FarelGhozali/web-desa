@@ -29,6 +29,7 @@ export async function GET() {
     // Parse and transform data
     const parsedHomestays = homestays.map((homestay) => ({
       ...homestay,
+      pricePerNight: Number(homestay.pricePerNight),
       createdAt: homestay.createdAt.toISOString(),
     }));
 

@@ -41,7 +41,17 @@ export async function GET(
       return NextResponse.json({ error: 'Booking not found' }, { status: 404 });
     }
 
-    return NextResponse.json(booking);
+    // Convert BigInt for JSON serialization
+    const response = {
+      ...booking,
+      totalPrice: Number(booking.totalPrice),
+      homestay: booking.homestay ? {
+        ...booking.homestay,
+        pricePerNight: Number(booking.homestay.pricePerNight),
+      } : null,
+    };
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Error fetching booking:', error);
     return NextResponse.json(
@@ -86,12 +96,23 @@ export async function PATCH(
             id: true,
             name: true,
             slug: true,
+            pricePerNight: true,
           },
         },
       },
     });
 
-    return NextResponse.json(booking);
+    // Convert BigInt for JSON serialization
+    const response = {
+      ...booking,
+      totalPrice: Number(booking.totalPrice),
+      homestay: booking.homestay ? {
+        ...booking.homestay,
+        pricePerNight: Number(booking.homestay.pricePerNight),
+      } : null,
+    };
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Error updating booking:', error);
     return NextResponse.json(

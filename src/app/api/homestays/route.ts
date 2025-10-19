@@ -19,7 +19,13 @@ export async function GET(request: NextRequest) {
       take: featured === 'true' ? 6 : undefined,
     });
 
-    return NextResponse.json(homestays);
+    // Convert BigInt to number for JSON serialization
+    const parsedHomestays = homestays.map((homestay) => ({
+      ...homestay,
+      pricePerNight: Number(homestay.pricePerNight),
+    }));
+
+    return NextResponse.json(parsedHomestays);
   } catch (error) {
     console.error('Error fetching homestays:', error);
     return NextResponse.json(

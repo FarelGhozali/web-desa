@@ -203,7 +203,7 @@ async function getDashboardStats(): Promise<DashboardStats> {
     const key = booking.createdAt.toISOString().split('T')[0];
     const bucket = trendBuckets.get(key) ?? { total: 0, revenue: 0 };
     bucket.total += 1;
-    bucket.revenue += booking.totalPrice;
+    bucket.revenue += Number(booking.totalPrice);
     trendBuckets.set(key, bucket);
   });
 
