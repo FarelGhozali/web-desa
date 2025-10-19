@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { serializeBigInt } from '@/lib/utils';
 
 // GET /api/admin/homestays - Get all homestays for admin (with count)
 export async function GET() {
@@ -29,11 +30,10 @@ export async function GET() {
     // Parse and transform data
     const parsedHomestays = homestays.map((homestay) => ({
       ...homestay,
-      pricePerNight: Number(homestay.pricePerNight),
       createdAt: homestay.createdAt.toISOString(),
     }));
 
-    return NextResponse.json(parsedHomestays);
+    return NextResponse.json(serializeBigInt(parsedHomestays));
   } catch (error) {
     console.error('Error fetching homestays:', error);
     return NextResponse.json(

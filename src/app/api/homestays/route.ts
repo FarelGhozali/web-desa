@@ -102,7 +102,13 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return NextResponse.json(homestay, { status: 201 });
+    // Convert BigInt to number for JSON serialization
+    const response = {
+      ...homestay,
+      pricePerNight: Number(homestay.pricePerNight),
+    };
+
+    return NextResponse.json(response, { status: 201 });
   } catch (error) {
     console.error('Error creating homestay:', error);
     return NextResponse.json(

@@ -45,8 +45,10 @@ export async function GET(
       ? homestay.reviews.reduce((sum: number, review) => sum + review.rating, 0) / homestay.reviews.length
       : 0;
 
+    // Convert BigInt to number for JSON serialization
     return NextResponse.json({
       ...homestay,
+      pricePerNight: Number(homestay.pricePerNight),
       avgRating: Math.round(avgRating * 10) / 10,
       reviewCount: homestay.reviews.length,
     });
@@ -75,7 +77,13 @@ export async function PATCH(
       data: body,
     });
 
-    return NextResponse.json(homestay);
+    // Convert BigInt to number for JSON serialization
+    const response = {
+      ...homestay,
+      pricePerNight: Number(homestay.pricePerNight),
+    };
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Error updating homestay:', error);
     return NextResponse.json(

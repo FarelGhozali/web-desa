@@ -1,6 +1,24 @@
 import { z } from 'zod';
 
 /**
+ * Validate if a string is a URL, blob URL, or relative path
+ */
+const isValidPhotoUrl = (url: string): boolean => {
+  // Check if it's a relative path (uploaded to local storage)
+  if (url.startsWith('/uploads/')) {
+    return true;
+  }
+
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    // Check if it's a blob URL
+    return url.startsWith('blob:');
+  }
+};
+
+/**
  * Homestay validation schema for creating and updating homestays
  */
 export const homestaySchema = z.object({
@@ -24,16 +42,19 @@ export const homestaySchema = z.object({
   pricePerNight: z
     .number()
     .int('Harga harus berupa angka bulat')
-    .positive('Harga harus lebih dari 0')
-    .transform(val => BigInt(val)),
+    .positive('Harga harus lebih dari 0'),
   maxGuests: z
     .number()
     .int('Kuota tamu harus berupa angka bulat')
     .min(1, 'Kuota tamu minimal 1 orang')
     .max(50, 'Kuota tamu maksimal 50 orang'),
   photos: z
-    .array(z.string().url('URL foto harus valid'))
-    .min(1, 'Minimal 1 foto harus diunggah'),
+    .array(z.string())
+    .min(1, 'Minimal 1 foto harus diunggah')
+    .refine(
+      (urls) => urls.every(isValidPhotoUrl),
+      'Semua URL foto harus valid'
+    ),
   amenities: z
     .array(z.string())
     .min(1, 'Minimal 1 amenitas harus ditambahkan'),

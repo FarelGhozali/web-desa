@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, ChangeEvent, DragEvent } from 'react';
+import Image from 'next/image';
 import Button from './Button';
 
 interface FileInputProps {
@@ -16,9 +17,8 @@ interface FileInputProps {
 }
 
 /**
- * FileInput component with drag-and-drop support and preview gallery
- * Note: In a real app, you'd upload to a storage service (e.g., S3, Cloudinary)
- * For now, this accepts URLs and displays previews
+ * FileInput component with drag-and-drop support and file upload
+ * Uploads files to /api/upload and stores relative paths
  */
 export default function FileInput({
   value,
@@ -33,6 +33,8 @@ export default function FileInput({
   const [isDragActive, setIsDragActive] = useState(false);
   const [newPhotoUrl, setNewPhotoUrl] = useState('');
   const [urlError, setUrlError] = useState('');
+  const [uploadError, setUploadError] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleDrag = (e: DragEvent<HTMLDivElement>) => {
@@ -63,20 +65,49 @@ export default function FileInput({
     }
   };
 
-  const handleFiles = (files: FileList) => {
-    // In a real app, you would upload these files to a storage service
-    // For now, we'll create object URLs for preview
-    const newUrls: string[] = [];
+  const handleFiles = async (files: FileList) => {
+    setUploadError('');
+    setIsUploading(true);
 
-    Array.from(files).forEach((file) => {
-      if (value.length + newUrls.length < maxFiles) {
-        const url = URL.createObjectURL(file);
-        newUrls.push(url);
+    try {
+      const uploadedUrls: string[] = [];
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+
+        // Check if we've reached max files
+        if (value.length + uploadedUrls.length >= maxFiles) {
+          setUploadError(`Maksimal ${maxFiles} foto`);
+          break;
+        }
+
+        // Upload file to server
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          setUploadError(errorData.error || `Gagal upload ${file.name}`);
+          continue;
+        }
+
+        const data = await response.json();
+        uploadedUrls.push(data.url);
       }
-    });
 
-    if (newUrls.length > 0) {
-      onChange([...value, ...newUrls]);
+      if (uploadedUrls.length > 0) {
+        onChange([...value, ...uploadedUrls]);
+      }
+    } catch (err) {
+      console.error('Upload error:', err);
+      setUploadError('Terjadi kesalahan saat upload file');
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -118,10 +149,11 @@ export default function FileInput({
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
           {value.map((photo, index) => (
             <div key={index} className="group relative aspect-square overflow-hidden rounded-lg bg-stone-100">
-              <img
+              <Image
                 src={photo}
                 alt={`Photo ${index + 1}`}
-                className="h-full w-full object-cover"
+                fill
+                className="object-cover"
               />
               <button
                 type="button"
@@ -144,8 +176,10 @@ export default function FileInput({
             onDragLeave={handleDrag}
             onDragOver={handleDrag}
             onDrop={handleDrop}
-            onClick={() => inputRef.current?.click()}
+            onClick={() => !isUploading && inputRef.current?.click()}
             className={`relative cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition ${
+              isUploading ? 'pointer-events-none opacity-60' : ''
+            } ${
               isDragActive
                 ? 'border-emerald-500 bg-emerald-50'
                 : 'border-stone-300 bg-stone-50 hover:border-emerald-400'
@@ -157,20 +191,30 @@ export default function FileInput({
               multiple={multiple}
               accept={accept}
               onChange={handleChange}
+              disabled={isUploading}
               className="hidden"
             />
             <div className="space-y-2">
-              <div className="text-2xl">📷</div>
-              <p className="text-sm font-medium text-stone-900">{hint}</p>
-              <p className="text-xs text-stone-600">
-                {value.length}/{maxFiles} foto
-              </p>
+              {isUploading ? (
+                <>
+                  <div className="text-2xl">⏳</div>
+                  <p className="text-sm font-medium text-stone-900">Sedang upload...</p>
+                </>
+              ) : (
+                <>
+                  <div className="text-2xl">📷</div>
+                  <p className="text-sm font-medium text-stone-900">{hint}</p>
+                  <p className="text-xs text-stone-600">
+                    {value.length}/{maxFiles} foto
+                  </p>
+                </>
+              )}
             </div>
           </div>
         )}
 
         {/* URL Input Alternative */}
-        {value.length < maxFiles && (
+        {value.length < maxFiles && !isUploading && (
           <div className="space-y-2">
             <p className="text-xs font-medium text-stone-600">Atau masukkan URL foto</p>
             <div className="flex gap-2">
@@ -198,6 +242,7 @@ export default function FileInput({
         )}
       </div>
 
+      {uploadError && <p className="text-xs text-rose-600">{uploadError}</p>}
       {error && <p className="text-xs text-rose-600">{error}</p>}
     </div>
   );
