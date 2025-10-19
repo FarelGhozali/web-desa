@@ -45,7 +45,8 @@ export default function HomestaysPage() {
   const fetchHomestays = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/homestays');
+      // Fetch all homestays from admin endpoint
+      const response = await fetch('/api/admin/homestays');
       const data = await response.json();
 
       if (response.ok) {
@@ -94,7 +95,7 @@ export default function HomestaysPage() {
     }
 
     try {
-      const response = await fetch(`/api/homestays/${id}`, {
+      const response = await fetch(`/api/admin/homestays/${id}`, {
         method: 'DELETE',
       });
 
@@ -111,7 +112,7 @@ export default function HomestaysPage() {
 
   const togglePublished = async (id: string, currentStatus: boolean) => {
     try {
-      const response = await fetch(`/api/homestays/${id}`, {
+      const response = await fetch(`/api/admin/homestays/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ published: !currentStatus }),

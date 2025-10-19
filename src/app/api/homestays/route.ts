@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { homestaySchema } from '@/lib/validation';
 
 // GET /api/homestays - Get all homestays
 export async function GET(request: NextRequest) {
@@ -39,6 +40,45 @@ export async function POST(request: NextRequest) {
     //   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     // }
 
+    // Validate input
+    const validation = homestaySchema.safeParse({
+      name: body.name,
+      slug: body.slug,
+      description: body.description,
+      address: body.address,
+      pricePerNight: body.pricePerNight,
+      maxGuests: body.maxGuests,
+      photos: body.photos,
+      amenities: body.amenities,
+      latitude: body.latitude,
+      longitude: body.longitude,
+      featured: body.featured,
+      published: body.published,
+    });
+
+    if (!validation.success) {
+      const errors = validation.error.flatten();
+      return NextResponse.json(
+        { 
+          error: 'Validation failed',
+          details: errors.fieldErrors,
+        },
+        { status: 400 }
+      );
+    }
+
+    // Check if slug already exists
+    const existingSlug = await prisma.homestay.findUnique({
+      where: { slug: body.slug },
+    });
+
+    if (existingSlug) {
+      return NextResponse.json(
+        { error: 'Slug sudah digunakan. Pilih slug yang lain.' },
+        { status: 400 }
+      );
+    }
+
     const homestay = await prisma.homestay.create({
       data: {
         name: body.name,
@@ -47,8 +87,8 @@ export async function POST(request: NextRequest) {
         address: body.address,
         pricePerNight: body.pricePerNight,
         maxGuests: body.maxGuests,
-        photos: body.photos || [],
-        amenities: body.amenities || [],
+        photos: JSON.stringify(body.photos),
+        amenities: JSON.stringify(body.amenities),
         latitude: body.latitude,
         longitude: body.longitude,
         featured: body.featured || false,
@@ -60,7 +100,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error creating homestay:', error);
     return NextResponse.json(
-      { error: 'Failed to create homestay' },
+      { error: 'Gagal membuat homestay. Silakan coba lagi.' },
       { status: 500 }
     );
   }

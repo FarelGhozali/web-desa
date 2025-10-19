@@ -208,6 +208,51 @@ async function main() {
 
   console.log('✅ Created sample blog posts');
 
+  // Create sample regular user for booking examples
+  const bcrypt2 = await import('bcryptjs');
+  const userPassword = await bcrypt2.hash('user123', 10);
+
+  const sampleUser = await prisma.user.upsert({
+    where: { email: 'user@example.com' },
+    update: {},
+    create: {
+      email: 'user@example.com',
+      name: 'Sample User',
+      role: 'USER',
+      password: userPassword,
+    },
+  });
+
+  console.log('✅ Created sample user');
+
+  // Create sample bookings
+  const homestays = await prisma.homestay.findMany({ take: 2 });
+
+  if (homestays.length >= 2) {
+    const today = new Date();
+    const nextWeek = new Date(today);
+    nextWeek.setDate(nextWeek.getDate() + 7);
+    const nextWeekEnd = new Date(nextWeek);
+    nextWeekEnd.setDate(nextWeekEnd.getDate() + 3);
+
+    await prisma.booking.upsert({
+      where: { id: 'sample-booking-1' },
+      update: {},
+      create: {
+        id: 'sample-booking-1',
+        checkInDate: nextWeek,
+        checkOutDate: nextWeekEnd,
+        numberOfGuests: 2,
+        totalPrice: homestays[0].pricePerNight * 3n,
+        status: 'PENDING',
+        userId: sampleUser.id,
+        homestayId: homestays[0].id,
+      },
+    });
+
+    console.log('✅ Created sample booking');
+  }
+
   console.log('🎉 Database seeding completed!');
 }
 

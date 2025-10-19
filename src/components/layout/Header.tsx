@@ -63,9 +63,13 @@ export default function Header() {
             {!isLoading && session ? (
               <>
                 <div className="flex items-center gap-3">
-                  <span className="text-sm text-stone-600">
-                    Halo, <span className="font-semibold">{session.user.name || session.user.email}</span>
-                  </span>
+                  <Link
+                    href="/profile"
+                    className="flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm hover:bg-emerald-100 transition"
+                  >
+                    <span>👤</span>
+                    <span className="font-medium text-stone-700">{session.user.name || 'Profile'}</span>
+                  </Link>
                   <button
                     onClick={handleSignOut}
                     className="inline-flex items-center justify-center rounded-full border border-emerald-700 px-5 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700 transition hover:bg-emerald-50 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
@@ -154,10 +158,20 @@ export default function Header() {
             {/* Mobile Auth Actions */}
             {!isLoading && session ? (
               <>
-                <div className="block rounded-lg bg-emerald-50 px-4 py-3 text-sm">
-                  <p className="font-semibold text-stone-900">{session.user.name || 'User'}</p>
-                  <p className="text-xs text-stone-600">{session.user.email}</p>
-                </div>
+                <Link
+                  href="/profile"
+                  onClick={closeMenu}
+                  className="block rounded-lg bg-emerald-50 px-4 py-3 text-sm font-semibold text-stone-900 hover:bg-emerald-100 transition"
+                >
+                  👤 Profil Saya
+                </Link>
+                <Link
+                  href="/bookings"
+                  onClick={closeMenu}
+                  className="block rounded-lg px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-stone-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700"
+                >
+                  📅 Pemesanan Saya
+                </Link>
                 <button
                   onClick={() => {
                     closeMenu();

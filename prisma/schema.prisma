@@ -87,7 +87,7 @@ model Homestay {
   slug          String   @unique
   description   String   @db.Text
   address       String
-  pricePerNight Int
+  pricePerNight BigInt
   maxGuests     Int
   photos        String   @db.Text
   amenities     String   @db.Text
@@ -108,7 +108,7 @@ model Booking {
   id           String        @id @default(cuid())
   checkInDate  DateTime
   checkOutDate DateTime
-  totalPrice   Int
+  totalPrice   BigInt
   numberOfGuests Int
   status       BookingStatus @default(PENDING)
   createdAt    DateTime      @default(now())
