@@ -25,12 +25,20 @@ export default async function AttractionsPage() {
   }));
 
   return (
-    <div className="py-16">
-      <Container className="space-y-10">
+    <div className="bg-gradient-to-br from-[#fef7ec] via-[#edf6f1] to-[#fffaf2] py-16">
+      <Container className="space-y-12">
+        <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-emerald-800/70">
+          <Link href="/" className="transition hover:text-emerald-700">
+            Beranda
+          </Link>
+          <span aria-hidden="true">/</span>
+          <span className="font-semibold text-emerald-900">Panorama Alam</span>
+        </div>
+
         <div className="space-y-4 text-center">
           <Badge className="mx-auto bg-emerald-100/80 text-emerald-900 ring-emerald-300/50">Panorama Alam</Badge>
-          <h1 className="text-3xl md:text-4xl">Jelajahi kekayaan alam yang kami jaga bersama.</h1>
-          <p className="mx-auto max-w-2xl text-emerald-50">
+          <h1 className="text-3xl md:text-4xl text-emerald-950">Jelajahi kekayaan alam yang kami jaga bersama.</h1>
+          <p className="mx-auto max-w-2xl text-stone-600">
             Setiap jalur trekking dan destinasi alam kami rawat bersama kelompok warga. Ajak pemandu lokal untuk
             mengetahui cerita dan legenda yang menyertai setiap sudut desa.
           </p>
@@ -51,14 +59,14 @@ export default async function AttractionsPage() {
                       unoptimized
                     />
                   )}
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(34,139,93,0.45),_rgba(34,139,93,0.05))]" />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-900/10 to-emerald-900/60" />
-                  <div className="relative flex h-full flex-col justify-between p-6 text-white">
-                    <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em]">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(34,139,93,0.25),_rgba(34,139,93,0.04))]" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/12 to-emerald-400/35" />
+                  <div className="relative flex h-full flex-col justify-between p-6 text-emerald-50">
+                    <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-white">
                       <span>{attraction.name}</span>
                       <span>{attraction.location}</span>
                     </div>
-                    <p className="text-lg font-semibold line-clamp-2">{attraction.description}</p>
+                    <p className="text-lg font-semibold line-clamp-2 text-white">{attraction.description}</p>
                   </div>
                 </div>
                 <CardHeader className="space-y-3">
@@ -76,6 +84,30 @@ export default async function AttractionsPage() {
               </Card>
             </Link>
           ))}
+        </div>
+
+        <div className="grid gap-6 rounded-3xl border border-emerald-100 bg-white/90 p-8 shadow-sm md:grid-cols-[1.4fr_1fr]">
+          <div className="space-y-3">
+            <h2 className="text-2xl font-semibold text-emerald-950">Temani perjalanan alam Anda</h2>
+            <p className="text-sm leading-relaxed text-stone-600">
+              Pemandu lokal kami siap berbagi kisah spiritual air terjun, legenda bukit, dan flora endemik yang
+              hanya tumbuh di lembah kami. Cocok untuk keluarga, komunitas fotografi, hingga rombongan sekolah.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 text-sm text-stone-600">
+            <div className="flex items-center gap-3 rounded-2xl bg-emerald-50/70 px-4 py-3">
+              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">🧭</span>
+              Jalur trekking dipilih sesuai kebugaran peserta.
+            </div>
+            <div className="flex items-center gap-3 rounded-2xl bg-emerald-50/70 px-4 py-3">
+              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">📸</span>
+              Spot foto terbaik saat matahari terbit & senja.
+            </div>
+            <div className="flex items-center gap-3 rounded-2xl bg-emerald-50/70 px-4 py-3">
+              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">🍃</span>
+              Edukasi konservasi hutan bambu dan mata air.
+            </div>
+          </div>
         </div>
       </Container>
     </div>

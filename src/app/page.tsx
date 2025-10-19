@@ -85,30 +85,31 @@ export default async function HomePage() {
   return (
     <div className="space-y-24">
       {/* Hero Section */}
-      <section className="relative min-h-screen overflow-hidden flex items-center justify-center">
+      <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-emerald-800 to-stone-900"
+          className="absolute inset-0 bg-gradient-to-br from-[#fff3d8] via-[#e6f4ec] to-[#fff9ec]"
           aria-hidden
         />
         <div
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-70"
           aria-hidden
           style={{
             backgroundImage:
-              'radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25) 0, rgba(255,255,255,0) 55%), radial-gradient(circle at 80% 0%, rgba(255,255,255,0.2) 0, rgba(255,255,255,0) 40%)',
+              'radial-gradient(circle at 20% 20%, rgba(60,119,89,0.14) 0, rgba(60,119,89,0) 55%), radial-gradient(circle at 80% 0%, rgba(255,199,126,0.16) 0, rgba(255,199,126,0) 42%)',
           }}
         />
-        <Container className="relative py-12 md:py-16 w-full -mt-12 md:-mt-16">
+        <Container className="relative w-full -mt-12 py-12 md:-mt-16 md:py-16">
           <div className="grid items-center gap-16 md:grid-cols-2">
-            <div className="space-y-8 text-emerald-50">
-              <Badge className="bg-white/15 text-white ring-white/30">Desa Harmoni, Jawa Barat</Badge>
+            <div className="space-y-8 text-emerald-900">
+              <Badge className="bg-emerald-100/70 text-emerald-900 ring-emerald-300/40">
+                Desa Harmoni, Jawa Barat
+              </Badge>
               <div className="space-y-6">
                 <h1 className="text-4xl leading-tight md:text-6xl">
                   Rasakan hangatnya hidup di pedesaan, langsung dari sumbernya.
                 </h1>
-                <p className="text-lg text-emerald-100/90 md:text-xl">
-                  Menginap di homestay nyaman milik warga, belajar dari alam, dan pulang dengan cerita yang tak
-                  terlupakan.
+                <p className="text-lg text-stone-600 md:text-xl">
+                  Menginap di homestay nyaman milik warga, belajar dari alam, dan pulang dengan cerita yang tak terlupakan.
                 </p>
               </div>
               <div className="flex flex-col gap-4 sm:flex-row">
@@ -116,16 +117,23 @@ export default async function HomePage() {
                   <Button size="lg">Cari Homestay</Button>
                 </Link>
                 <Link href="/about">
-                  <Button size="lg" variant="ghost" className="bg-white/10 text-white hover:bg-white/20">
+                  <Button
+                    size="lg"
+                    variant="ghost"
+                    className="bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                  >
                     Kenali Desa Kami
                   </Button>
                 </Link>
               </div>
               <div className="grid grid-cols-1 gap-6 text-left sm:grid-cols-3">
                 {[{ label: 'Keluarga tuan rumah', value: '58+' }, { label: 'Pengalaman autentik', value: '24' }, { label: 'Rekomendasi tamu', value: '97%' }].map((stat) => (
-                  <div key={stat.label} className="rounded-2xl bg-white/10 p-4">
-                    <p className="text-2xl font-semibold text-white">{stat.value}</p>
-                    <p className="text-xs font-medium uppercase tracking-[0.3em] text-emerald-100/80">
+                  <div
+                    key={stat.label}
+                    className="rounded-2xl border border-emerald-100 bg-white/90 p-4 shadow-sm"
+                  >
+                    <p className="text-2xl font-semibold text-emerald-900">{stat.value}</p>
+                    <p className="text-xs font-medium uppercase tracking-[0.3em] text-emerald-700/80">
                       {stat.label}
                     </p>
                   </div>
@@ -134,36 +142,36 @@ export default async function HomePage() {
             </div>
 
             <div className="relative">
-              <div className="absolute -left-6 top-10 hidden h-32 w-32 rounded-full bg-emerald-600/30 blur-3xl md:block" />
-              <div className="absolute -right-16 bottom-8 hidden h-40 w-40 rounded-full bg-amber-400/40 blur-3xl md:block" />
-              <Card className="relative border-white/10 bg-white/10 text-white shadow-2xl">
-                <div className="h-56 bg-gradient-to-br from-emerald-700/40 via-emerald-500/30 to-amber-400/30 backdrop-blur-sm">
-                  <div className="flex h-full items-end justify-between px-6 py-6">
+              <div className="absolute -left-6 top-10 hidden h-32 w-32 rounded-full bg-emerald-400/30 blur-3xl md:block" />
+              <div className="absolute -right-16 bottom-8 hidden h-40 w-40 rounded-full bg-amber-200/60 blur-3xl md:block" />
+              <Card className="relative border-emerald-100 bg-white/90 text-stone-700 shadow-2xl">
+                <div className="h-56 bg-gradient-to-br from-emerald-200/60 via-emerald-100/40 to-amber-100/60 backdrop-blur-sm">
+                  <div className="flex h-full items-end justify-between px-6 py-6 text-emerald-900">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-100/80">
+                      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700/70">
                         Panorama Desa
                       </p>
                       <p className="text-lg font-semibold">Bukit Cempaka</p>
                     </div>
-                    <span className="rounded-full bg-white/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em]">
+                    <span className="rounded-full bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-800">
                       Sunrise
                     </span>
                   </div>
                 </div>
                 <CardHeader>
-                  <h2 className="text-xl font-semibold tracking-tight text-white">Jadwal tur desa</h2>
-                  <CardDescription className="text-emerald-100/80">
+                  <h2 className="text-xl font-semibold tracking-tight text-emerald-900">Jadwal tur desa</h2>
+                  <CardDescription className="text-stone-600">
                     06.00 Trekking sawah • 10.00 Membatik • 18.30 Api unggun & cerita rakyat
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3 text-sm text-emerald-100/80">
+                  <div className="space-y-3 text-sm text-stone-600">
                     <p>“Keluarga Bu Sari membuat kami serasa tinggal dengan saudara sendiri.”</p>
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full bg-white/20" />
+                      <div className="h-10 w-10 rounded-full bg-emerald-100" />
                       <div>
-                        <p className="text-sm font-semibold text-white">Rina & Adi</p>
-                        <p className="text-xs text-emerald-100/70">Jakarta • Menginap 3 malam</p>
+                        <p className="text-sm font-semibold text-emerald-900">Rina & Adi</p>
+                        <p className="text-xs text-stone-500">Jakarta • Menginap 3 malam</p>
                       </div>
                     </div>
                   </div>
@@ -230,8 +238,8 @@ export default async function HomePage() {
                       unoptimized
                     />
                   )}
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(79,121,66,0.45),_rgba(79,121,66,0.08))]" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-stone-900/10 to-transparent" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(79,121,66,0.35),_rgba(79,121,66,0.06))]" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-700/30 via-emerald-500/10 to-transparent" />
                   <div className="relative flex h-full flex-col justify-end p-6">
                     <div className="rounded-2xl bg-white/90 p-4 text-stone-800 shadow-lg">
                       <p className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-700">
@@ -406,23 +414,38 @@ export default async function HomePage() {
         </Container>
       </section>
 
-  {/* CTA Section */}
-  <section className="relative overflow-hidden -mt-24 -mb-24">
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-900 via-emerald-700 to-emerald-900" aria-hidden />
+      {/* CTA Section */}
+      <section className="relative -mt-24 -mb-24 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-[#f7f0e3] via-[#e8f4ec] to-[#fff7e8]"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0 opacity-60"
+          aria-hidden
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 15% 35%, rgba(255,210,141,0.2) 0, rgba(255,210,141,0) 55%), radial-gradient(circle at 85% 20%, rgba(79,150,110,0.18) 0, rgba(79,150,110,0) 50%)',
+          }}
+        />
         <Container className="relative py-16">
-          <div className="mx-auto max-w-3xl text-center text-white">
+          <div className="mx-auto max-w-3xl text-center text-emerald-900">
             <h2 className="text-3xl md:text-4xl">Siap menikmati akhir pekan bernuansa pedesaan?</h2>
-            <p className="mt-6 text-lg text-emerald-100/90">
+            <p className="mt-6 text-lg text-stone-600">
               Tim kami akan membantu menyesuaikan pengalaman sesuai minat Anda—dari kuliner, kerajinan, hingga petualangan alam.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link href="/contact">
-                <Button size="lg" className="bg-white text-emerald-800 hover:bg-emerald-50">
+                <Button size="lg" className="bg-emerald-600 text-white hover:bg-emerald-500">
                   Konsultasi itinerary
                 </Button>
               </Link>
               <Link href="/homestays">
-                <Button size="lg" variant="ghost" className="bg-white/10 text-white hover:bg-white/20">
+                <Button
+                  size="lg"
+                  variant="ghost"
+                  className="bg-white/70 text-emerald-700 hover:bg-white"
+                >
                   Pesan homestay sekarang
                 </Button>
               </Link>

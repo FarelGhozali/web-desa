@@ -5,6 +5,7 @@ import Textarea from '@/components/ui/Textarea';
 import Button from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Hubungi Kami',
@@ -13,12 +14,20 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="py-16">
+    <div className="bg-gradient-to-br from-[#fff6ec] via-[#e8f5ef] to-[#fffaf3] py-16">
       <Container size="lg" className="space-y-12">
+        <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-emerald-800/70">
+          <Link href="/" className="transition hover:text-emerald-700">
+            Beranda
+          </Link>
+          <span aria-hidden="true">/</span>
+          <span className="font-semibold text-emerald-900">Kontak</span>
+        </div>
+
         <div className="text-center space-y-4">
           <Badge className="mx-auto bg-emerald-100/80 text-emerald-900 ring-emerald-300/40">Hubungi kami</Badge>
-          <h1 className="text-3xl md:text-4xl">Kami siap membantu perjalanan desa impian Anda.</h1>
-          <p className="mx-auto max-w-2xl text-emerald-50">
+          <h1 className="text-3xl md:text-4xl text-emerald-950">Kami siap membantu perjalanan desa impian Anda.</h1>
+          <p className="mx-auto max-w-2xl text-stone-600">
             Tulis pesan singkat mengenai kebutuhan perjalanan Anda. Tim koordinator desa akan merespon dalam 24 jam
             kerja dengan rekomendasi homestay dan aktivitas terbaik.
           </p>

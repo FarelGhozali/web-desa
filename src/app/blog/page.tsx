@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Container from '@/components/ui/Container';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
@@ -34,12 +35,20 @@ export default async function BlogPage() {
   });
 
   return (
-    <div className="py-16">
-      <Container className="space-y-10">
+    <div className="bg-gradient-to-br from-[#fff6ec] via-[#e9f6ef] to-[#fffaf4] py-16">
+      <Container className="space-y-12">
+        <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-emerald-800/70">
+          <Link href="/" className="transition hover:text-emerald-700">
+            Beranda
+          </Link>
+          <span aria-hidden="true">/</span>
+          <span className="font-semibold text-emerald-900">Jurnal Desa</span>
+        </div>
+
         <div className="space-y-4 text-center">
           <Badge className="mx-auto bg-emerald-100/80 text-emerald-900 ring-emerald-300/40">Jurnal Desa</Badge>
-          <h1 className="text-3xl md:text-4xl">Cerita yang membuat Anda rindu akan suasana desa.</h1>
-          <p className="mx-auto max-w-2xl text-emerald-50">
+          <h1 className="text-3xl md:text-4xl text-emerald-950">Cerita yang membuat Anda rindu akan suasana desa.</h1>
+          <p className="mx-auto max-w-2xl text-stone-600">
             Telusuri kisah-kisah warga, rekomendasi aktivitas akhir pekan, hingga resep keluarga yang bisa Anda coba
             sepulang dari sini.
           </p>
@@ -90,6 +99,27 @@ export default async function BlogPage() {
               </Card>
             </Link>
           ))}
+        </div>
+
+        <div className="grid gap-6 rounded-3xl border border-emerald-100 bg-white/90 p-8 shadow-sm md:grid-cols-[1.4fr_1fr]">
+          <div className="space-y-3">
+            <h2 className="text-2xl font-semibold text-emerald-950">Dapatkan cerita desa langsung melalui email</h2>
+            <p className="text-sm leading-relaxed text-stone-600">
+              Kami kirimkan highlight bulanan berisi update homestay baru, agenda budaya, dan resep favorit warga.
+              Tidak ada spam—hanya kabar baik dari desa.
+            </p>
+          </div>
+          <form className="grid gap-3 text-sm text-stone-600">
+            <input
+              type="email"
+              placeholder="Masukkan email Anda"
+              className="rounded-full border border-emerald-200 bg-white px-5 py-3 text-sm text-stone-700 focus:border-emerald-400 focus:outline-none"
+              required
+            />
+            <Button type="submit" fullWidth>
+              Daftar buletin desa
+            </Button>
+          </form>
         </div>
       </Container>
     </div>

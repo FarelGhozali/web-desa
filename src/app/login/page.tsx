@@ -57,11 +57,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-emerald-950 via-slate-950 to-stone-900">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#f5f0e6] via-[#e6f4ec] to-[#fff8ea]">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-emerald-500/30 blur-3xl lg:h-[28rem] lg:w-[28rem]" />
-        <div className="absolute right-0 top-1/3 h-72 w-72 rounded-full bg-teal-400/20 blur-[140px] lg:h-[32rem] lg:w-[32rem]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.1),_transparent_60%)]" />
+        <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-emerald-200/60 blur-3xl lg:h-[28rem] lg:w-[28rem]" />
+        <div className="absolute right-0 top-1/3 h-72 w-72 rounded-full bg-amber-200/40 blur-[140px] lg:h-[32rem] lg:w-[32rem]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(98,156,122,0.18),_transparent_60%)]" />
       </div>
 
       <Container

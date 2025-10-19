@@ -25,12 +25,20 @@ export default async function CulinaryPage() {
   }));
 
   return (
-    <div className="py-16">
-      <Container className="space-y-10">
+    <div className="bg-gradient-to-br from-[#fff6ec] via-[#eef6ef] to-[#fffaf3] py-16">
+      <Container className="space-y-12">
+        <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-emerald-800/70">
+          <Link href="/" className="transition hover:text-emerald-700">
+            Beranda
+          </Link>
+          <span aria-hidden="true">/</span>
+          <span className="font-semibold text-emerald-900">Kuliner</span>
+        </div>
+
         <div className="space-y-4 text-center">
           <Badge className="mx-auto bg-amber-100/80 text-amber-900 ring-amber-300/40">Warisan Rasa</Badge>
-          <h1 className="text-3xl md:text-4xl">Resep rumahan yang diwariskan, siap dinikmati setiap tamu.</h1>
-          <p className="mx-auto max-w-2xl text-emerald-50">
+          <h1 className="text-3xl md:text-4xl text-emerald-950">Resep rumahan yang diwariskan, siap dinikmati setiap tamu.</h1>
+          <p className="mx-auto max-w-2xl text-stone-600">
             Dari sarapan bubur gurih hingga jamuan makan malam bersama keluarga host, setiap hidangan dimasak dari hasil
             kebun, kolam, dan kebun rempah warga sendiri.
           </p>
@@ -52,7 +60,7 @@ export default async function CulinaryPage() {
                     />
                   )}
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(220,153,60,0.45),_rgba(220,153,60,0.05))]" />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-stone-900/10 to-stone-900/50" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/12 to-emerald-400/30" />
                   <div className="relative flex h-full flex-col justify-between p-6 text-white">
                     <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-amber-100/80">
                       <span>{item.name}</span>
@@ -74,6 +82,30 @@ export default async function CulinaryPage() {
               </Card>
             </Link>
           ))}
+        </div>
+
+        <div className="grid gap-6 rounded-3xl border border-emerald-100 bg-white/90 p-8 shadow-sm md:grid-cols-[1.4fr_1fr]">
+          <div className="space-y-3">
+            <h2 className="text-2xl font-semibold text-emerald-950">Ingin kelas memasak privat?</h2>
+            <p className="text-sm leading-relaxed text-stone-600">
+              Tim kuliner desa dapat menyesuaikan sesi memasak dari sarapan tradisional hingga jamuan syukuran kecil.
+              Semua bahan berasal dari kebun dan kolam warga, memastikan rasa autentik nan segar.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 text-sm text-stone-600">
+            <div className="flex items-center gap-3 rounded-2xl bg-emerald-50/70 px-4 py-3">
+              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">🥥</span>
+              Pilih menu: dari jamu, jajanan pasar, hingga kuliner malam.
+            </div>
+            <div className="flex items-center gap-3 rounded-2xl bg-emerald-50/70 px-4 py-3">
+              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">👩‍🍳</span>
+              Dipandu ibu-ibu desa dengan resep turun-temurun.
+            </div>
+            <div className="flex items-center gap-3 rounded-2xl bg-emerald-50/70 px-4 py-3">
+              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">📦</span>
+              Bawa pulang kit bumbu lengkap untuk memasak di rumah.
+            </div>
+          </div>
         </div>
       </Container>
     </div>
