@@ -91,8 +91,7 @@ model Homestay {
   maxGuests     Int
   photos        String   @db.Text
   amenities     String   @db.Text
-  latitude      Float?
-  longitude     Float?
+  mapsEmbedCode String?  @db.Text
   featured      Boolean  @default(false)
   published     Boolean  @default(true)
   createdAt     DateTime @default(now())

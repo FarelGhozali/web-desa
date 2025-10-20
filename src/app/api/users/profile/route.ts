@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
+import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { authOptions } from '@/lib/auth';
 
@@ -101,6 +102,9 @@ export async function PATCH(req: NextRequest) {
         },
       },
     });
+
+    // Revalidate all pages agar Header ter-update dengan nama baru
+    revalidatePath('/', 'layout');
 
     return NextResponse.json(updatedUser);
   } catch (error) {

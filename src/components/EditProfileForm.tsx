@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import Button from '@/components/ui/Button';
 
 interface EditProfileFormProps {
@@ -16,6 +17,7 @@ export default function EditProfileForm({
   email,
 }: EditProfileFormProps) {
   const router = useRouter();
+  const { update } = useSession();
   const [name, setName] = useState(initialName || '');
   const [image, setImage] = useState(initialImage || '');
   const [isLoading, setIsLoading] = useState(false);
@@ -51,13 +53,21 @@ export default function EditProfileForm({
         throw new Error(data.error || 'Gagal mengupdate profil');
       }
 
+      const updatedData = await response.json();
+      
+      // Update session untuk trigger refetch di HeaderContent
+      await update({
+        name: updatedData.name,
+        email: updatedData.email,
+      });
+
       setSuccess(true);
       
-      // Redirect after success
+      // Tunggu sebentar agar UI ter-update, baru redirect
       setTimeout(() => {
         router.push('/profile');
-        router.refresh();
-      }, 1500);
+        // Bukan router.refresh(), tapi biarkan useSession hook handle refresh
+      }, 1000);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Terjadi kesalahan');
     } finally {

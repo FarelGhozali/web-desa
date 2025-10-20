@@ -78,8 +78,7 @@ export async function PATCH(
       maxGuests: body.maxGuests,
       photos: body.photos,
       amenities: body.amenities,
-      latitude: body.latitude,
-      longitude: body.longitude,
+      mapsEmbedCode: body.mapsEmbedCode,
       featured: body.featured,
       published: body.published,
     });
@@ -112,6 +111,9 @@ export async function PATCH(
       }
     }
 
+    // Store embed code if provided (no parsing needed)
+    const embedCode = body.mapsEmbedCode || null;
+
     const homestay = await prisma.homestay.update({
       where: { id },
       data: {
@@ -123,8 +125,7 @@ export async function PATCH(
         maxGuests: body.maxGuests,
         photos: JSON.stringify(body.photos),
         amenities: JSON.stringify(body.amenities),
-        latitude: body.latitude,
-        longitude: body.longitude,
+        mapsEmbedCode: embedCode,
         featured: body.featured,
         published: body.published,
       },

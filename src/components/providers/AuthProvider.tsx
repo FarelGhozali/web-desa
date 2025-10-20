@@ -7,5 +7,12 @@ export default function AuthProvider({
 }: {
   children: React.ReactNode;
 }) {
-  return <SessionProvider>{children}</SessionProvider>;
+  return (
+    <SessionProvider 
+      refetchInterval={60} // Refetch session setiap 60 detik
+      refetchOnWindowFocus={true} // Refetch ketika window focus
+    >
+      {children}
+    </SessionProvider>
+  );
 }

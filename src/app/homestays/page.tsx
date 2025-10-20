@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Container from '@/components/ui/Container';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 
@@ -35,75 +34,6 @@ export default async function HomestaysPage() {
           </Link>
           <span aria-hidden="true">/</span>
           <span className="font-semibold text-emerald-900">Homestay</span>
-        </div>
-
-        <div className="overflow-hidden rounded-3xl border border-emerald-100/70 bg-white/90 shadow-[0_30px_100px_-60px_rgba(15,118,110,0.45)]">
-          <div className="relative grid gap-10 p-10 md:grid-cols-[1.7fr_1fr]">
-            <div className="space-y-5">
-              <Badge className="bg-emerald-100/80 text-emerald-900 ring-emerald-300/50">Pilihan Warga</Badge>
-              <h1 className="text-4xl leading-tight text-emerald-950 md:text-5xl">
-                Daftar homestay hangat untuk menyatu dengan kehidupan desa.
-              </h1>
-              <p className="text-lg text-stone-600">
-                Setiap rumah menawarkan kisah unik: dari pondok bambu di tepi sawah sampai rumah kayu di lereng bukit.
-                Nikmati sarapan rumahan, percakapan malam hari, dan panorama alam yang menenangkan.
-              </p>
-
-              <div className="grid gap-4 sm:grid-cols-3">
-                {[{
-                  title: 'Keluarga tuan rumah',
-                  value: '58',
-                  description: 'siap menyambut dengan cerita khas desa',
-                }, {
-                  title: 'Pengalaman lokal',
-                  value: '24',
-                  description: 'aktivitas yang bisa dikurasi untuk Anda',
-                }, {
-                  title: 'Rating tamu',
-                  value: '4.8/5',
-                  description: 'rerata ulasan sepanjang tahun ini',
-                }].map((item) => (
-                  <div key={item.title} className="rounded-3xl border border-emerald-100 bg-emerald-50/60 p-5">
-                    <p className="text-2xl font-semibold text-emerald-900">{item.value}</p>
-                    <p className="mt-1 text-sm font-semibold uppercase tracking-[0.3em] text-emerald-700/80">
-                      {item.title}
-                    </p>
-                    <p className="mt-2 text-sm text-emerald-700/70">{item.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex flex-col justify-between gap-8 rounded-3xl border border-emerald-100 bg-emerald-50/50 p-8">
-              <div className="space-y-4">
-                <h2 className="text-2xl font-semibold text-emerald-950">Temukan rumah tinggal terbaik</h2>
-                <p className="text-sm leading-relaxed text-emerald-800/80">
-                  Filter berdasarkan kapasitas, fasilitas, atau pengalaman yang ingin Anda rasakan. Tim kami siap
-                  memberi rekomendasi personal jika diperlukan.
-                </p>
-              </div>
-              <div className="space-y-3 text-sm text-emerald-700">
-                <div className="flex items-center gap-2">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">🌾</span>
-                  Sawah, bukit, dan desa hutan sebagai pilihan lokasi.
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">🍲</span>
-                  Sarapan rumahan dan kelas masak tradisional tersedia.
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">🛶</span>
-                  Paket aktivitas akhir pekan dapat dicustom sesuai minat.
-                </div>
-              </div>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-full border border-emerald-300 bg-white px-5 py-3 text-sm font-semibold text-emerald-700 transition hover:border-emerald-400 hover:text-emerald-800"
-              >
-                Konsultasi itinerary gratis →
-              </Link>
-            </div>
-          </div>
         </div>
 
         {/* Filter Section - TODO: Implement filters */}

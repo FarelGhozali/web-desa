@@ -49,6 +49,8 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+    updateAge: 60, // Update setiap 60 detik (1 menit)
   },
   pages: {
     signIn: "/login",
@@ -68,6 +70,22 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id;
         session.user.role = token.role;
         session.user.name = token.name;
+        
+        // Fetch data terbaru dari database untuk session
+        try {
+          const user = await prisma.user.findUnique({
+            where: { id: token.id },
+            select: { name: true, email: true, role: true, image: true },
+          });
+          
+          if (user) {
+            session.user.name = user.name;
+            session.user.email = user.email;
+            session.user.image = user.image;
+          }
+        } catch (error) {
+          console.error('Error fetching user in session callback:', error);
+        }
       }
       return session;
     },

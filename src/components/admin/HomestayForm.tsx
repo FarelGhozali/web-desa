@@ -20,8 +20,7 @@ interface HomestayFormProps {
     maxGuests: number;
     photos: string[];
     amenities: string[];
-    latitude?: number;
-    longitude?: number;
+    mapsEmbedCode?: string;
     featured: boolean;
     published: boolean;
   };
@@ -44,8 +43,7 @@ export default function HomestayForm({ initialData, isLoading: externalLoading }
   const [photos, setPhotos] = useState<string[]>(initialData?.photos || []);
   const [amenities, setAmenities] = useState<string[]>(initialData?.amenities || []);
   const [newAmenity, setNewAmenity] = useState('');
-  const [latitude, setLatitude] = useState(initialData?.latitude?.toString() || '');
-  const [longitude, setLongitude] = useState(initialData?.longitude?.toString() || '');
+  const [mapsEmbedCode, setMapsEmbedCode] = useState(initialData?.mapsEmbedCode || '');
   const [featured, setFeatured] = useState(initialData?.featured || false);
   const [published, setPublished] = useState(initialData?.published || false);
 
@@ -138,8 +136,7 @@ export default function HomestayForm({ initialData, isLoading: externalLoading }
         maxGuests: Number(maxGuests),
         photos,
         amenities,
-        latitude: latitude ? Number(latitude) : undefined,
-        longitude: longitude ? Number(longitude) : undefined,
+        mapsEmbedCode: mapsEmbedCode || undefined,
         featured,
         published,
       };
@@ -374,38 +371,38 @@ export default function HomestayForm({ initialData, isLoading: externalLoading }
         </div>
       </Card>
 
-      {/* Location (Optional) */}
+      {/* Location - Google Maps Embed */}
       <Card className="p-6">
-        <h2 className="mb-6 text-lg font-semibold text-stone-900">Lokasi (Opsional)</h2>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <h2 className="mb-6 text-lg font-semibold text-stone-900">Lokasi Google Maps (Opsional)</h2>
+        <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-stone-900 mb-1">
-              Latitude
+              Kode Embed Google Maps
             </label>
-            <Input
-              type="number"
-              step="0.0001"
-              value={latitude}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setLatitude(e.target.value)
+            <Textarea
+              value={mapsEmbedCode}
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                setMapsEmbedCode(e.target.value)
               }
-              placeholder="-6.8726"
+              placeholder="Paste kode embed dari Google Maps di sini, contoh: <iframe src=&quot;https://www.google.com/maps/embed?pb=...&quot; width=&quot;600&quot; height=&quot;450&quot; ...></iframe>"
+              rows={4}
+              error={errors.mapsEmbedCode}
             />
+            <p className="mt-2 text-xs text-stone-500">
+              💡 Cara: Buka Google Maps, cari lokasi, klik tombol &quot;Share&quot;, pilih &quot;Embed a map&quot;, copy kode iframe lengkap dan paste di sini.
+            </p>
+            {errors.mapsEmbedCode && <p className="mt-1 text-xs text-rose-600">{errors.mapsEmbedCode}</p>}
           </div>
-          <div>
-            <label className="block text-sm font-medium text-stone-900 mb-1">
-              Longitude
-            </label>
-            <Input
-              type="number"
-              step="0.0001"
-              value={longitude}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setLongitude(e.target.value)
-              }
-              placeholder="107.1886"
-            />
-          </div>
+
+          {/* Preview Embed */}
+          {mapsEmbedCode && (
+            <div className="rounded-lg bg-emerald-50 p-4 border border-emerald-200">
+              <p className="text-sm font-semibold text-emerald-900 mb-3">📍 Preview Peta:</p>
+              <div className="w-full rounded border border-emerald-300 overflow-hidden bg-white" style={{ maxWidth: '100%' }}>
+                <div dangerouslySetInnerHTML={{ __html: mapsEmbedCode }} />
+              </div>
+            </div>
+          )}
         </div>
       </Card>
 

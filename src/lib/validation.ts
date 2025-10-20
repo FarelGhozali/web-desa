@@ -19,6 +19,34 @@ const isValidPhotoUrl = (url: string): boolean => {
 };
 
 /**
+ * Validate Google Maps embed code
+ * Must contain iframe element with src attribute
+ */
+export const isValidEmbedCode = (code: string | undefined): boolean => {
+  if (!code) return true; // Optional field
+  
+  // Check if it contains iframe or embed tag with src
+  const hasIframe = code.includes('<iframe') && code.includes('src=');
+  const hasEmbed = code.includes('<embed') && code.includes('src=');
+  
+  return hasIframe || hasEmbed;
+};
+
+/**
+ * Sanitize embed code by removing potentially dangerous attributes
+ */
+export const sanitizeEmbedCode = (code: string): string => {
+  if (!code) return code;
+  
+  // Remove onload, onerror, onclick and other event handlers
+  const sanitized = code.replace(/\s*on\w+\s*=\s*["'][^"']*["']/gi, '');
+  
+  // Ensure we keep only iframe/embed and common safe attributes
+  // This is a basic sanitization - for production, use a library like DOMPurify
+  return sanitized;
+};
+
+/**
  * Homestay validation schema for creating and updating homestays
  */
 export const homestaySchema = z.object({
@@ -58,8 +86,10 @@ export const homestaySchema = z.object({
   amenities: z
     .array(z.string())
     .min(1, 'Minimal 1 amenitas harus ditambahkan'),
-  latitude: z.number().optional(),
-  longitude: z.number().optional(),
+  mapsEmbedCode: z
+    .string()
+    .optional()
+    .refine(isValidEmbedCode, 'Kode embed Google Maps tidak valid. Gunakan iframe atau embed code'),
   featured: z.boolean().default(false),
   published: z.boolean().default(false),
 });
@@ -94,8 +124,7 @@ export const homestayFormSchema = z.object({
     .refine((val: string) => !isNaN(Number(val)) && Number(val) >= 1, 'Kuota tamu minimal 1 orang'),
   photos: z.array(z.string()).min(1, 'Minimal 1 foto harus diunggah'),
   amenities: z.array(z.string()).min(1, 'Minimal 1 amenitas harus ditambahkan'),
-  latitude: z.string().optional(),
-  longitude: z.string().optional(),
+  mapsEmbedCode: z.string().optional(),
   featured: z.boolean().default(false),
   published: z.boolean().default(false),
 });

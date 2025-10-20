@@ -8,27 +8,30 @@ export default async function Header() {
   let userName: string | null = null;
   let userEmail: string | null = null;
   let isLoggedIn = false;
-  const isLoading = false;
 
   if (session?.user?.id) {
     isLoggedIn = true;
+    // Fallback pertama: gunakan nama dan email dari session
+    userName = session.user.name || null;
     userEmail = session.user.email || null;
 
     try {
-      // Fetch latest user data dari database, bukan dari session
+      // Fetch latest user data dari database tanpa cache
       const user = await prisma.user.findUnique({
         where: { id: session.user.id },
         select: { name: true, email: true },
       });
 
-      if (user) {
+      if (user?.name) {
+        // Hanya update jika name ada di database
         userName = user.name;
+      }
+      if (user?.email) {
         userEmail = user.email;
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
-      // Fallback ke session data jika ada error
-      userName = session.user.name || null;
+      // Tetap gunakan fallback session jika ada error
     }
   }
 
@@ -37,7 +40,6 @@ export default async function Header() {
       isLoggedIn={isLoggedIn}
       userName={userName}
       userEmail={userEmail}
-      isLoading={isLoading}
     />
   );
 }

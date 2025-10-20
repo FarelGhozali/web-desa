@@ -1,15 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 
 interface HeaderContentProps {
   isLoggedIn: boolean;
   userName: string | null;
   userEmail: string | null;
-  isLoading: boolean;
 }
 
 const navLinks = [
@@ -23,11 +22,50 @@ const navLinks = [
 
 export default function HeaderContent({
   isLoggedIn,
-  userName,
-  userEmail,
-  isLoading,
+  userName: initialUserName,
+  userEmail: initialUserEmail,
 }: HeaderContentProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userName, setUserName] = useState(initialUserName);
+  const [userEmail, setUserEmail] = useState(initialUserEmail);
+  const { data: session, status } = useSession();
+
+  // Update display name ketika session berubah (dari useSession hook)
+  useEffect(() => {
+    if (session?.user) {
+      setUserName(session.user.name || null);
+      setUserEmail(session.user.email || null);
+    }
+  }, [session?.user]);
+
+  // Optional: Setup polling untuk update data setiap beberapa detik
+  useEffect(() => {
+    if (status !== 'authenticated') return;
+
+    const pollSession = setInterval(() => {
+      // Trigger session refetch dari NextAuth
+      const fetchSession = async () => {
+        try {
+          const res = await fetch('/api/auth/session', {
+            cache: 'no-store',
+          });
+          if (res.ok) {
+            const sessionData = await res.json();
+            if (sessionData?.user) {
+              setUserName(sessionData.user.name || null);
+              setUserEmail(sessionData.user.email || null);
+            }
+          }
+        } catch (error) {
+          console.error('Error polling session:', error);
+        }
+      };
+
+      fetchSession();
+    }, 3000); // Check setiap 3 detik
+
+    return () => clearInterval(pollSession);
+  }, [status]);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const closeMenu = () => setIsMenuOpen(false);
@@ -70,7 +108,7 @@ export default function HeaderContent({
 
           {/* Desktop Actions (right) */}
           <div className="hidden items-center gap-4 md:flex">
-            {!isLoading && isLoggedIn ? (
+            {isLoggedIn ? (
               <>
                 <div className="flex items-center gap-3">
                   <Link
@@ -166,7 +204,7 @@ export default function HeaderContent({
               Blog
             </Link>
             {/* Mobile Auth Actions */}
-            {!isLoading && isLoggedIn ? (
+            {isLoggedIn ? (
               <>
                 <Link
                   href="/profile"

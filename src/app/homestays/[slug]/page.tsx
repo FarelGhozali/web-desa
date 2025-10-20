@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
 import BookingForm from '@/components/BookingForm';
+import MapEmbedDisplay from '@/components/MapEmbedDisplay';
 import { prisma } from '@/lib/prisma';
 import { formatPrice } from '@/lib/utils';
 
@@ -69,10 +70,6 @@ export default async function HomestayDetailPage({ params }: Props) {
       ? null
       : homestay.reviews.reduce((acc, review) => acc + review.rating, 0) /
         totalReviews;
-
-  const hasLocation =
-    typeof homestay.latitude === 'number' &&
-    typeof homestay.longitude === 'number';
 
   const heroImage = photos[0];
 
@@ -322,32 +319,20 @@ export default async function HomestayDetailPage({ params }: Props) {
               )}
             </section>
 
-            {hasLocation && (
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            {(homestay as any).mapsEmbedCode && (
               <section className="rounded-3xl border border-emerald-100 bg-white p-8 shadow-sm">
-                <div className="mb-6 flex items-center justify-between">
+                <div className="mb-6">
                   <div>
                     <h2 className="text-2xl font-semibold text-stone-900">Lokasi</h2>
                     <p className="mt-2 text-sm text-stone-500">
                       Temukan homestay dengan rute terbaik menuju lokasi wisata terdekat.
                     </p>
                   </div>
-                  <Link
-                    href={`https://www.google.com/maps?q=${homestay.latitude},${homestay.longitude}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-semibold text-emerald-600 transition hover:text-emerald-700"
-                  >
-                    Buka di Google Maps →
-                  </Link>
                 </div>
                 <div className="overflow-hidden rounded-2xl border border-emerald-100">
-                  <iframe
-                    title={`Lokasi ${homestay.name}`}
-                    src={`https://www.google.com/maps?q=${homestay.latitude},${homestay.longitude}&hl=id&z=15&output=embed`}
-                    className="h-80 w-full"
-                    loading="lazy"
-                    allowFullScreen
-                  />
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                  <MapEmbedDisplay embedCode={(homestay as any).mapsEmbedCode} />
                 </div>
               </section>
             )}

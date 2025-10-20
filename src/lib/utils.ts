@@ -85,3 +85,70 @@ export function serializeBigInt(obj: unknown): unknown {
 
   return obj;
 }
+
+/**
+ * Parse Google Maps URL to extract latitude and longitude
+ * Supports multiple Google Maps URL formats:
+ * - https://maps.google.com/?q=latitude,longitude
+ * - https://www.google.com/maps/place/...@latitude,longitude
+ * - https://www.google.com/maps/dir/...@latitude,longitude
+ * - https://goo.gl/maps/... (shortened URL - returns null)
+ */
+export function parseGoogleMapsUrl(url: string): {
+  latitude: number;
+  longitude: number;
+} | null {
+  if (!url || !url.trim()) return null;
+
+  try {
+    // Parse the URL
+    const urlObj = new URL(url);
+    const pathname = urlObj.pathname;
+
+    // Format 1: maps.google.com/?q=latitude,longitude
+    if (urlObj.hostname === 'maps.google.com' || urlObj.hostname === 'www.maps.google.com') {
+      const qParam = urlObj.searchParams.get('q');
+      if (qParam) {
+        const coords = qParam.split(',');
+        if (coords.length === 2) {
+          const lat = parseFloat(coords[0].trim());
+          const lng = parseFloat(coords[1].trim());
+          if (!isNaN(lat) && !isNaN(lng)) {
+            return { latitude: lat, longitude: lng };
+          }
+        }
+      }
+    }
+
+    // Format 2: google.com/maps/place/...@latitude,longitude
+    // Format 3: google.com/maps/dir/...@latitude,longitude
+    if (
+      urlObj.hostname === 'google.com' ||
+      urlObj.hostname === 'www.google.com'
+    ) {
+      if (pathname.includes('/maps/place/') || pathname.includes('/maps/dir/')) {
+        // Extract coordinates from URL path (between @ and /)
+        const match = urlObj.href.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+        if (match) {
+          const lat = parseFloat(match[1]);
+          const lng = parseFloat(match[2]);
+          if (!isNaN(lat) && !isNaN(lng)) {
+            return { latitude: lat, longitude: lng };
+          }
+        }
+      }
+    }
+
+    // Format 4: maps.app.goo.gl (shortened URL)
+    if (urlObj.hostname === 'maps.app.goo.gl' || urlObj.hostname === 'goo.gl') {
+      // Shortened URLs cannot be parsed without fetching
+      console.warn('Shortened Google Maps URLs cannot be parsed directly. Please use the full link.');
+      return null;
+    }
+
+    return null;
+  } catch (error) {
+    console.error('Error parsing Google Maps URL:', error);
+    return null;
+  }
+}
