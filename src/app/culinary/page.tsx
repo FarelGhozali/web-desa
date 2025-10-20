@@ -83,30 +83,6 @@ export default async function CulinaryPage() {
             </Link>
           ))}
         </div>
-
-        <div className="grid gap-6 rounded-3xl border border-emerald-100 bg-white/90 p-8 shadow-sm md:grid-cols-[1.4fr_1fr]">
-          <div className="space-y-3">
-            <h2 className="text-2xl font-semibold text-emerald-950">Ingin kelas memasak privat?</h2>
-            <p className="text-sm leading-relaxed text-stone-600">
-              Tim kuliner desa dapat menyesuaikan sesi memasak dari sarapan tradisional hingga jamuan syukuran kecil.
-              Semua bahan berasal dari kebun dan kolam warga, memastikan rasa autentik nan segar.
-            </p>
-          </div>
-          <div className="flex flex-col gap-3 text-sm text-stone-600">
-            <div className="flex items-center gap-3 rounded-2xl bg-emerald-50/70 px-4 py-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">🥥</span>
-              Pilih menu: dari jamu, jajanan pasar, hingga kuliner malam.
-            </div>
-            <div className="flex items-center gap-3 rounded-2xl bg-emerald-50/70 px-4 py-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">👩‍🍳</span>
-              Dipandu ibu-ibu desa dengan resep turun-temurun.
-            </div>
-            <div className="flex items-center gap-3 rounded-2xl bg-emerald-50/70 px-4 py-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">📦</span>
-              Bawa pulang kit bumbu lengkap untuk memasak di rumah.
-            </div>
-          </div>
-        </div>
       </Container>
     </div>
   );

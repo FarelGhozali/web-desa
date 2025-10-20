@@ -100,27 +100,6 @@ export default async function BlogPage() {
             </Link>
           ))}
         </div>
-
-        <div className="grid gap-6 rounded-3xl border border-emerald-100 bg-white/90 p-8 shadow-sm md:grid-cols-[1.4fr_1fr]">
-          <div className="space-y-3">
-            <h2 className="text-2xl font-semibold text-emerald-950">Dapatkan cerita desa langsung melalui email</h2>
-            <p className="text-sm leading-relaxed text-stone-600">
-              Kami kirimkan highlight bulanan berisi update homestay baru, agenda budaya, dan resep favorit warga.
-              Tidak ada spam—hanya kabar baik dari desa.
-            </p>
-          </div>
-          <form className="grid gap-3 text-sm text-stone-600">
-            <input
-              type="email"
-              placeholder="Masukkan email Anda"
-              className="rounded-full border border-emerald-200 bg-white px-5 py-3 text-sm text-stone-700 focus:border-emerald-400 focus:outline-none"
-              required
-            />
-            <Button type="submit" fullWidth>
-              Daftar buletin desa
-            </Button>
-          </form>
-        </div>
       </Container>
     </div>
   );

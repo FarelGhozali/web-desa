@@ -175,30 +175,6 @@ export default async function HomestaysPage() {
             </Button>
           </Link>
         </div>
-
-        <div className="grid gap-6 rounded-3xl border border-emerald-100 bg-white/90 p-8 shadow-sm md:grid-cols-2">
-          <div className="space-y-3">
-            <h2 className="text-2xl font-semibold text-emerald-950">Butuh inspirasi akhir pekan?</h2>
-            <p className="text-sm leading-relaxed text-stone-600">
-              Kami dapat menyusun itinerary 2-3 hari termasuk homestay, kuliner rumahan, serta kegiatan alam.
-              Ceritakan preferensi Anda dan tim kami akan menyiapkan opsi terbaik.
-            </p>
-          </div>
-          <div className="grid gap-3 text-sm text-stone-600">
-            <div className="flex items-center gap-3 rounded-2xl bg-emerald-50/70 px-4 py-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">🗓</span>
-              Rencana perjalanan fleksibel sesuai jadwal Anda.
-            </div>
-            <div className="flex items-center gap-3 rounded-2xl bg-emerald-50/70 px-4 py-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">🧺</span>
-              Paket piknik sawah dan kelas masak keluarga.
-            </div>
-            <div className="flex items-center gap-3 rounded-2xl bg-emerald-50/70 px-4 py-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">🚲</span>
-              Sesi sepeda kampung bersama pemandu lokal.
-            </div>
-          </div>
-        </div>
       </Container>
     </div>
   );

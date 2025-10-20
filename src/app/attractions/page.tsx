@@ -85,30 +85,6 @@ export default async function AttractionsPage() {
             </Link>
           ))}
         </div>
-
-        <div className="grid gap-6 rounded-3xl border border-emerald-100 bg-white/90 p-8 shadow-sm md:grid-cols-[1.4fr_1fr]">
-          <div className="space-y-3">
-            <h2 className="text-2xl font-semibold text-emerald-950">Temani perjalanan alam Anda</h2>
-            <p className="text-sm leading-relaxed text-stone-600">
-              Pemandu lokal kami siap berbagi kisah spiritual air terjun, legenda bukit, dan flora endemik yang
-              hanya tumbuh di lembah kami. Cocok untuk keluarga, komunitas fotografi, hingga rombongan sekolah.
-            </p>
-          </div>
-          <div className="flex flex-col gap-3 text-sm text-stone-600">
-            <div className="flex items-center gap-3 rounded-2xl bg-emerald-50/70 px-4 py-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">🧭</span>
-              Jalur trekking dipilih sesuai kebugaran peserta.
-            </div>
-            <div className="flex items-center gap-3 rounded-2xl bg-emerald-50/70 px-4 py-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">📸</span>
-              Spot foto terbaik saat matahari terbit & senja.
-            </div>
-            <div className="flex items-center gap-3 rounded-2xl bg-emerald-50/70 px-4 py-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-emerald-700">🍃</span>
-              Edukasi konservasi hutan bambu dan mata air.
-            </div>
-          </div>
-        </div>
       </Container>
     </div>
   );
