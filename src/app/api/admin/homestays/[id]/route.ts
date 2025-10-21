@@ -44,7 +44,7 @@ export async function GET(
       ...homestay,
       pricePerNight: Number(homestay.pricePerNight),
       photos: typeof homestay.photos === 'string' ? JSON.parse(homestay.photos) : homestay.photos,
-      amenities: typeof homestay.amenities === 'string' ? JSON.parse(homestay.amenities) : homestay.amenities,
+      facilities: typeof homestay.facilities === 'string' ? JSON.parse(homestay.facilities) : homestay.facilities,
     };
 
     return NextResponse.json(parseData);
@@ -77,7 +77,7 @@ export async function PATCH(
       pricePerNight: body.pricePerNight,
       maxGuests: body.maxGuests,
       photos: body.photos,
-      amenities: body.amenities,
+      facilities: body.facilities,
       mapsEmbedCode: body.mapsEmbedCode,
       featured: body.featured,
       published: body.published,
@@ -124,7 +124,7 @@ export async function PATCH(
         pricePerNight: body.pricePerNight,
         maxGuests: body.maxGuests,
         photos: JSON.stringify(body.photos),
-        amenities: JSON.stringify(body.amenities),
+        facilities: JSON.stringify(body.facilities),
         mapsEmbedCode: embedCode,
         featured: body.featured,
         published: body.published,

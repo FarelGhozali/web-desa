@@ -83,9 +83,9 @@ export const homestaySchema = z.object({
       (urls) => urls.every(isValidPhotoUrl),
       'Semua URL foto harus valid'
     ),
-  amenities: z
+  facilities: z
     .array(z.string())
-    .min(1, 'Minimal 1 amenitas harus ditambahkan'),
+    .min(1, 'Minimal 1 fasilitas harus ditambahkan'),
   mapsEmbedCode: z
     .string()
     .optional()
@@ -123,7 +123,7 @@ export const homestayFormSchema = z.object({
     .string()
     .refine((val: string) => !isNaN(Number(val)) && Number(val) >= 1, 'Kuota tamu minimal 1 orang'),
   photos: z.array(z.string()).min(1, 'Minimal 1 foto harus diunggah'),
-  amenities: z.array(z.string()).min(1, 'Minimal 1 amenitas harus ditambahkan'),
+  facilities: z.array(z.string()).min(1, 'Minimal 1 fasilitas harus ditambahkan'),
   mapsEmbedCode: z.string().optional(),
   featured: z.boolean().default(false),
   published: z.boolean().default(false),

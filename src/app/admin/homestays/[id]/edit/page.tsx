@@ -16,7 +16,7 @@ interface HomestayData {
   pricePerNight: number;
   maxGuests: number;
   photos: string[];
-  amenities: string[];
+  facilities: string[];
   latitude?: number;
   longitude?: number;
   featured: boolean;
@@ -48,7 +48,7 @@ export default function EditHomestayPage() {
         const parsedData = {
           ...data,
           photos: typeof data.photos === 'string' ? JSON.parse(data.photos) : data.photos,
-          amenities: typeof data.amenities === 'string' ? JSON.parse(data.amenities) : data.amenities,
+          facilities: typeof data.facilities === 'string' ? JSON.parse(data.facilities) : data.facilities,
         };
 
         setHomestay(parsedData);

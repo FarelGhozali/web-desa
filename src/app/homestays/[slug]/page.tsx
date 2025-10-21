@@ -62,7 +62,7 @@ export default async function HomestayDetailPage({ params }: Props) {
   };
 
   const photos = parseStringArray(homestay.photos);
-  const amenities = parseStringArray(homestay.amenities);
+  const facilities = parseStringArray(homestay.facilities);
   const pricePerNight = Number(homestay.pricePerNight);
   const totalReviews = homestay.reviews.length;
   const averageRating =
@@ -74,7 +74,7 @@ export default async function HomestayDetailPage({ params }: Props) {
   const heroImage = photos[0];
 
   return (
-    <div className="bg-emerald-50/40 pb-20 pt-12">
+    <div className="bg-gradient-to-br from-[#fdf8f1] via-[#edf7ef] to-[#fffaf0] pb-20 pt-12">
       <Container>
         <div className="mb-8 flex flex-wrap items-center gap-2 text-sm text-emerald-700">
           <Link href="/homestays" className="transition hover:text-emerald-600/80">
@@ -220,16 +220,16 @@ export default async function HomestayDetailPage({ params }: Props) {
               </p>
             </section>
 
-            {amenities.length > 0 && (
+            {facilities.length > 0 && (
               <section className="rounded-3xl border border-emerald-100 bg-white p-8 shadow-sm">
                 <h2 className="text-2xl font-semibold text-stone-900">Fasilitas unggulan</h2>
                 <p className="mt-2 text-sm text-stone-500">
                   Semua fasilitas telah disiapkan agar Anda merasa seperti di rumah sendiri.
                 </p>
                 <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {amenities.map((amenity) => (
+                  {facilities.map((facility) => (
                     <li
-                      key={amenity}
+                      key={facility}
                       className="inline-flex items-center gap-3 rounded-2xl border border-emerald-100 bg-emerald-50/40 px-4 py-3 text-sm text-stone-700"
                     >
                       <span
@@ -238,7 +238,7 @@ export default async function HomestayDetailPage({ params }: Props) {
                       >
                         ✓
                       </span>
-                      {amenity}
+                      {facility}
                     </li>
                   ))}
                 </ul>

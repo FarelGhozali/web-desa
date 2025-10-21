@@ -19,7 +19,7 @@ interface HomestayFormProps {
     pricePerNight: number;
     maxGuests: number;
     photos: string[];
-    amenities: string[];
+    facilities: string[];
     mapsEmbedCode?: string;
     featured: boolean;
     published: boolean;
@@ -41,8 +41,8 @@ export default function HomestayForm({ initialData, isLoading: externalLoading }
   const [pricePerNight, setPricePerNight] = useState(initialData?.pricePerNight.toString() || '');
   const [maxGuests, setMaxGuests] = useState(initialData?.maxGuests.toString() || '');
   const [photos, setPhotos] = useState<string[]>(initialData?.photos || []);
-  const [amenities, setAmenities] = useState<string[]>(initialData?.amenities || []);
-  const [newAmenity, setNewAmenity] = useState('');
+  const [facilities, setFacilities] = useState<string[]>(initialData?.facilities || []);
+  const [newFacility, setNewFacility] = useState('');
   const [mapsEmbedCode, setMapsEmbedCode] = useState(initialData?.mapsEmbedCode || '');
   const [featured, setFeatured] = useState(initialData?.featured || false);
   const [published, setPublished] = useState(initialData?.published || false);
@@ -59,27 +59,27 @@ export default function HomestayForm({ initialData, isLoading: externalLoading }
     }
   };
 
-  // Add amenity
-  const handleAddAmenity = () => {
-    const trimmed = newAmenity.trim();
+  // Add fasilitas
+  const handleAddFacility = () => {
+    const trimmed = newFacility.trim();
     if (!trimmed) {
-      setErrors({ ...errors, amenity: 'Amenitas tidak boleh kosong' });
+      setErrors({ ...errors, facility: 'Fasilitas tidak boleh kosong' });
       return;
     }
 
-    if (amenities.includes(trimmed)) {
-      setErrors({ ...errors, amenity: 'Amenitas sudah ditambahkan' });
+    if (facilities.includes(trimmed)) {
+      setErrors({ ...errors, facility: 'Fasilitas sudah ditambahkan' });
       return;
     }
 
-    setAmenities([...amenities, trimmed]);
-    setNewAmenity('');
-    setErrors({ ...errors, amenity: '' });
+    setFacilities([...facilities, trimmed]);
+    setNewFacility('');
+    setErrors({ ...errors, facility: '' });
   };
 
-  // Remove amenity
-  const handleRemoveAmenity = (index: number) => {
-    setAmenities(amenities.filter((_, i) => i !== index));
+  // Remove fasilitas
+  const handleRemoveFacility = (index: number) => {
+    setFacilities(facilities.filter((_, i) => i !== index));
   };
 
   // Validate form
@@ -108,7 +108,7 @@ export default function HomestayForm({ initialData, isLoading: externalLoading }
 
     if (photos.length === 0) newErrors.photos = 'Minimal 1 foto harus diunggah';
 
-    if (amenities.length === 0) newErrors.amenities = 'Minimal 1 amenitas harus ditambahkan';
+    if (facilities.length === 0) newErrors.facilities = 'Minimal 1 fasilitas harus ditambahkan';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -135,7 +135,7 @@ export default function HomestayForm({ initialData, isLoading: externalLoading }
         pricePerNight: Number(pricePerNight),
         maxGuests: Number(maxGuests),
         photos,
-        amenities,
+        facilities,
         mapsEmbedCode: mapsEmbedCode || undefined,
         featured,
         published,
@@ -320,43 +320,43 @@ export default function HomestayForm({ initialData, isLoading: externalLoading }
         />
       </Card>
 
-      {/* Amenities */}
+      {/* Fasilitas */}
       <Card className="p-6">
-        <h2 className="mb-6 text-lg font-semibold text-stone-900">Amenitas</h2>
+        <h2 className="mb-6 text-lg font-semibold text-stone-900">Fasilitas</h2>
         <div className="space-y-4">
           <div className="flex gap-2">
             <Input
-              value={newAmenity}
+              value={newFacility}
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setNewAmenity(e.target.value);
-                setErrors({ ...errors, amenity: '' });
+                setNewFacility(e.target.value);
+                setErrors({ ...errors, facility: '' });
               }}
               placeholder="Contoh: WiFi, Kitchen, AC"
-              error={errors.amenity}
+              error={errors.facility}
             />
             <Button
               type="button"
-              onClick={handleAddAmenity}
+              onClick={handleAddFacility}
               variant="outline"
             >
               Tambah
             </Button>
           </div>
-          {errors.amenity && (
-            <p className="text-xs text-rose-600">{errors.amenity}</p>
+          {errors.facility && (
+            <p className="text-xs text-rose-600">{errors.facility}</p>
           )}
 
-          {amenities.length > 0 && (
+          {facilities.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              {amenities.map((amenity, index) => (
+              {facilities.map((facility, index) => (
                 <div
                   key={index}
                   className="flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-sm text-emerald-700"
                 >
-                  {amenity}
+                  {facility}
                   <button
                     type="button"
-                    onClick={() => handleRemoveAmenity(index)}
+                    onClick={() => handleRemoveFacility(index)}
                     className="text-emerald-600 hover:text-emerald-800"
                   >
                     ✕
@@ -365,8 +365,8 @@ export default function HomestayForm({ initialData, isLoading: externalLoading }
               ))}
             </div>
           )}
-          {errors.amenities && (
-            <p className="text-xs text-rose-600">{errors.amenities}</p>
+          {errors.facilities && (
+            <p className="text-xs text-rose-600">{errors.facilities}</p>
           )}
         </div>
       </Card>

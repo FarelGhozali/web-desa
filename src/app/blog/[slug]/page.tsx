@@ -64,7 +64,7 @@ export default async function BlogPostPage({ params }: Props) {
     }
 
     return (
-      <div className="py-16">
+      <div className="bg-gradient-to-br from-[#fff6ec] via-[#e9f6ef] to-[#fffaf4] py-16">
         <Container size="md">
           <article className="space-y-10">
             {/* Header */}
@@ -116,7 +116,7 @@ export default async function BlogPostPage({ params }: Props) {
 
             {/* Content - Rendered as HTML from RichTextEditor */}
             <div
-              className="prose prose-lg max-w-none prose-headings:text-stone-900 prose-a:text-emerald-600 prose-a:underline hover:prose-a:text-emerald-700 prose-img:rounded-lg"
+              className="prose prose-lg max-w-none text-stone-800 prose-headings:text-stone-900 prose-p:text-stone-800 prose-strong:text-stone-900 prose-a:text-emerald-600 prose-a:underline hover:prose-a:text-emerald-700 prose-img:rounded-lg"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 

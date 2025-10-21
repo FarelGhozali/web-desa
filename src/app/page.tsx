@@ -71,7 +71,7 @@ export default async function HomePage() {
   const homestays = homestaysRaw.map((h) => ({
     ...h,
     photos: h.photos ? JSON.parse(h.photos) : [],
-    amenities: h.amenities ? JSON.parse(h.amenities) : [],
+    facilities: h.facilities ? JSON.parse(h.facilities) : [],
   }));
 
   // Latest blog posts
@@ -199,7 +199,7 @@ export default async function HomePage() {
                 <CardContent>
                   <div className="space-y-4 text-sm text-stone-600">
                     <ul className="space-y-4 mt-4">
-                      {homestay.amenities?.slice(0, 3).map((perk: string) => (
+                      {homestay.facilities?.slice(0, 3).map((perk: string) => (
                         <li key={perk} className="flex items-center gap-2">
                           <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
                             ✔
