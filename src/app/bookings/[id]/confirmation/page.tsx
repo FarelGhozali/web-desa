@@ -70,8 +70,8 @@ export default async function BookingConfirmationPage({ params }: Props) {
         <div className="mx-auto max-w-2xl">
           {/* Success Header */}
           <div className="mb-8 text-center">
-            <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-              <span className="text-3xl">✓</span>
+            <div className="mb-6 inline-flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-green-400 to-emerald-500 shadow-lg">
+              <span className="text-6xl font-bold text-white drop-shadow-md">✓</span>
             </div>
             <h1 className="mb-2 text-4xl font-bold text-stone-900">Pemesanan Berhasil!</h1>
             <p className="text-lg text-stone-600">
@@ -132,13 +132,13 @@ export default async function BookingConfirmationPage({ params }: Props) {
             <div className="space-y-2">
               <div className="flex justify-between text-stone-600">
                 <span>
-                  Rp {booking.homestay.pricePerNight.toLocaleString('id-ID')} × {nights} malam
+                  Rp {Number(booking.homestay.pricePerNight).toLocaleString('id-ID')} × {nights} malam
                 </span>
-                <span>Rp {(booking.homestay.pricePerNight * nights).toLocaleString('id-ID')}</span>
+                <span>Rp {(Number(booking.homestay.pricePerNight) * nights).toLocaleString('id-ID')}</span>
               </div>
               <div className="flex justify-between border-t border-stone-200 pt-2 text-xl font-bold text-stone-900">
                 <span>Total</span>
-                <span>Rp {booking.totalPrice.toLocaleString('id-ID')}</span>
+                <span>Rp {Number(booking.totalPrice).toLocaleString('id-ID')}</span>
               </div>
             </div>
           </div>

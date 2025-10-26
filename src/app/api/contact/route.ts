@@ -34,7 +34,7 @@ export async function PATCH(request: NextRequest) {
     //   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     // }
 
-    const { email, phone, address, mapsEmbedCode } = body;
+    const { email, phone, address, mapsEmbedCode, operatingHours } = body;
 
     // Validate input
     if (!email || !phone || !address) {
@@ -42,6 +42,19 @@ export async function PATCH(request: NextRequest) {
         { error: 'Email, telepon, dan alamat wajib diisi' },
         { status: 400 }
       );
+    }
+
+    // Validate and serialize operating hours if provided
+    let operatingHoursData: string | null = null;
+    if (operatingHours) {
+      try {
+        operatingHoursData = JSON.stringify(operatingHours);
+      } catch {
+        return NextResponse.json(
+          { error: 'Format jam operasional tidak valid' },
+          { status: 400 }
+        );
+      }
     }
 
     // Get or create contact info
@@ -55,6 +68,7 @@ export async function PATCH(request: NextRequest) {
           phone,
           address,
           mapsEmbedCode: mapsEmbedCode || null,
+          operatingHours: operatingHoursData,
         },
       });
     } else {
@@ -66,6 +80,7 @@ export async function PATCH(request: NextRequest) {
           phone,
           address,
           mapsEmbedCode: mapsEmbedCode || null,
+          operatingHours: operatingHoursData,
         },
       });
     }

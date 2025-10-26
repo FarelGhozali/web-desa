@@ -12,6 +12,16 @@ export default async function ContactSettingsPage() {
   // Fetch existing contact info
   const contactInfo = await prisma.contactInfo.findFirst();
 
+  // Parse operating hours
+  let operatingHours;
+  if (contactInfo?.operatingHours) {
+    try {
+      operatingHours = JSON.parse(contactInfo.operatingHours);
+    } catch {
+      operatingHours = undefined;
+    }
+  }
+
   return (
     <AdminLayout>
       <div className="max-w-2xl">
@@ -24,6 +34,7 @@ export default async function ContactSettingsPage() {
                   phone: contactInfo.phone,
                   address: contactInfo.address,
                   mapsEmbedCode: contactInfo.mapsEmbedCode || undefined,
+                  operatingHours,
                 }
               : undefined
           }

@@ -84,9 +84,10 @@ export default async function HomestayDetailPage({ params }: Props) {
           <span className="font-medium text-emerald-900">{homestay.name}</span>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)]">
-          <div className="space-y-10">
-            <div className="overflow-hidden rounded-3xl border border-emerald-100 bg-white shadow-sm">
+        <div className="space-y-12">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)]">
+            <div className="space-y-10">
+              <div className="overflow-hidden rounded-3xl border border-emerald-100 bg-white shadow-sm">
               <div className="relative h-[360px] overflow-hidden bg-stone-200 sm:h-[420px]">
                 {heroImage ? (
                   <Image
@@ -318,70 +319,66 @@ export default async function HomestayDetailPage({ params }: Props) {
                 </p>
               )}
             </section>
-
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            {(homestay as any).mapsEmbedCode && (
-              <section className="space-y-4">
-                <div>
-                  <h2 className="text-2xl font-semibold text-stone-900">Lokasi</h2>
-                  <p className="mt-2 text-sm text-stone-500">
-                    Temukan homestay dengan rute terbaik menuju lokasi wisata terdekat.
-                  </p>
-                </div>
-                <div className="rounded-3xl overflow-hidden border border-emerald-100 bg-white shadow-sm">
-                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                  <MapEmbedDisplay embedCode={(homestay as any).mapsEmbedCode} className="h-96" />
-                </div>
-              </section>
-            )}
           </div>
 
-          <aside className="self-start">
-            <div className="sticky top-24 space-y-6">
-              <div className="rounded-3xl border border-emerald-100 bg-white p-8 shadow-lg">
-                <div className="mb-6 flex items-baseline justify-between gap-3">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600">
-                      Mulai dari
-                    </p>
-                    <p className="mt-1 text-3xl font-semibold text-stone-900">
-                      {formatPrice(pricePerNight)}
-                      <span className="ml-1 text-sm font-normal text-stone-500">/malam</span>
-                    </p>
-                  </div>
-                  <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-emerald-700">
-                    Pesan sekarang
-                  </span>
-                </div>
-
-                <div className="rounded-2xl border border-emerald-100 bg-emerald-50/40 p-4 text-xs text-stone-600">
-                  Tersedia fleksibilitas tanggal dan dukungan dari host lokal sepanjang hari.
-                </div>
-
-                <div className="mt-6">
-                  <BookingForm
-                    homestayId={homestay.id}
-                    pricePerNight={pricePerNight}
-                    maxGuests={homestay.maxGuests}
-                    homestayName={homestay.name}
-                  />
+          <aside className="self-start lg:sticky lg:top-24 space-y-6">
+            <div className="rounded-3xl border border-emerald-100 bg-white p-8 shadow-lg">
+              <div className="mb-6 flex items-baseline justify-between gap-3">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600">
+                    Mulai dari
+                  </p>
+                  <p className="mt-1 text-3xl font-semibold text-stone-900">
+                    {formatPrice(pricePerNight)}
+                    <span className="ml-1 text-sm font-normal text-stone-500">/malam</span>
+                  </p>
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-emerald-100 bg-white p-6 shadow-sm">
-                <h3 className="text-base font-semibold text-stone-900">Butuh bantuan?</h3>
-                <p className="mt-2 text-sm text-stone-600">
-                  Tim kami siap membantu rekomendasi aktivitas, transportasi, dan pengalaman lokal terbaik.
-                </p>
-                <Link
-                  href="/contact"
-                  className="mt-4 inline-flex items-center justify-center rounded-full border border-emerald-200 px-4 py-2 text-sm font-semibold text-emerald-600 transition hover:border-emerald-300 hover:text-emerald-700"
-                >
-                  Hubungi kami
-                </Link>
+              <div className="rounded-2xl border border-emerald-100 bg-emerald-50/40 p-4 text-xs text-stone-600">
+                Tersedia fleksibilitas tanggal dan dukungan dari host lokal sepanjang hari.
+              </div>
+
+              <div className="mt-6">
+                <BookingForm
+                  homestayId={homestay.id}
+                  pricePerNight={pricePerNight}
+                  maxGuests={homestay.maxGuests}
+                  homestayName={homestay.name}
+                />
               </div>
             </div>
+
+            <div className="rounded-3xl border border-emerald-100 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-semibold text-stone-900">Butuh bantuan?</h3>
+              <p className="mt-2 text-sm text-stone-600">
+                Tim kami siap membantu rekomendasi aktivitas, transportasi, dan pengalaman lokal terbaik.
+              </p>
+              <Link
+                href="/contact"
+                className="mt-4 inline-flex items-center justify-center rounded-full border border-emerald-200 px-4 py-2 text-sm font-semibold text-emerald-600 transition hover:border-emerald-300 hover:text-emerald-700"
+              >
+                Hubungi kami
+              </Link>
+            </div>
           </aside>
+          </div>
+
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {(homestay as any).mapsEmbedCode && (
+            <section className="space-y-4">
+              <div>
+                <h2 className="text-2xl font-semibold text-stone-900">Lokasi</h2>
+                <p className="mt-2 text-sm text-stone-500">
+                  Temukan homestay dengan rute terbaik menuju lokasi wisata terdekat.
+                </p>
+              </div>
+              <div className="rounded-3xl overflow-hidden border border-emerald-100 bg-white shadow-sm">
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                <MapEmbedDisplay embedCode={(homestay as any).mapsEmbedCode} className="h-96" />
+              </div>
+            </section>
+          )}
         </div>
       </Container>
     </div>

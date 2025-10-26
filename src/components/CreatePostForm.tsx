@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
@@ -42,6 +42,55 @@ export default function CreatePostForm({ mode = 'create', postId, initialData }:
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleCoverImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.currentTarget.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      setUploadError('File harus berupa gambar');
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setUploadError('Ukuran file maksimal 5MB');
+      return;
+    }
+
+    setUploading(true);
+    setUploadError('');
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('/api/upload?folder=blog', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Gagal upload gambar');
+      }
+
+      const data = await response.json();
+      setCoverImage(data.url);
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : 'Gagal upload gambar');
+    } finally {
+      setUploading(false);
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
 
   // Fetch categories
   useEffect(() => {
@@ -172,46 +221,57 @@ export default function CreatePostForm({ mode = 'create', postId, initialData }:
         <p className="text-xs text-stone-500 mt-1">{title.length} / 200 karakter</p>
       </div>
 
-      {/* Excerpt */}
-      <div>
-        <label className="block text-sm font-medium text-stone-700 mb-2">
-          Ringkasan (Opsional)
-        </label>
-        <Textarea
-          placeholder="Ringkasan singkat artikel untuk SEO dan preview..."
-          value={excerpt}
-          onChange={(e) => setExcerpt(e.target.value)}
-          disabled={loading}
-          rows={3}
-        />
-        <p className="text-xs text-stone-500 mt-1">{excerpt.length} / 500 karakter</p>
-      </div>
-
-      {/* Content */}
-      <div>
-        <label className="block text-sm font-medium text-stone-700 mb-2">
-          Isi Artikel *
-        </label>
-        <RichTextEditor
-          value={content}
-          onChange={setContent}
-          placeholder="Tulis konten artikel Anda di sini..."
-        />
-        <p className="text-xs text-stone-500 mt-1">{content.length} / 50000 karakter</p>
-      </div>
-
       {/* Cover Image URL */}
       <div>
         <label className="block text-sm font-medium text-stone-700 mb-2">
-          URL Gambar Cover (Opsional)
+          Gambar Cover (Opsional)
         </label>
-        <Input
-          type="url"
-          placeholder="https://example.com/image.jpg"
-          value={coverImage}
-          onChange={(e) => setCoverImage(e.target.value)}
-          disabled={loading}
-        />
+        
+        {/* Upload Button and URL Input */}
+        <div className="space-y-3">
+          {/* File Upload Input (Hidden) */}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleCoverImageUpload}
+            disabled={loading}
+            className="hidden"
+          />
+          
+          {/* Upload Button */}
+          <Button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={loading}
+            className="w-full"
+            variant="outline"
+          >
+            {uploading ? 'Mengunggah...' : '📤 Upload Gambar'}
+          </Button>
+
+          {/* URL Input Alternative */}
+          <div>
+            <p className="text-xs text-stone-600 mb-2">Atau masukkan URL gambar:</p>
+            <Input
+              type="text"
+              placeholder="https://example.com/image.jpg"
+              value={coverImage}
+              onChange={(e) => {
+                setCoverImage(e.target.value);
+                setUploadError('');
+              }}
+              disabled={loading}
+            />
+          </div>
+        </div>
+
+        {/* Error Message */}
+        {uploadError && (
+          <p className="text-xs text-red-600 mt-2">{uploadError}</p>
+        )}
+
+        {/* Image Preview */}
         {coverImage && (
           <div className="mt-3 rounded-lg border border-stone-200 p-2">
             <p className="text-xs font-medium text-stone-700 mb-2">Preview Gambar:</p>
@@ -252,6 +312,34 @@ export default function CreatePostForm({ mode = 'create', postId, initialData }:
             ))}
           </select>
         )}
+      </div>
+
+      {/* Excerpt */}
+      <div>
+        <label className="block text-sm font-medium text-stone-700 mb-2">
+          Ringkasan (Opsional)
+        </label>
+        <Textarea
+          placeholder="Ringkasan singkat artikel untuk SEO dan preview..."
+          value={excerpt}
+          onChange={(e) => setExcerpt(e.target.value)}
+          disabled={loading}
+          rows={3}
+        />
+        <p className="text-xs text-stone-500 mt-1">{excerpt.length} / 500 karakter</p>
+      </div>
+
+      {/* Content */}
+      <div>
+        <label className="block text-sm font-medium text-stone-700 mb-2">
+          Isi Artikel *
+        </label>
+        <RichTextEditor
+          value={content}
+          onChange={setContent}
+          placeholder="Tulis konten artikel Anda di sini..."
+        />
+        <p className="text-xs text-stone-500 mt-1">{content.length} / 50000 karakter</p>
       </div>
 
       {/* Published */}

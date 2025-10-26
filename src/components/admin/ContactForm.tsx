@@ -7,11 +7,20 @@ import Textarea from '@/components/ui/Textarea';
 import { Card } from '@/components/ui/Card';
 import MapEmbedDisplay from '@/components/MapEmbedDisplay';
 
+interface OperatingHours {
+  [key: string]: {
+    open: string;
+    close: string;
+    closed?: boolean;
+  };
+}
+
 interface ContactFormData {
   email: string;
   phone: string;
   address: string;
   mapsEmbedCode?: string;
+  operatingHours?: OperatingHours;
 }
 
 interface ContactFormProps {
@@ -33,6 +42,21 @@ export default function ContactForm({
   const [phone, setPhone] = useState(initialData?.phone || '');
   const [address, setAddress] = useState(initialData?.address || '');
   const [mapsEmbedCode, setMapsEmbedCode] = useState(initialData?.mapsEmbedCode || '');
+  
+  // Default operating hours
+  const defaultOperatingHours: OperatingHours = {
+    monday: { open: '08:00', close: '17:00' },
+    tuesday: { open: '08:00', close: '17:00' },
+    wednesday: { open: '08:00', close: '17:00' },
+    thursday: { open: '08:00', close: '17:00' },
+    friday: { open: '08:00', close: '17:00' },
+    saturday: { open: '09:00', close: '16:00' },
+    sunday: { open: '00:00', close: '00:00', closed: true },
+  };
+
+  const [operatingHours, setOperatingHours] = useState<OperatingHours>(
+    initialData?.operatingHours || defaultOperatingHours
+  );
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -78,6 +102,7 @@ export default function ContactForm({
         phone,
         address,
         mapsEmbedCode: mapsEmbedCode || undefined,
+        operatingHours,
       };
 
       if (onSubmit) {
@@ -202,6 +227,91 @@ export default function ContactForm({
               </div>
             </div>
           )}
+        </div>
+      </Card>
+
+      {/* Jam Operasional */}
+      <Card className="p-6">
+        <h2 className="mb-6 text-lg font-semibold text-stone-900">Jam Operasional</h2>
+        <div className="space-y-4">
+          {Object.entries(operatingHours).map(([day, hours]) => {
+            const dayLabels: Record<string, string> = {
+              monday: 'Senin',
+              tuesday: 'Selasa',
+              wednesday: 'Rabu',
+              thursday: 'Kamis',
+              friday: 'Jumat',
+              saturday: 'Sabtu',
+              sunday: 'Minggu',
+            };
+
+            return (
+              <div key={day} className="flex items-end gap-4 p-4 bg-stone-50 rounded border border-stone-200">
+                <div className="flex-1">
+                  <label className="block text-sm font-medium text-stone-900 mb-2">
+                    {dayLabels[day]}
+                  </label>
+                  <div className="flex gap-2 items-center">
+                    {!hours.closed ? (
+                      <>
+                        <div className="flex-1">
+                          <label className="text-xs text-stone-600 block mb-1">Jam Buka</label>
+                          <input
+                            type="time"
+                            value={hours.open}
+                            onChange={(e) => {
+                              setOperatingHours({
+                                ...operatingHours,
+                                [day]: { ...hours, open: e.target.value },
+                              });
+                            }}
+                            className="w-full px-3 py-2 border border-stone-300 rounded text-sm text-stone-900 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <label className="text-xs text-stone-600 block mb-1">Jam Tutup</label>
+                          <input
+                            type="time"
+                            value={hours.close}
+                            onChange={(e) => {
+                              setOperatingHours({
+                                ...operatingHours,
+                                [day]: { ...hours, close: e.target.value },
+                              });
+                            }}
+                            className="w-full px-3 py-2 border border-stone-300 rounded text-sm text-stone-900 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                          />
+                        </div>
+                      </>
+                    ) : (
+                      <span className="text-sm text-stone-600 font-medium">Libur</span>
+                    )}
+                  </div>
+                </div>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={hours.closed || false}
+                    onChange={(e) => {
+                      setOperatingHours({
+                        ...operatingHours,
+                        [day]: {
+                          open: '00:00',
+                          close: '00:00',
+                          closed: e.target.checked,
+                        },
+                      });
+                    }}
+                    className="w-4 h-4 rounded border-stone-300"
+                  />
+                  <span className="text-xs text-stone-600">Libur</span>
+                </label>
+              </div>
+            );
+          })}
+          <p className="mt-4 text-xs text-stone-500 bg-blue-50 p-3 rounded border border-blue-200">
+            ℹ️ Centang &quot;Libur&quot; untuk hari yang tidak beroperasi. Jam akan otomatis disetel ke 00:00.
+          </p>
         </div>
       </Card>
 

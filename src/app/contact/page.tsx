@@ -17,6 +17,16 @@ export const metadata: Metadata = {
 export default async function ContactPage() {
   // Fetch contact info from database
   const contactInfo = await (prisma as any).contactInfo.findFirst().catch(() => null);
+  
+  // Parse operating hours
+  let operatingHours;
+  if (contactInfo?.operatingHours) {
+    try {
+      operatingHours = JSON.parse(contactInfo.operatingHours);
+    } catch {
+      operatingHours = null;
+    }
+  }
   return (
     <div className="bg-gradient-to-br from-[#fff6ec] via-[#e8f5ef] to-[#fffaf3] py-16">
       <Container size="lg" className="space-y-12">
@@ -120,18 +130,81 @@ export default async function ContactPage() {
                 <CardTitle>Jam operasional</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2 text-sm text-stone-600">
-                <div className="flex justify-between border-b border-stone-200/60 pb-2">
-                  <span>Senin - Jumat</span>
-                  <span className="font-semibold text-emerald-700">09.00 - 17.00</span>
-                </div>
-                <div className="flex justify-between border-b border-stone-200/60 pb-2">
-                  <span>Sabtu</span>
-                  <span className="font-semibold text-emerald-700">09.00 - 14.00</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Minggu</span>
-                  <span className="font-semibold text-emerald-700">Tutup</span>
-                </div>
+                {operatingHours ? (
+                  <>
+                    {operatingHours.monday && (
+                      <div className="flex justify-between border-b border-stone-200/60 pb-2">
+                        <span>Senin</span>
+                        <span className={operatingHours.monday.closed ? "font-semibold text-rose-600" : "font-semibold text-emerald-700"}>
+                          {operatingHours.monday.closed ? "Tutup" : `${operatingHours.monday.open} - ${operatingHours.monday.close}`}
+                        </span>
+                      </div>
+                    )}
+                    {operatingHours.tuesday && (
+                      <div className="flex justify-between border-b border-stone-200/60 pb-2">
+                        <span>Selasa</span>
+                        <span className={operatingHours.tuesday.closed ? "font-semibold text-rose-600" : "font-semibold text-emerald-700"}>
+                          {operatingHours.tuesday.closed ? "Tutup" : `${operatingHours.tuesday.open} - ${operatingHours.tuesday.close}`}
+                        </span>
+                      </div>
+                    )}
+                    {operatingHours.wednesday && (
+                      <div className="flex justify-between border-b border-stone-200/60 pb-2">
+                        <span>Rabu</span>
+                        <span className={operatingHours.wednesday.closed ? "font-semibold text-rose-600" : "font-semibold text-emerald-700"}>
+                          {operatingHours.wednesday.closed ? "Tutup" : `${operatingHours.wednesday.open} - ${operatingHours.wednesday.close}`}
+                        </span>
+                      </div>
+                    )}
+                    {operatingHours.thursday && (
+                      <div className="flex justify-between border-b border-stone-200/60 pb-2">
+                        <span>Kamis</span>
+                        <span className={operatingHours.thursday.closed ? "font-semibold text-rose-600" : "font-semibold text-emerald-700"}>
+                          {operatingHours.thursday.closed ? "Tutup" : `${operatingHours.thursday.open} - ${operatingHours.thursday.close}`}
+                        </span>
+                      </div>
+                    )}
+                    {operatingHours.friday && (
+                      <div className="flex justify-between border-b border-stone-200/60 pb-2">
+                        <span>Jumat</span>
+                        <span className={operatingHours.friday.closed ? "font-semibold text-rose-600" : "font-semibold text-emerald-700"}>
+                          {operatingHours.friday.closed ? "Tutup" : `${operatingHours.friday.open} - ${operatingHours.friday.close}`}
+                        </span>
+                      </div>
+                    )}
+                    {operatingHours.saturday && (
+                      <div className="flex justify-between border-b border-stone-200/60 pb-2">
+                        <span>Sabtu</span>
+                        <span className={operatingHours.saturday.closed ? "font-semibold text-rose-600" : "font-semibold text-emerald-700"}>
+                          {operatingHours.saturday.closed ? "Tutup" : `${operatingHours.saturday.open} - ${operatingHours.saturday.close}`}
+                        </span>
+                      </div>
+                    )}
+                    {operatingHours.sunday && (
+                      <div className="flex justify-between">
+                        <span>Minggu</span>
+                        <span className={operatingHours.sunday.closed ? "font-semibold text-rose-600" : "font-semibold text-emerald-700"}>
+                          {operatingHours.sunday.closed ? "Tutup" : `${operatingHours.sunday.open} - ${operatingHours.sunday.close}`}
+                        </span>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <div className="flex justify-between border-b border-stone-200/60 pb-2">
+                      <span>Senin - Jumat</span>
+                      <span className="font-semibold text-emerald-700">09.00 - 17.00</span>
+                    </div>
+                    <div className="flex justify-between border-b border-stone-200/60 pb-2">
+                      <span>Sabtu</span>
+                      <span className="font-semibold text-emerald-700">09.00 - 14.00</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Minggu</span>
+                      <span className="font-semibold text-emerald-700">Tutup</span>
+                    </div>
+                  </>
+                )}
               </CardContent>
             </Card>
           </div>

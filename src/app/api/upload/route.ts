@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     const folder = searchParams.get('folder') || DEFAULT_FOLDER;
 
     // Validate folder name (security - prevent directory traversal)
-    if (!['homestays', 'attractions', 'culinary'].includes(folder)) {
+    if (!['homestays', 'attractions', 'culinary', 'blog'].includes(folder)) {
       return NextResponse.json(
         { error: 'Invalid folder type' },
         { status: 400 }
