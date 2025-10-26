@@ -1,10 +1,26 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Container from '@/components/ui/Container';
-import MapEmbedDisplay from '@/components/MapEmbedDisplay';
 import { prisma } from '@/lib/prisma';
 
 type Props = {
   params: Promise<{ slug: string }>;
+};
+
+type AttractionData = {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  location: string;
+  photos: string;
+  featured: boolean;
+  published: boolean;
+  latitude: number | null;
+  longitude: number | null;
+  mapsEmbedCode?: string | null;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 const formatSlugToTitle = (value: string): string =>
@@ -42,11 +58,29 @@ export default async function AttractionDetailPage({ params }: Props) {
   const { slug } = await params;
   const attractionName = formatSlugToTitle(slug);
   
-  let attraction = null;
+  let attraction: AttractionData | null = null;
+  let photos: string[] = [];
+  
   try {
-    attraction = await prisma.attraction.findUnique({
+    const result = await prisma.attraction.findUnique({
       where: { slug },
     });
+    
+    if (result) {
+      attraction = result as AttractionData;
+    }
+    
+    if (attraction?.photos) {
+      try {
+        photos = JSON.parse(attraction.photos);
+        if (!Array.isArray(photos)) {
+          photos = [];
+        }
+      } catch {
+        console.warn('Failed to parse photos JSON for attraction:', slug);
+        photos = [];
+      }
+    }
   } catch (error) {
     console.error('Error fetching attraction:', error);
   }
@@ -62,31 +96,59 @@ export default async function AttractionDetailPage({ params }: Props) {
           {/* Photo Gallery */}
           <div className="overflow-hidden rounded-3xl border border-emerald-100 bg-white p-6 shadow-lg shadow-emerald-100/70">
             <div className="relative mb-6 h-96 overflow-hidden rounded-2xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-300 via-emerald-200 to-emerald-100" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(47,127,82,0.55),_transparent_65%)]" />
+              {photos.length > 0 ? (
+                <Image
+                  src={photos[0]}
+                  alt={`${displayName} - Hero`}
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 640px) 100vw, 85vw"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-300 via-emerald-200 to-emerald-100" />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               <div className="absolute inset-0 flex flex-col justify-between p-8 text-white">
                 <span className="inline-flex w-max items-center gap-2 rounded-full bg-white/15 px-5 py-1 text-xs font-semibold uppercase tracking-widest">
                   Atraksi unggulan
                 </span>
                 <div>
-                  <h1 className="text-3xl font-semibold leading-tight sm:text-4xl">
+                  <h1 className="text-3xl font-semibold leading-tight drop-shadow-lg sm:text-4xl">
                     {displayName}
                   </h1>
-                  <p className="mt-3 max-w-xl text-sm text-white/90">
+                  <p className="mt-3 max-w-xl text-sm drop-shadow-md text-white/95">
                     {description}
                   </p>
                 </div>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {[1, 2, 3, 4].map((i) => (
-                <div
-                  key={i}
-                  className="flex h-24 items-center justify-center rounded-2xl border border-emerald-100 bg-emerald-50/70 text-xs font-semibold uppercase tracking-widest text-emerald-600"
-                >
-                  Foto {i}
-                </div>
-              ))}
+              {photos.length > 1 ? (
+                photos.slice(1).map((photo: string, index: number) => (
+                  <div
+                    key={index + 1}
+                    className="relative h-24 overflow-hidden rounded-2xl border border-emerald-100 bg-emerald-50/70"
+                  >
+                    <Image
+                      src={photo}
+                      alt={`${displayName} - Foto ${index + 2}`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 50vw, 25vw"
+                    />
+                  </div>
+                ))
+              ) : (
+                [1, 2, 3, 4].map((i) => (
+                  <div
+                    key={i}
+                    className="flex h-24 items-center justify-center rounded-2xl border border-emerald-100 bg-emerald-50/70 text-xs font-semibold uppercase tracking-widest text-emerald-600"
+                  >
+                    Foto {i}
+                  </div>
+                ))
+              )}
             </div>
           </div>
 
@@ -130,15 +192,18 @@ export default async function AttractionDetailPage({ params }: Props) {
               <p className="text-sm text-stone-600">
                 Peta interaktif akan membantu Anda menemukan rute terbaik menuju {displayName}.
               </p>
-              {attraction?.mapsEmbedCode ? (
-                <MapEmbedDisplay embedCode={attraction.mapsEmbedCode} className="rounded-3xl" />
-              ) : (
-                <div className="rounded-3xl overflow-hidden border border-emerald-100 bg-white shadow-sm">
+              <div className="rounded-3xl overflow-hidden border border-emerald-100 bg-white shadow-sm">
+                {attraction && attraction.mapsEmbedCode ? (
+                  <div
+                    className="w-full h-96"
+                    dangerouslySetInnerHTML={{ __html: attraction.mapsEmbedCode }}
+                  />
+                ) : (
                   <div className="flex h-96 items-center justify-center rounded-2xl border-dashed border-emerald-300 bg-emerald-50/60 text-sm font-medium text-emerald-600">
-                    Peta akan ditampilkan di sini
+                    📍 {location}
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </article>
         </div>
