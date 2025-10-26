@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import type { Culinary } from '@prisma/client';
 import Container from '@/components/ui/Container';
 import Badge from '@/components/ui/Badge';
+import MapEmbedDisplay from '@/components/MapEmbedDisplay';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { prisma } from '@/lib/prisma';
 
@@ -225,13 +226,19 @@ export default async function CulinaryDetailPage({ params }: PageParams) {
               </h2>
               <span className="text-sm text-stone-500">Koordinat: {culinary.latitude ?? '-'}, {culinary.longitude ?? '-'}</span>
             </div>
-            <div
-              className="flex min-h-[260px] items-center justify-center rounded-[2rem] border border-emerald-200/70 bg-white/80 text-center text-sm text-stone-500"
-              role="img"
-              aria-label={`Peta lokasi ${culinary.location}`}
-            >
-              Peta interaktif akan ditampilkan di sini.
-            </div>
+            {culinary.mapsEmbedCode ? (
+              <MapEmbedDisplay embedCode={culinary.mapsEmbedCode} className="rounded-3xl" />
+            ) : (
+              <div className="rounded-3xl overflow-hidden border border-emerald-100 bg-white shadow-sm">
+                <div
+                  className="flex h-96 items-center justify-center bg-emerald-50/60 text-center text-sm text-stone-500"
+                  role="img"
+                  aria-label={`Peta lokasi ${culinary.location}`}
+                >
+                  Peta interaktif akan ditampilkan di sini.
+                </div>
+              </div>
+            )}
           </section>
         </article>
       </Container>

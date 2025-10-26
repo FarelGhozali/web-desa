@@ -3,9 +3,11 @@ import { writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
 
-const UPLOAD_DIR = join(process.cwd(), 'public/uploads/homestays');
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB per file
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
+// Default folder is homestays for backward compatibility
+const DEFAULT_FOLDER = 'homestays';
 
 /**
  * Generate unique filename
@@ -19,11 +21,25 @@ function generateFileName(originalName: string): string {
 
 /**
  * POST /api/upload - Upload file to local storage
+ * Query params:
+ *   - folder: 'homestays' | 'attractions' | 'culinary' (default: 'homestays')
  */
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File;
+    
+    // Get folder from query params (default to homestays)
+    const { searchParams } = new URL(request.url);
+    const folder = searchParams.get('folder') || DEFAULT_FOLDER;
+
+    // Validate folder name (security - prevent directory traversal)
+    if (!['homestays', 'attractions', 'culinary'].includes(folder)) {
+      return NextResponse.json(
+        { error: 'Invalid folder type' },
+        { status: 400 }
+      );
+    }
 
     if (!file) {
       return NextResponse.json(
@@ -48,6 +64,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Construct upload directory
+    const UPLOAD_DIR = join(process.cwd(), `public/uploads/${folder}`);
+
     // Ensure upload directory exists
     if (!existsSync(UPLOAD_DIR)) {
       await mkdir(UPLOAD_DIR, { recursive: true });
@@ -63,7 +82,7 @@ export async function POST(request: NextRequest) {
     await writeFile(filePath, buffer);
 
     // Return relative path for database storage
-    const relativePath = `/uploads/homestays/${fileName}`;
+    const relativePath = `/uploads/${folder}/${fileName}`;
 
     return NextResponse.json({
       url: relativePath,

@@ -154,38 +154,52 @@ model Post {
 }
 
 model Attraction {
-  id          String   @id @default(cuid())
-  name        String
-  slug        String   @unique
-  description String   @db.Text
-  photos      String   @db.Text
-  location    String
-  latitude    Float?
-  longitude   Float?
-  featured    Boolean  @default(false)
-  published   Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String   @id @default(cuid())
+  name          String
+  slug          String   @unique
+  description   String   @db.Text
+  photos        String   @db.Text
+  location      String
+  latitude      Float?
+  longitude     Float?
+  featured      Boolean  @default(false)
+  published     Boolean  @default(true)
+  mapsEmbedCode String?  @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@map("attractions")
 }
 
 model Culinary {
-  id          String   @id @default(cuid())
-  name        String
-  slug        String   @unique
-  description String   @db.Text
-  photos      String   @db.Text
-  location    String
-  latitude    Float?
-  longitude   Float?
-  priceRange  String?
-  featured    Boolean  @default(false)
-  published   Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String   @id @default(cuid())
+  name          String
+  slug          String   @unique
+  description   String   @db.Text
+  photos        String   @db.Text
+  location      String
+  latitude      Float?
+  longitude     Float?
+  priceRange    String?
+  featured      Boolean  @default(false)
+  published     Boolean  @default(true)
+  mapsEmbedCode String?  @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@map("culinary")
+}
+
+model ContactInfo {
+  id           String   @id @default(cuid())
+  email        String
+  phone        String
+  address      String   @db.Text
+  mapsEmbedCode String? @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("contact_info")
 }
 
 enum UserRole {

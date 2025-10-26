@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import Container from '@/components/ui/Container';
+import MapEmbedDisplay from '@/components/MapEmbedDisplay';
+import { prisma } from '@/lib/prisma';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -13,8 +15,23 @@ const formatSlugToTitle = (value: string): string =>
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const attractionName = formatSlugToTitle(slug);
+  
+  try {
+    const attraction = await prisma.attraction.findUnique({
+      where: { slug },
+    });
 
+    if (attraction) {
+      return {
+        title: `${attraction.name} | Atraksi Desa Wisata`,
+        description: attraction.description.substring(0, 160),
+      };
+    }
+  } catch (error) {
+    console.error('Error fetching attraction for metadata:', error);
+  }
+
+  const attractionName = formatSlugToTitle(slug);
   return {
     title: `${attractionName} | Atraksi Desa Wisata`,
     description: `Jelajahi ${attractionName} dan temukan pengalaman alam terbaik di desa wisata kami.`,
@@ -24,8 +41,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function AttractionDetailPage({ params }: Props) {
   const { slug } = await params;
   const attractionName = formatSlugToTitle(slug);
-  // TODO: Fetch attraction from database by slug
-  // const attraction = await prisma.attraction.findUnique({ where: { slug } });
+  
+  let attraction = null;
+  try {
+    attraction = await prisma.attraction.findUnique({
+      where: { slug },
+    });
+  } catch (error) {
+    console.error('Error fetching attraction:', error);
+  }
+
+  const displayName = attraction?.name || attractionName;
+  const description = attraction?.description || 'Nikmati pesona alam, budaya, dan keramahan warga desa yang menyejukkan hati.';
+  const location = attraction?.location || 'Kawasan desa wisata';
 
   return (
     <div className="bg-gradient-to-br from-[#fef7ec] via-[#edf6f1] to-[#fffaf2] pb-20 pt-12">
@@ -42,10 +70,10 @@ export default async function AttractionDetailPage({ params }: Props) {
                 </span>
                 <div>
                   <h1 className="text-3xl font-semibold leading-tight sm:text-4xl">
-                    {attractionName}
+                    {displayName}
                   </h1>
                   <p className="mt-3 max-w-xl text-sm text-white/90">
-                    Nikmati pesona alam, budaya, dan keramahan warga desa yang menyejukkan hati.
+                    {description}
                   </p>
                 </div>
               </div>
@@ -69,12 +97,12 @@ export default async function AttractionDetailPage({ params }: Props) {
                 Jelajah desa wisata
               </span>
               <h2 className="text-3xl font-semibold text-stone-900 sm:text-4xl">
-                {attractionName}
+                {displayName}
               </h2>
               <div className="flex flex-wrap items-center gap-3 text-sm text-stone-600">
                 <span className="inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-white px-3 py-1">
                   <span aria-hidden="true">📍</span>
-                  Kawasan desa wisata
+                  {location}
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-white px-3 py-1">
                   <span aria-hidden="true">🌿</span>
@@ -97,14 +125,20 @@ export default async function AttractionDetailPage({ params }: Props) {
             </div>
 
             {/* Map Placeholder */}
-            <div className="rounded-3xl border border-emerald-100 bg-emerald-50/60 p-8">
+            <div className="space-y-4">
               <h3 className="text-2xl font-semibold text-stone-900">Lokasi</h3>
-              <p className="mt-2 text-sm text-stone-600">
-                Peta interaktif akan membantu Anda menemukan rute terbaik menuju {attractionName}.
+              <p className="text-sm text-stone-600">
+                Peta interaktif akan membantu Anda menemukan rute terbaik menuju {displayName}.
               </p>
-              <div className="mt-6 flex h-64 items-center justify-center rounded-2xl border border-dashed border-emerald-300 bg-white/70 text-sm font-medium text-emerald-600">
-                Peta akan ditampilkan di sini
-              </div>
+              {attraction?.mapsEmbedCode ? (
+                <MapEmbedDisplay embedCode={attraction.mapsEmbedCode} className="rounded-3xl" />
+              ) : (
+                <div className="rounded-3xl overflow-hidden border border-emerald-100 bg-white shadow-sm">
+                  <div className="flex h-96 items-center justify-center rounded-2xl border-dashed border-emerald-300 bg-emerald-50/60 text-sm font-medium text-emerald-600">
+                    Peta akan ditampilkan di sini
+                  </div>
+                </div>
+              )}
             </div>
           </article>
         </div>

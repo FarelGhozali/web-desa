@@ -75,7 +75,7 @@ export default async function HomestayDetailPage({ params }: Props) {
 
   return (
     <div className="bg-gradient-to-br from-[#fdf8f1] via-[#edf7ef] to-[#fffaf0] pb-20 pt-12">
-      <Container>
+      <Container size="lg">
         <div className="mb-8 flex flex-wrap items-center gap-2 text-sm text-emerald-700">
           <Link href="/homestays" className="transition hover:text-emerald-600/80">
             Homestay
@@ -321,18 +321,16 @@ export default async function HomestayDetailPage({ params }: Props) {
 
             {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             {(homestay as any).mapsEmbedCode && (
-              <section className="rounded-3xl border border-emerald-100 bg-white p-8 shadow-sm">
-                <div className="mb-6">
-                  <div>
-                    <h2 className="text-2xl font-semibold text-stone-900">Lokasi</h2>
-                    <p className="mt-2 text-sm text-stone-500">
-                      Temukan homestay dengan rute terbaik menuju lokasi wisata terdekat.
-                    </p>
-                  </div>
+              <section className="space-y-4">
+                <div>
+                  <h2 className="text-2xl font-semibold text-stone-900">Lokasi</h2>
+                  <p className="mt-2 text-sm text-stone-500">
+                    Temukan homestay dengan rute terbaik menuju lokasi wisata terdekat.
+                  </p>
                 </div>
-                <div className="overflow-hidden rounded-2xl border border-emerald-100">
+                <div className="rounded-3xl overflow-hidden border border-emerald-100 bg-white shadow-sm">
                   {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                  <MapEmbedDisplay embedCode={(homestay as any).mapsEmbedCode} />
+                  <MapEmbedDisplay embedCode={(homestay as any).mapsEmbedCode} className="h-96" />
                 </div>
               </section>
             )}

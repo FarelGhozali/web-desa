@@ -13,14 +13,30 @@ interface Category {
   slug: string;
 }
 
-export default function CreatePostForm() {
+interface Post {
+  id: string;
+  title: string;
+  content: string;
+  excerpt: string | null;
+  coverImage: string | null;
+  published: boolean;
+  categoryId: string;
+}
+
+interface CreatePostFormProps {
+  mode?: 'create' | 'edit';
+  postId?: string;
+  initialData?: Partial<Post>;
+}
+
+export default function CreatePostForm({ mode = 'create', postId, initialData }: CreatePostFormProps) {
   const router = useRouter();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [excerpt, setExcerpt] = useState('');
-  const [coverImage, setCoverImage] = useState('');
-  const [categoryId, setCategoryId] = useState('');
-  const [published, setPublished] = useState(false);
+  const [title, setTitle] = useState(initialData?.title || '');
+  const [content, setContent] = useState(initialData?.content || '');
+  const [excerpt, setExcerpt] = useState(initialData?.excerpt || '');
+  const [coverImage, setCoverImage] = useState(initialData?.coverImage || '');
+  const [categoryId, setCategoryId] = useState(initialData?.categoryId || '');
+  const [published, setPublished] = useState(initialData?.published || false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -35,8 +51,8 @@ export default function CreatePostForm() {
         if (response.ok) {
           const data = await response.json();
           setCategories(data);
-          // Auto-select first category if available
-          if (data.length > 0) {
+          // Auto-select first category if available and not already set
+          if (data.length > 0 && !initialData?.categoryId) {
             setCategoryId(data[0].id);
           }
         }
@@ -48,7 +64,7 @@ export default function CreatePostForm() {
     };
 
     fetchCategories();
-  }, []);
+  }, [initialData?.categoryId]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,8 +100,11 @@ export default function CreatePostForm() {
     setLoading(true);
 
     try {
-      const response = await fetch('/api/admin/posts', {
-        method: 'POST',
+      const url = mode === 'create' ? '/api/admin/posts' : `/api/admin/posts/${postId}`;
+      const method = mode === 'create' ? 'POST' : 'PATCH';
+
+      const response = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -102,11 +121,11 @@ export default function CreatePostForm() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Gagal membuat artikel');
+        throw new Error(data.error || `Gagal ${mode === 'create' ? 'membuat' : 'memperbarui'} artikel`);
       }
 
       setSuccess(true);
-      
+
       // Redirect to posts page after 2 seconds
       setTimeout(() => {
         router.push('/admin/posts');
@@ -121,7 +140,9 @@ export default function CreatePostForm() {
   if (success) {
     return (
       <div className="rounded-lg bg-green-50 p-8 text-center text-green-900">
-        <p className="mb-2 text-2xl font-bold">✓ Artikel berhasil dibuat!</p>
+        <p className="mb-2 text-2xl font-bold">
+          ✓ Artikel berhasil {mode === 'create' ? 'dibuat' : 'diperbarui'}!
+        </p>
         <p className="text-sm">Anda akan diarahkan kembali ke daftar artikel...</p>
       </div>
     );
@@ -194,6 +215,7 @@ export default function CreatePostForm() {
         {coverImage && (
           <div className="mt-3 rounded-lg border border-stone-200 p-2">
             <p className="text-xs font-medium text-stone-700 mb-2">Preview Gambar:</p>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={coverImage}
               alt="Cover preview"
@@ -264,7 +286,7 @@ export default function CreatePostForm() {
           className="flex-1"
           disabled={loading || categoriesLoading || categories.length === 0}
         >
-          {loading ? 'Membuat...' : published ? 'Publikasikan' : 'Simpan sebagai Draft'}
+          {loading ? (mode === 'create' ? 'Membuat...' : 'Menyimpan...') : (published ? 'Publikasikan' : 'Simpan sebagai Draft')}
         </Button>
       </div>
     </form>

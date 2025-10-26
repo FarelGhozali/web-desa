@@ -5,14 +5,18 @@ import Textarea from '@/components/ui/Textarea';
 import Button from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
+import MapEmbedDisplay from '@/components/MapEmbedDisplay';
 import Link from 'next/link';
+import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Hubungi Kami',
   description: 'Sampaikan pertanyaan seputar homestay, itinerary, atau kolaborasi komunitas bersama Desa Harmoni.',
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  // Fetch contact info from database
+  const contactInfo = await (prisma as any).contactInfo.findFirst().catch(() => null);
   return (
     <div className="bg-gradient-to-br from-[#fff6ec] via-[#e8f5ef] to-[#fffaf3] py-16">
       <Container size="lg" className="space-y-12">
@@ -77,7 +81,9 @@ export default function ContactPage() {
                   <span className="mt-1 text-lg text-emerald-700">📧</span>
                   <div className="space-y-1">
                     <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Email</p>
-                    <p className="text-base font-medium text-emerald-900">hello@villagestay.com</p>
+                    <p className="text-base font-medium text-emerald-900">
+                      {contactInfo?.email || 'hello@villagestay.com'}
+                    </p>
                     <p className="text-xs text-stone-500">Balas dalam 24 jam kerja</p>
                   </div>
                 </div>
@@ -85,7 +91,9 @@ export default function ContactPage() {
                   <span className="mt-1 text-lg text-emerald-700">☎️</span>
                   <div className="space-y-1">
                     <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Telepon</p>
-                    <p className="text-base font-medium text-emerald-900">+62 123 456 7890</p>
+                    <p className="text-base font-medium text-emerald-900">
+                      {contactInfo?.phone || '+62 123 456 7890'}
+                    </p>
                     <p className="text-xs text-stone-500">Senin - Sabtu • 09.00 - 17.00</p>
                   </div>
                 </div>
@@ -95,8 +103,12 @@ export default function ContactPage() {
                     <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Alamat</p>
                     <p className="text-base font-medium text-emerald-900">Balai Desa Harmoni</p>
                     <p className="text-sm leading-relaxed text-stone-600">
-                      Jl. Persawahan No. 12<br />
-                      Kabupaten Ciamis, Jawa Barat
+                      {contactInfo?.address || (
+                        <>
+                          Jl. Persawahan No. 12<br />
+                          Kabupaten Ciamis, Jawa Barat
+                        </>
+                      )}
                     </p>
                   </div>
                 </div>
@@ -127,9 +139,15 @@ export default function ContactPage() {
 
         <div className="space-y-4">
           <h2 className="text-2xl">Peta desa</h2>
-          <div className="flex h-96 items-center justify-center rounded-3xl border border-dashed border-emerald-200 bg-emerald-50/60 text-stone-500">
-            Peta digital akan ditampilkan di sini
-          </div>
+          {contactInfo?.mapsEmbedCode ? (
+            <div className="rounded-3xl overflow-hidden border border-emerald-100 bg-white shadow-sm">
+              <MapEmbedDisplay embedCode={contactInfo.mapsEmbedCode} className="rounded-3xl" />
+            </div>
+          ) : (
+            <div className="flex h-96 items-center justify-center rounded-3xl border border-dashed border-emerald-200 bg-emerald-50/60 text-stone-500">
+              Peta digital akan ditampilkan di sini
+            </div>
+          )}
         </div>
       </Container>
     </div>

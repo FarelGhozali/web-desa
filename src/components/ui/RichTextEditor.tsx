@@ -249,7 +249,7 @@ export default function RichTextEditor({
       <div className="rounded-lg border border-stone-200 bg-white" suppressHydrationWarning>
         <EditorContent
           editor={editor}
-          className="prose prose-sm max-w-none p-4 focus:outline-none [&_.ProseMirror]:min-h-96 [&_.ProseMirror]:outline-none"
+          className="prose prose-sm max-w-none p-4 focus:outline-none [&_.ProseMirror]:min-h-96 [&_.ProseMirror]:outline-none [&_.ProseMirror]:text-stone-900"
         />
       </div>
 
