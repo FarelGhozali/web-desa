@@ -35,6 +35,8 @@ export default function BookingForm({
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
   const [numberOfGuests, setNumberOfGuests] = useState(1);
+  const [guestPhone, setGuestPhone] = useState('');
+  const [specialRequests, setSpecialRequests] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -167,6 +169,8 @@ export default function BookingForm({
           checkOutDate: new Date(checkOutDate).toISOString(),
           numberOfGuests,
           totalPrice,
+          guestPhone: guestPhone || null,
+          specialRequests: specialRequests || null,
         }),
       });
 
@@ -180,6 +184,8 @@ export default function BookingForm({
       setCheckInDate('');
       setCheckOutDate('');
       setNumberOfGuests(1);
+      setGuestPhone('');
+      setSpecialRequests('');
 
       // Redirect to confirmation page
       setTimeout(() => {
@@ -256,6 +262,36 @@ export default function BookingForm({
               required
             />
             <p className="mt-1 text-xs text-stone-500">Maksimal: {maxGuests} tamu</p>
+          </div>
+
+          {/* Guest Phone */}
+          <div>
+            <label className="block text-sm font-medium text-stone-700 mb-1">
+              Nomor Telepon Tamu
+            </label>
+            <input
+              type="tel"
+              value={guestPhone}
+              onChange={(e) => setGuestPhone(e.target.value)}
+              placeholder="Contoh: +62 812 3456 7890"
+              className="w-full px-3 py-2 border border-stone-300 rounded-md text-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+            <p className="mt-1 text-xs text-stone-500">Opsional - untuk kontak darurat</p>
+          </div>
+
+          {/* Special Requests */}
+          <div>
+            <label className="block text-sm font-medium text-stone-700 mb-1">
+              Permintaan Khusus
+            </label>
+            <textarea
+              value={specialRequests}
+              onChange={(e) => setSpecialRequests(e.target.value)}
+              placeholder="Contoh: Alergi makanan, preferensi kamar, atau permintaan khusus lainnya..."
+              rows={3}
+              className="w-full px-3 py-2 border border-stone-300 rounded-md text-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+            <p className="mt-1 text-xs text-stone-500">Opsional - informasi tambahan untuk host</p>
           </div>
 
           {/* Availability Status */}

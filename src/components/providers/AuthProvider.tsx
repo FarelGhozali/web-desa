@@ -9,8 +9,9 @@ export default function AuthProvider({
 }) {
   return (
     <SessionProvider 
-      refetchInterval={60} // Refetch session setiap 60 detik
-      refetchOnWindowFocus={true} // Refetch ketika window focus
+      refetchInterval={60}
+      refetchOnWindowFocus={true}
+      refetchWhenOffline={false}
     >
       {children}
     </SessionProvider>

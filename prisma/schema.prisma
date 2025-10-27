@@ -88,18 +88,20 @@ model Homestay {
 }
 
 model Booking {
-  id             String        @id @default(cuid())
-  checkInDate    DateTime
-  checkOutDate   DateTime
-  totalPrice     BigInt
-  numberOfGuests Int
-  status         BookingStatus @default(PENDING)
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  userId         String
-  homestayId     String
-  homestay       Homestay      @relation(fields: [homestayId], references: [id], onDelete: Cascade)
-  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id               String        @id @default(cuid())
+  checkInDate      DateTime
+  checkOutDate     DateTime
+  totalPrice       BigInt
+  numberOfGuests   Int
+  status           BookingStatus @default(PENDING)
+  guestPhone       String?
+  specialRequests  String?       @db.Text
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  userId           String
+  homestayId       String
+  homestay         Homestay      @relation(fields: [homestayId], references: [id], onDelete: Cascade)
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([homestayId], map: "bookings_homestayId_fkey")
   @@index([userId], map: "bookings_userId_fkey")

@@ -22,12 +22,17 @@ export async function POST(req: NextRequest) {
     }
 
     // Parse request body
-    const { homestayId, checkInDate, checkOutDate, numberOfGuests, totalPrice } =
+    const { homestayId, checkInDate, checkOutDate, numberOfGuests, totalPrice, guestPhone, specialRequests } =
       await req.json();
 
     // Validation
     if (!homestayId || !checkInDate || !checkOutDate || !numberOfGuests) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+
+    // Validate phone format if provided
+    if (guestPhone && !/^[\d\s\-\+\(\)]+$/.test(guestPhone)) {
+      return NextResponse.json({ error: 'Invalid phone number format' }, { status: 400 });
     }
 
     const checkIn = new Date(checkInDate);
@@ -93,6 +98,8 @@ export async function POST(req: NextRequest) {
         checkOutDate: checkOut,
         numberOfGuests,
         totalPrice,
+        guestPhone: guestPhone || null,
+        specialRequests: specialRequests || null,
         status: 'PENDING',
         userId: user.id,
         homestayId,

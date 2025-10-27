@@ -141,6 +141,27 @@ export default async function BookingConfirmationPage({ params }: Props) {
                 <span>Rp {Number(booking.totalPrice).toLocaleString('id-ID')}</span>
               </div>
             </div>
+
+            {/* Guest Contact Information */}
+            {(booking.guestPhone || booking.specialRequests) && (
+              <div className="mt-6 pt-6 border-t border-stone-200">
+                <h3 className="mb-4 font-semibold text-stone-900">Informasi Kontak Tamu</h3>
+                <div className="space-y-3">
+                  {booking.guestPhone && (
+                    <div>
+                      <p className="text-sm text-stone-600">Nomor Telepon</p>
+                      <p className="font-medium text-stone-900">{booking.guestPhone}</p>
+                    </div>
+                  )}
+                  {booking.specialRequests && (
+                    <div>
+                      <p className="text-sm text-stone-600">Permintaan Khusus</p>
+                      <p className="font-medium text-stone-900 whitespace-pre-line">{booking.specialRequests}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Status Info */}

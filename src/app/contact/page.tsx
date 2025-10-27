@@ -49,7 +49,7 @@ export default async function ContactPage() {
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
-            <Card className="bg-white">
+            <Card className="bg-white border-stone-200">
               <CardHeader>
                 <CardTitle>Kirim pesan</CardTitle>
               </CardHeader>
@@ -78,9 +78,9 @@ export default async function ContactPage() {
           </div>
 
           <div className="space-y-6">
-            <Card className="relative overflow-hidden border border-emerald-100/80 bg-white/95 shadow-lg shadow-emerald-900/5">
+            <Card className="bg-white border-stone-200">
               <div
-                className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-emerald-200/50 via-transparent to-transparent"
+                className="pointer-events-none hidden"
                 aria-hidden
               />
               <CardHeader className="relative pb-2">
@@ -125,7 +125,7 @@ export default async function ContactPage() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white">
+            <Card className="bg-white border-stone-200">
               <CardHeader>
                 <CardTitle>Jam operasional</CardTitle>
               </CardHeader>
