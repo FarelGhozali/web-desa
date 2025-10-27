@@ -191,6 +191,15 @@ export default async function BookingConfirmationPage({ params }: Props) {
             </p>
           </div>
 
+          {/* DP Confirmation Note */}
+          <div className="mb-6 rounded-lg border border-emerald-100 bg-emerald-50/30 p-4">
+            <p className="text-sm text-stone-800">
+              Kami akan menghubungi Anda melalui nomor yang tertera pada website ini untuk
+              mengonfirmasi pembayaran DP. Pastikan nomor telepon yang Anda cantumkan benar
+              agar konfirmasi dapat dilakukan dengan lancar.
+            </p>
+          </div>
+
           {/* Review Section - Show only if COMPLETED and user hasn't reviewed yet */}
           {booking.status === 'COMPLETED' && (
             <div className="mb-8 rounded-lg border border-stone-200 bg-white p-8">

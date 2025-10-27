@@ -149,6 +149,12 @@ export default function BookingForm({
       return;
     }
 
+    // Require guest phone before submitting
+    if (!guestPhone || !guestPhone.trim()) {
+      setError('Silakan isi nomor telepon tamu sebelum melanjutkan pemesanan');
+      return;
+    }
+
     // Check availability before submitting
     if (availabilityStatus !== true) {
       setError('Silakan pilih tanggal ketika homestay tersedia');
@@ -275,8 +281,9 @@ export default function BookingForm({
               onChange={(e) => setGuestPhone(e.target.value)}
               placeholder="Contoh: +62 812 3456 7890"
               className="w-full px-3 py-2 border border-stone-300 rounded-md text-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              required
             />
-            <p className="mt-1 text-xs text-stone-500">Opsional - untuk kontak darurat</p>
+            <p className="mt-1 text-xs text-stone-500">Wajib - untuk konfirmasi pemesanan dan kontak darurat</p>
           </div>
 
           {/* Special Requests */}
@@ -327,10 +334,21 @@ export default function BookingForm({
           {session?.user ? (
             <Button
               type="submit"
-              disabled={isLoading || !checkInDate || !checkOutDate || availabilityStatus !== true}
+              disabled={
+                isLoading ||
+                !checkInDate ||
+                !checkOutDate ||
+                availabilityStatus !== true ||
+                !guestPhone ||
+                !guestPhone.trim()
+              }
               className="w-full"
             >
-              {isLoading ? 'Memproses...' : availabilityStatus === false ? 'Tidak Tersedia' : 'Pesan Sekarang'}
+              {isLoading
+                ? 'Memproses...'
+                : availabilityStatus === false
+                ? 'Tidak Tersedia'
+                : 'Pesan Sekarang'}
             </Button>
           ) : (
             <div className="rounded-md bg-blue-50 p-3 text-sm text-blue-700">

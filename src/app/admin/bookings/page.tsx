@@ -28,6 +28,7 @@ interface Booking {
   numberOfGuests: number;
   status: 'PENDING' | 'CONFIRMED' | 'CANCELLED' | 'COMPLETED';
   createdAt: string;
+  guestPhone?: string | null;
   user: {
     id: string;
     name: string | null;
@@ -105,7 +106,8 @@ export default function BookingsPage() {
       return (
         booking.homestay.name.toLowerCase().includes(keyword) ||
         (booking.user.name?.toLowerCase().includes(keyword) ?? false) ||
-        booking.user.email.toLowerCase().includes(keyword)
+        booking.user.email.toLowerCase().includes(keyword) ||
+        (booking.guestPhone ?? '').toLowerCase().includes(keyword)
       );
     });
   }, [bookings, search]);
@@ -238,6 +240,9 @@ export default function BookingsPage() {
                             {booking.user.name || 'Tanpa Nama'}
                           </p>
                           <p className="text-xs text-stone-500">{booking.user.email}</p>
+                          {booking.guestPhone && (
+                            <p className="text-xs text-stone-500">{booking.guestPhone}</p>
+                          )}
                         </div>
                       </TableCell>
                       <TableCell>
