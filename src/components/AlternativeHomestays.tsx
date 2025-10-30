@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { calculateNights, formatPrice } from '@/lib/utils';
@@ -85,41 +84,15 @@ export default function AlternativeHomestays({
           <Card
             key={homestay.id}
             hover
-            className="flex flex-col border-emerald-100/60 bg-white/95 shadow-sm ring-1 ring-transparent transition hover:ring-emerald-200 sm:flex-row"
+            className="flex flex-col border-emerald-100/60 bg-white/95 shadow-sm ring-1 ring-transparent transition hover:ring-emerald-200"
           >
-            <div className="relative h-36 w-full overflow-hidden rounded-3xl sm:h-auto sm:w-56 sm:rounded-none sm:rounded-l-3xl">
-              {homestay.photos[0] ? (
-                <Image
-                  src={homestay.photos[0]}
-                  alt={homestay.name}
-                  fill
-                  sizes="(min-width: 1024px) 18vw, (min-width: 640px) 25vw, 100vw"
-                  className="object-cover"
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-emerald-200 via-emerald-50 to-amber-100">
-                  <span className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-700">
-                    {homestay.name}
-                  </span>
-                </div>
-              )}
-
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(47,127,82,0.35),_transparent)]" />
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/10 to-emerald-600/35" />
-
-              <div className="absolute inset-x-4 bottom-3 flex justify-between text-[10px] font-semibold uppercase tracking-[0.3em] text-white">
-                <span className="line-clamp-1">{homestay.name}</span>
-                <span className="line-clamp-1 text-white/80">{homestay.address}</span>
-              </div>
-            </div>
-
-            <CardContent className="flex flex-1 flex-col gap-3 p-5">
+            <CardContent className="flex flex-col gap-3 p-5">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="space-y-1">
                   <h4 className="text-base font-semibold leading-tight text-stone-900 line-clamp-2">
                     {homestay.name}
                   </h4>
-                  <p className="text-xs text-stone-500 line-clamp-1">{homestay.description}</p>
+                  <p className="text-xs text-stone-500 line-clamp-2">{homestay.description}</p>
                 </div>
                 <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-emerald-700">
                   {homestay.maxGuests} tamu
@@ -143,16 +116,13 @@ export default function AlternativeHomestays({
 
               <div className="flex flex-col gap-3 border-t border-emerald-100 pt-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-baseline gap-2 text-emerald-700">
-                  <span className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-600">
-                    Mulai dari
-                  </span>
                   <span className="text-lg font-semibold">{formatPrice(homestay.pricePerNight)}</span>
                   <span className="text-[11px] text-stone-500">/ malam</span>
                 </div>
 
                 <Link
                   href={`/homestays/${homestay.slug}?checkIn=${checkInDate}&checkOut=${checkOutDate}&guests=${numberOfGuests || 1}`}
-                  className="inline-flex"
+                  className="inline-flex sm:ml-auto"
                 >
                   <Button variant="secondary" size="sm">
                     Lihat Detail
