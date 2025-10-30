@@ -2,13 +2,35 @@ import type { Metadata } from 'next';
 import Container from '@/components/ui/Container';
 import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
+import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Tentang Desa Harmoni',
   description: 'Kenali sejarah, budaya, dan gaya hidup masyarakat Desa Harmoni yang menyambut setiap tamu seperti keluarga.',
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  // Fetch counts from the database (server-side)
+  const [homestayCount, attractionCount] = await Promise.all([
+    prisma.homestay.count({ where: { published: true } }),
+    prisma.attraction.count({ where: { published: true } }),
+  ]);
+
+  const stats = [
+    {
+      value: '200+',
+      label: 'Tahun sejarah',
+    },
+    {
+      value: String(homestayCount ?? 0),
+      label: 'Homestay',
+    },
+    {
+      value: String(attractionCount ?? 0),
+      label: 'Attractions',
+    },
+  ];
+
   return (
     <div className="bg-gradient-to-br from-[#fff6ec] via-[#e9f6ef] to-[#fffaf4] py-16">
       <Container size="md" className="space-y-12">
@@ -82,16 +104,7 @@ export default function AboutPage() {
         </article>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {[{
-            value: '200+',
-            label: 'Tahun sejarah',
-          }, {
-            value: '58',
-            label: 'Keluarga homestay',
-          }, {
-            value: '17',
-            label: 'Atraksi alam',
-          }].map((item) => (
+          {stats.map((item) => (
             <div key={item.label} className="rounded-3xl bg-emerald-50/80 p-8 text-center">
               <p className="text-4xl font-semibold text-emerald-800">{item.value}</p>
               <p className="mt-2 text-sm font-semibold uppercase tracking-[0.3em] text-emerald-700">{item.label}</p>
