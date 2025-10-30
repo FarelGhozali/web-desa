@@ -64,56 +64,36 @@ export default function AlternativeHomestays({
 
   return (
     <section className="space-y-6">
-      <div className="rounded-2xl border border-amber-200/70 bg-amber-50/60 p-5">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-amber-900">
-              Pilihan Homestay Alternatif
-            </p>
-            <p className="text-sm text-amber-700">
-              Daftar homestay lain yang cocok untuk jadwal perjalanan Anda.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2 text-[11px] font-medium uppercase tracking-[0.3em] text-emerald-700">
-            {formattedCheckIn && (
-              <span className="rounded-full border border-emerald-200 px-3 py-1">
-                Check-in {formattedCheckIn}
-              </span>
-            )}
-            {formattedCheckOut && (
-              <span className="rounded-full border border-emerald-200 px-3 py-1">
-                Check-out {formattedCheckOut}
-              </span>
-            )}
+      <div className="rounded-2xl border border-emerald-100 bg-white/80 p-4 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
+          <span>Pilihan Homestay Alternatif</span>
+          <div className="flex flex-wrap items-center gap-2 text-[10px] text-emerald-600">
+            {formattedCheckIn && <span className="rounded-full border border-emerald-200 px-3 py-1">Check-in {formattedCheckIn}</span>}
+            {formattedCheckOut && <span className="rounded-full border border-emerald-200 px-3 py-1">Check-out {formattedCheckOut}</span>}
             {typeof numberOfGuests === 'number' && numberOfGuests > 0 && (
-              <span className="rounded-full border border-emerald-200 px-3 py-1">
-                {numberOfGuests} tamu
-              </span>
+              <span className="rounded-full border border-emerald-200 px-3 py-1">{numberOfGuests} tamu</span>
             )}
             {nights && nights > 0 && (
-              <span className="rounded-full border border-emerald-200 px-3 py-1">
-                {nights} malam
-              </span>
+              <span className="rounded-full border border-emerald-200 px-3 py-1">{nights} malam</span>
             )}
           </div>
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {alternatives.map((homestay) => (
           <Card
             key={homestay.id}
             hover
-            className="flex flex-col border-transparent bg-white/95 shadow-md ring-1 ring-transparent transition hover:ring-emerald-200/80 sm:flex-row"
+            className="flex flex-col border-emerald-100/60 bg-white/95 shadow-sm ring-1 ring-transparent transition hover:ring-emerald-200 sm:flex-row"
           >
-            <div className="relative min-h-[160px] overflow-hidden border-b border-emerald-50 sm:w-64 sm:border-b-0 sm:border-r">
+            <div className="relative h-36 w-full overflow-hidden rounded-3xl sm:h-auto sm:w-56 sm:rounded-none sm:rounded-l-3xl">
               {homestay.photos[0] ? (
                 <Image
                   src={homestay.photos[0]}
                   alt={homestay.name}
                   fill
-                  sizes="(min-width: 1024px) 20vw, (min-width: 640px) 30vw, 100vw"
+                  sizes="(min-width: 1024px) 18vw, (min-width: 640px) 25vw, 100vw"
                   className="object-cover"
                 />
               ) : (
@@ -124,82 +104,55 @@ export default function AlternativeHomestays({
                 </div>
               )}
 
-              <div className="absolute right-4 top-4 flex flex-col items-end gap-2 text-[10px] font-semibold uppercase tracking-[0.3em]">
-                <span className="rounded-full bg-white/85 px-3 py-1 text-emerald-700">
-                  Rekomendasi
-                </span>
-                {nights && nights > 0 && (
-                  <span className="rounded-full bg-emerald-600/85 px-3 py-1 text-white">
-                    {nights} malam
-                  </span>
-                )}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(47,127,82,0.35),_transparent)]" />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/10 to-emerald-600/35" />
+
+              <div className="absolute inset-x-4 bottom-3 flex justify-between text-[10px] font-semibold uppercase tracking-[0.3em] text-white">
+                <span className="line-clamp-1">{homestay.name}</span>
+                <span className="line-clamp-1 text-white/80">{homestay.address}</span>
               </div>
             </div>
 
-            <CardContent className="flex flex-1 flex-col justify-between gap-4 p-6 pt-6">
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="space-y-1">
-                    <h4 className="text-lg font-semibold leading-tight text-stone-900 line-clamp-2">
-                      {homestay.name}
-                    </h4>
-                    <p className="text-xs text-stone-500 line-clamp-1">{homestay.address}</p>
-                  </div>
-                  <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-emerald-700">
-                    {homestay.maxGuests} tamu
-                  </span>
+            <CardContent className="flex flex-1 flex-col gap-3 p-5">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="space-y-1">
+                  <h4 className="text-base font-semibold leading-tight text-stone-900 line-clamp-2">
+                    {homestay.name}
+                  </h4>
+                  <p className="text-xs text-stone-500 line-clamp-1">{homestay.description}</p>
                 </div>
+                <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-emerald-700">
+                  {homestay.maxGuests} tamu
+                </span>
+              </div>
 
-                <div className="flex flex-wrap items-baseline gap-2 text-stone-700">
+              {homestay.facilities.length > 0 && (
+                <div className="flex flex-wrap items-center gap-2 text-[11px] text-stone-600">
+                  {homestay.facilities.slice(0, 2).map((facility) => (
+                    <span key={facility} className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-medium text-emerald-700">
+                      {facility}
+                    </span>
+                  ))}
+                  {homestay.facilities.length > 2 && (
+                    <span className="text-[11px] font-semibold text-emerald-600">
+                      +{homestay.facilities.length - 2} lainnya
+                    </span>
+                  )}
+                </div>
+              )}
+
+              <div className="flex flex-col gap-3 border-t border-emerald-100 pt-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-baseline gap-2 text-emerald-700">
                   <span className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-600">
                     Mulai dari
                   </span>
-                  <span className="text-2xl font-semibold text-emerald-700">
-                    {formatPrice(homestay.pricePerNight)}
-                  </span>
-                  <span className="text-xs text-stone-500">/ malam</span>
+                  <span className="text-lg font-semibold">{formatPrice(homestay.pricePerNight)}</span>
+                  <span className="text-[11px] text-stone-500">/ malam</span>
                 </div>
 
-                {homestay.description && (
-                  <p className="text-sm leading-relaxed text-stone-600 line-clamp-2">
-                    {homestay.description}
-                  </p>
-                )}
-
-                {homestay.facilities.length > 0 && (
-                  <div className="flex flex-wrap items-center gap-2">
-                    {homestay.facilities.slice(0, 3).map((facility) => (
-                      <span
-                        key={facility}
-                        className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700"
-                      >
-                        {facility}
-                      </span>
-                    ))}
-                    {homestay.facilities.length > 3 && (
-                      <span className="inline-flex items-center rounded-full bg-emerald-600/10 px-3 py-1 text-xs font-semibold text-emerald-700">
-                        +{homestay.facilities.length - 3} lainnya
-                      </span>
-                    )}
-                  </div>
-                )}
-              </div>
-
-              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-emerald-100 pt-4">
-                <div className="flex flex-col text-[11px] uppercase tracking-[0.3em] text-stone-500">
-                  {formattedCheckIn && formattedCheckOut ? (
-                    <span>
-                      {formattedCheckIn} – {formattedCheckOut}
-                    </span>
-                  ) : (
-                    <span>Sesuaikan tanggal Anda</span>
-                  )}
-                  <span className="text-[10px] text-emerald-600">
-                    Pilih untuk melihat ketersediaan lengkap
-                  </span>
-                </div>
                 <Link
                   href={`/homestays/${homestay.slug}?checkIn=${checkInDate}&checkOut=${checkOutDate}&guests=${numberOfGuests || 1}`}
+                  className="inline-flex"
                 >
                   <Button variant="secondary" size="sm">
                     Lihat Detail
