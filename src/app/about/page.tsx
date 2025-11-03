@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
-  title: 'Tentang Desa Harmoni',
-  description: 'Kenali sejarah, budaya, dan gaya hidup masyarakat Desa Harmoni yang menyambut setiap tamu seperti keluarga.',
+  title: 'Tentang Desa Asri',
+  description: 'Kenali sejarah, budaya, dan gaya hidup masyarakat Desa Asri yang menyambut setiap tamu seperti keluarga.',
 };
 
 export default async function AboutPage() {
@@ -47,7 +47,7 @@ export default async function AboutPage() {
           <div className="relative flex flex-col gap-6 px-8 py-16 md:flex-row md:items-end md:justify-between">
             <div className="max-w-xl space-y-4">
               <Badge className="bg-emerald-100/80 text-emerald-900 ring-emerald-300/40">Cerita Desa</Badge>
-              <h1 className="text-4xl md:text-5xl text-emerald-950">Tentang Desa Harmoni</h1>
+              <h1 className="text-4xl md:text-5xl text-emerald-950">Tentang Desa Asri</h1>
               <p className="text-lg leading-relaxed text-stone-600">
                 Desa kami tumbuh dengan prinsip gotong royong—mengundang tamu untuk ikut menjaga alam, budaya,
                 dan kearifan lokal yang diwariskan turun-temurun.
@@ -63,7 +63,7 @@ export default async function AboutPage() {
           <section className="space-y-4">
             <h2 className="text-3xl text-emerald-950">Jejak sejarah yang dijaga</h2>
             <p className="text-lg leading-relaxed text-stone-600">
-              Desa Harmoni berdiri di kaki perbukitan yang kaya mata air. Warga generasi awal membuka sawah berteras
+              Desa Asri berdiri di kaki perbukitan yang kaya mata air. Warga generasi awal membuka sawah berteras
               dan menanam pohon pelindung agar sumber air tetap terjaga. Kini, kami tetap memegang teguh adat sambil
               menyambut tamu yang ingin belajar dari alam.
             </p>

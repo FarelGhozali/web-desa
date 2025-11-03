@@ -33,7 +33,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 Admin Dashboard
               </p>
               <h2 className="text-xl font-semibold text-stone-900 md:text-2xl">
-                Kelola Village Stay
+                Kelola Desa Asri
               </h2>
               <p className="text-xs text-stone-500 md:text-sm">{todayLabel}</p>
             </div>
@@ -50,7 +50,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 size="sm"
                 onClick={() => signOut({ callbackUrl: '/' })}
               >
-                Logout
+                Keluar
               </Button>
             </div>
           </div>

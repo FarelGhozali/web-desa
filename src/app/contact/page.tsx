@@ -11,7 +11,7 @@ import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Hubungi Kami',
-  description: 'Sampaikan pertanyaan seputar homestay, itinerary, atau kolaborasi komunitas bersama Desa Harmoni.',
+  description: 'Sampaikan pertanyaan seputar homestay, itinerary, atau kolaborasi komunitas bersama Desa Asri.',
 };
 
 export default async function ContactPage() {
@@ -92,7 +92,7 @@ export default async function ContactPage() {
                   <div className="space-y-1">
                     <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Email</p>
                     <p className="text-base font-medium text-emerald-900">
-                      {contactInfo?.email || 'hello@villagestay.com'}
+                      {contactInfo?.email || 'hello@desaasri.com'}
                     </p>
                     <p className="text-xs text-stone-500">Balas dalam 24 jam kerja</p>
                   </div>
@@ -111,7 +111,7 @@ export default async function ContactPage() {
                   <span className="mt-1 text-lg text-emerald-700">📍</span>
                   <div className="space-y-1">
                     <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Alamat</p>
-                    <p className="text-base font-medium text-emerald-900">Balai Desa Harmoni</p>
+                    <p className="text-base font-medium text-emerald-900">Balai Desa Asri</p>
                     <p className="text-sm leading-relaxed text-stone-600">
                       {contactInfo?.address || (
                         <>

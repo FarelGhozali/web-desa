@@ -10,7 +10,7 @@ import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Jurnal Desa',
-  description: 'Kumpulan cerita warga, panduan perjalanan, dan inspirasi hidup sederhana dari Desa Harmoni.',
+  description: 'Kumpulan cerita warga, panduan perjalanan, dan inspirasi hidup sederhana dari Desa Asri.',
 };
 
 

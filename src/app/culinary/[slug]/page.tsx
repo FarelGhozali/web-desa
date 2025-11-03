@@ -44,12 +44,12 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   if (!culinary) {
     return {
       title: 'Kuliner Desa',
-      description: 'Jelajahi beragam kuliner khas Desa Harmoni.',
+      description: 'Jelajahi beragam kuliner khas Desa Asri.',
     };
   }
 
   return {
-    title: `${culinary.name} | Kuliner Desa Harmoni`,
+    title: `${culinary.name} | Kuliner Desa Asri`,
     description: culinary.description.slice(0, 155),
   };
 }

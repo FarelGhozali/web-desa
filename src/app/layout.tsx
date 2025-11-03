@@ -19,14 +19,14 @@ const headingFont = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Village Stay - Authentic Homestay Experience',
-    template: '%s | Village Stay'
+    default: 'Desa Asri - Pengalaman Homestay Autentik',
+    template: '%s | Desa Asri'
   },
-  description: 'Discover authentic village life with our carefully selected homestays. Experience local culture, cuisine, and natural beauty.',
-  keywords: ['homestay', 'village tourism', 'authentic experience', 'local culture', 'eco-tourism'],
+  description: 'Temukan kehidupan desa yang autentik melalui homestay pilihan kami. Rasakan budaya lokal, kuliner khas, dan keindahan alam yang menakjubkan.',
+  keywords: ['homestay', 'wisata desa', 'pengalaman autentik', 'budaya lokal', 'ekowisata'],
   openGraph: {
-    title: 'Village Stay - Authentic Homestay Experience',
-    description: 'Discover authentic village life with our carefully selected homestays.',
+    title: 'Desa Asri - Pengalaman Homestay Autentik',
+    description: 'Temukan kehidupan desa yang autentik melalui homestay pilihan kami.',
     type: 'website',
   },
 };

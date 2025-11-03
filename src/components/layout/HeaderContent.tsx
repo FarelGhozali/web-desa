@@ -13,10 +13,10 @@ interface HeaderContentProps {
 
 const navLinks = [
   { href: '/homestays', label: 'Homestays' },
-  { href: '/attractions', label: 'Attractions' },
-  { href: '/culinary', label: 'Culinary' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/attractions', label: 'Atraksi' },
+  { href: '/culinary', label: 'Kuliner' },
+  { href: '/about', label: 'Tentang' },
+  { href: '/contact', label: 'Hubungi' },
   { href: '/blog', label: 'Blog' },
 ];
 
@@ -85,10 +85,10 @@ export default function HeaderContent({
             </span>
             <div>
               <p className="text-xl font-semibold tracking-tight text-stone-900 group-hover:text-emerald-800">
-                Village Stay
+                Desa Asri
               </p>
               <p className="text-xs font-medium uppercase tracking-[0.3em] text-emerald-700/80">
-                Live like a local
+                Hidup seperti lokal
               </p>
             </div>
           </Link>
@@ -124,7 +124,7 @@ export default function HeaderContent({
                     onClick={handleSignOut}
                     className="inline-flex items-center justify-center rounded-full border border-emerald-700 px-5 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700 transition hover:bg-emerald-50 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
                   >
-                    Logout
+                    Keluar
                   </button>
                 </div>
               </>
@@ -134,14 +134,14 @@ export default function HeaderContent({
                   href="/login"
                   className="inline-flex items-center justify-center rounded-full border border-emerald-700 px-5 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700 transition hover:bg-emerald-50 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
                 >
-                  Login
+                  Masuk
                 </Link>
                 <Link
                   href="/register"
                   className="inline-flex items-center justify-center rounded-full bg-emerald-700 px-6 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-emerald-50 shadow-sm transition hover:bg-emerald-800 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-100"
                   style={{ color: '#F4F7ED' }}
                 >
-                  Register
+                  Daftar
                 </Link>
               </>
             )}
@@ -227,7 +227,7 @@ export default function HeaderContent({
                   }}
                   className="flex w-full items-center justify-center rounded-full border border-emerald-700 px-4 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-emerald-700 transition hover:bg-emerald-50"
                 >
-                  Logout
+                  Keluar
                 </button>
               </>
             ) : (
@@ -237,7 +237,7 @@ export default function HeaderContent({
                   onClick={closeMenu}
                   className="flex items-center justify-center rounded-full border border-emerald-700 px-4 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-emerald-700 transition hover:bg-emerald-50"
                 >
-                  Login
+                  Masuk
                 </Link>
                 <Link
                   href="/register"
@@ -245,7 +245,7 @@ export default function HeaderContent({
                   className="flex items-center justify-center rounded-full bg-emerald-700 px-4 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-emerald-50 shadow-sm transition hover:bg-emerald-800 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-50"
                   style={{ color: '#F4F7ED' }}
                 >
-                  Register
+                  Daftar
                 </Link>
               </>
             )}

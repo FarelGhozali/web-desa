@@ -9,7 +9,7 @@ import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Kuliner Desa',
-  description: 'Cicipi hidangan warisan keluarga Desa Harmoni yang dimasak dari bahan-bahan segar hasil kebun sendiri.',
+  description: 'Cicipi hidangan warisan keluarga Desa Asri yang dimasak dari bahan-bahan segar hasil kebun sendiri.',
 };
 // Server Component
 export default async function CulinaryPage() {

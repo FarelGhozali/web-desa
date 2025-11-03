@@ -70,16 +70,6 @@ const navItems: NavItem[] = [
     ),
   },
   {
-    label: 'Categories',
-    href: '/admin/categories',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-5 w-5">
-        <path d="M5 5h14l-3.5 6H8.5z" strokeLinejoin="round" />
-        <path d="M9 11l-4 8h14l-4-8" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
-  {
     label: 'Attractions',
     href: '/admin/attractions',
     icon: (
@@ -140,7 +130,7 @@ export default function Sidebar() {
           </span>
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-emerald-200/70">
-              Village Stay
+              Desa Asri
             </p>
             <p className="text-lg font-semibold text-white">Admin Hub</p>
           </div>

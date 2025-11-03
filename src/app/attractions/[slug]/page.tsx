@@ -87,7 +87,7 @@ export default async function AttractionDetailPage({ params }: Props) {
 
   const displayName = attraction?.name || attractionName;
   const description = attraction?.description || 'Nikmati pesona alam, budaya, dan keramahan warga desa yang menyejukkan hati.';
-  const location = attraction?.location || 'Kawasan desa wisata';
+  
 
   return (
     <div className="bg-gradient-to-br from-[#fef7ec] via-[#edf6f1] to-[#fffaf2] pb-20 pt-12">
@@ -123,9 +123,9 @@ export default async function AttractionDetailPage({ params }: Props) {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {photos.length > 1 ? (
-                photos.slice(1).map((photo: string, index: number) => (
+            {photos.length > 1 && (
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                {photos.slice(1).map((photo: string, index: number) => (
                   <div
                     key={index + 1}
                     className="relative h-24 overflow-hidden rounded-2xl border border-emerald-100 bg-emerald-50/70"
@@ -138,18 +138,9 @@ export default async function AttractionDetailPage({ params }: Props) {
                       sizes="(max-width: 640px) 50vw, 25vw"
                     />
                   </div>
-                ))
-              ) : (
-                [1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="flex h-24 items-center justify-center rounded-2xl border border-emerald-100 bg-emerald-50/70 text-xs font-semibold uppercase tracking-widest text-emerald-600"
-                  >
-                    Foto {i}
-                  </div>
-                ))
-              )}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Content */}
@@ -161,16 +152,6 @@ export default async function AttractionDetailPage({ params }: Props) {
               <h2 className="text-3xl font-semibold text-stone-900 sm:text-4xl">
                 {displayName}
               </h2>
-              <div className="flex flex-wrap items-center gap-3 text-sm text-stone-600">
-                <span className="inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-white px-3 py-1">
-                  <span aria-hidden="true">📍</span>
-                  {location}
-                </span>
-                <span className="inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-white px-3 py-1">
-                  <span aria-hidden="true">🌿</span>
-                  Panorama alami
-                </span>
-              </div>
             </div>
 
             <div className="space-y-6 text-base leading-relaxed text-stone-700">
@@ -186,25 +167,21 @@ export default async function AttractionDetailPage({ params }: Props) {
               </p>
             </div>
 
-            {/* Map Placeholder */}
-            <div className="space-y-4">
-              <h3 className="text-2xl font-semibold text-stone-900">Lokasi</h3>
-              <p className="text-sm text-stone-600">
-                Peta interaktif akan membantu Anda menemukan rute terbaik menuju {displayName}.
-              </p>
-              <div className="rounded-3xl overflow-hidden border border-emerald-100 bg-white shadow-sm">
-                {attraction && attraction.mapsEmbedCode ? (
+            {/* Lokasi: only render when admin provided an embed code */}
+            {attraction?.mapsEmbedCode && (
+              <div className="space-y-4">
+                <h3 className="text-2xl font-semibold text-stone-900">Lokasi</h3>
+                <p className="text-sm text-stone-600">
+                  Peta interaktif akan membantu Anda menemukan rute terbaik menuju {displayName}.
+                </p>
+                <div className="rounded-3xl overflow-hidden border border-emerald-100 bg-white shadow-sm">
                   <div
                     className="w-full h-96"
                     dangerouslySetInnerHTML={{ __html: attraction.mapsEmbedCode }}
                   />
-                ) : (
-                  <div className="flex h-96 items-center justify-center rounded-2xl border-dashed border-emerald-300 bg-emerald-50/60 text-sm font-medium text-emerald-600">
-                    📍 {location}
-                  </div>
-                )}
+                </div>
               </div>
-            </div>
+            )}
           </article>
         </div>
       </Container>
