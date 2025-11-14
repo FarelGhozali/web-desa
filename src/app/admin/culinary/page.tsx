@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import AdminLayout from '@/components/layout/AdminLayout';
 import AdminPageHeader from '@/components/admin/AdminPageHeader';
 import AdminToolbar from '@/components/admin/AdminToolbar';
 import { Card } from '@/components/ui/Card';
@@ -128,9 +127,8 @@ export default function CulinaryPage() {
   };
 
   return (
-    <AdminLayout>
-      <div className="space-y-6">
-        <AdminPageHeader
+    <div className="space-y-6">
+      <AdminPageHeader
           title="Kuliner Lokal"
           description="Sorot kuliner khas yang memperkaya pengalaman tamu dan memperkuat positioning Desa Wisata."
           actions={
@@ -305,7 +303,6 @@ export default function CulinaryPage() {
             </div>
           )}
         </Card>
-      </div>
-    </AdminLayout>
+    </div>
   );
 }

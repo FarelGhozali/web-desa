@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import AdminLayout from '@/components/layout/AdminLayout';
 import AdminPageHeader from '@/components/admin/AdminPageHeader';
 import AdminToolbar from '@/components/admin/AdminToolbar';
 import { Card } from '@/components/ui/Card';
@@ -109,9 +108,8 @@ export default function ReviewsPage() {
   };
 
   return (
-    <AdminLayout>
-      <div className="space-y-6">
-        <AdminPageHeader
+    <div className="space-y-6">
+      <AdminPageHeader
           title="Review Pengunjung"
           description="Pantau kualitas pengalaman tamu dan respon cepat untuk menjaga reputasi homestay."
           stats={[
@@ -234,7 +232,6 @@ export default function ReviewsPage() {
             </div>
           )}
         </Card>
-      </div>
-    </AdminLayout>
+    </div>
   );
 }

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import AdminLayout from '@/components/layout/AdminLayout';
 import AdminPageHeader from '@/components/admin/AdminPageHeader';
 import AdminToolbar from '@/components/admin/AdminToolbar';
 import { Card } from '@/components/ui/Card';
@@ -126,9 +125,8 @@ export default function UsersPage() {
   };
 
   return (
-    <AdminLayout>
-      <div className="space-y-6">
-        <AdminPageHeader
+    <div className="space-y-6">
+      <AdminPageHeader
           title="Manajemen Pengguna"
           description="Kelola akun customer dan admin, perkuat keamanan akses, serta pantau aktivitas mereka di platform."
           stats={[
@@ -293,7 +291,6 @@ export default function UsersPage() {
             </div>
           )}
         </Card>
-      </div>
-    </AdminLayout>
+    </div>
   );
 }

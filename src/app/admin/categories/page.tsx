@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import AdminLayout from '@/components/layout/AdminLayout';
 import AdminPageHeader from '@/components/admin/AdminPageHeader';
 import AdminToolbar from '@/components/admin/AdminToolbar';
 import { Card } from '@/components/ui/Card';
@@ -138,9 +137,8 @@ export default function CategoriesPage() {
   };
 
   return (
-    <AdminLayout>
-      <div className="space-y-6">
-        <AdminPageHeader
+    <div className="space-y-6">
+      <AdminPageHeader
           title="Kategori Konten"
           description="Susun kategori artikel agar pembaca mudah menemukan topik yang relevan."
           actions={
@@ -347,7 +345,6 @@ export default function CategoriesPage() {
             </div>
           )}
         </Card>
-      </div>
-    </AdminLayout>
+    </div>
   );
 }

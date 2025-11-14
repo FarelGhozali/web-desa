@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import AdminLayout from '@/components/layout/AdminLayout';
 import AdminPageHeader from '@/components/admin/AdminPageHeader';
 import HomestayForm from '@/components/admin/HomestayForm';
 import { Card } from '@/components/ui/Card';

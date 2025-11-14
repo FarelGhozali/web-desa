@@ -335,9 +335,7 @@ export default async function HomestayDetailPage({ params }: Props) {
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-emerald-100 bg-emerald-50/40 p-4 text-xs text-stone-600">
-                Tersedia fleksibilitas tanggal dan dukungan dari host lokal sepanjang hari.
-              </div>
+
 
               <div className="mt-6">
                 <BookingForm

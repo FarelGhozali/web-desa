@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
-import AdminLayout from '@/components/layout/AdminLayout';
 import EditAttractionPageContent from './content';
 
 export const metadata = {
@@ -23,8 +22,8 @@ export default async function EditAttractionPage({ params }: { params: { id: str
   }
 
   return (
-    <AdminLayout>
+    <>
       <EditAttractionPageContent attractionId={params.id} />
-    </AdminLayout>
+    </>
   );
 }

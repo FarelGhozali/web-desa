@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import AdminLayout from '@/components/layout/AdminLayout';
 import AdminPageHeader from '@/components/admin/AdminPageHeader';
 import AdminToolbar from '@/components/admin/AdminToolbar';
 import { Card } from '@/components/ui/Card';
@@ -127,9 +126,8 @@ export default function HomestaysPage() {
   };
 
   return (
-    <AdminLayout>
-      <div className="space-y-6">
-        <AdminPageHeader
+    <div className="space-y-6">
+      <AdminPageHeader
           title="Manajemen Homestay"
           description="Kelola daftar homestay, optimalkan visibilitas, dan pastikan stok kamar siap untuk dipesan."
           actions={
@@ -295,7 +293,6 @@ export default function HomestaysPage() {
             </div>
           )}
         </Card>
-      </div>
-    </AdminLayout>
+    </div>
   );
 }

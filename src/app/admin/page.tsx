@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import type { BookingStatus, UserRole } from '@prisma/client';
-import AdminLayout from '@/components/layout/AdminLayout';
 import Button from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { StatsCard } from '@/components/ui/StatsCard';
@@ -332,8 +331,7 @@ export default async function AdminDashboardPage() {
   });
 
   return (
-    <AdminLayout>
-      <div className="space-y-10">
+    <div className="space-y-10">
         <section className="rounded-3xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 p-6 text-white shadow-lg md:p-10">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="space-y-3">
@@ -718,6 +716,5 @@ export default async function AdminDashboardPage() {
           </Card>
         </section>
       </div>
-    </AdminLayout>
   );
 }

@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
 import Container from '@/components/ui/Container';
-import Input from '@/components/ui/Input';
-import Textarea from '@/components/ui/Textarea';
 import Button from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import MapEmbedDisplay from '@/components/MapEmbedDisplay';
+import ContactForm from '@/components/ContactForm';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 
@@ -54,25 +53,7 @@ export default async function ContactPage() {
                 <CardTitle>Kirim pesan</CardTitle>
               </CardHeader>
               <CardContent>
-                <form className="space-y-6">
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    <Input label="Nama lengkap" placeholder="Nama Anda" required />
-                    <Input type="email" label="Email" placeholder="nama@email.com" required />
-                  </div>
-
-                  <Input label="Subjek" placeholder="Contoh: Rencana liburan keluarga" required />
-
-                  <Textarea
-                    label="Pesan"
-                    placeholder="Ceritakan tanggal perjalanan, jumlah tamu, dan pengalaman yang Anda minati..."
-                    rows={6}
-                    required
-                  />
-
-                  <Button type="submit" size="lg">
-                    Kirim pesan
-                  </Button>
-                </form>
+                <ContactForm />
               </CardContent>
             </Card>
           </div>

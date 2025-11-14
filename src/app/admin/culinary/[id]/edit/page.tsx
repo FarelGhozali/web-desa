@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
-import AdminLayout from '@/components/layout/AdminLayout';
 import EditCulinaryPageContent from './content';
 
 export const metadata = {
@@ -23,8 +22,8 @@ export default async function EditCulinaryPage({ params }: { params: { id: strin
   }
 
   return (
-    <AdminLayout>
+    <>
       <EditCulinaryPageContent culinaryId={params.id} />
-    </AdminLayout>
+    </>
   );
 }

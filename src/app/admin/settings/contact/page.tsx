@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import AdminLayout from '@/components/layout/AdminLayout';
 import ContactForm from '@/components/admin/ContactForm';
 import { prisma } from '@/lib/prisma';
 
@@ -23,9 +22,13 @@ export default async function ContactSettingsPage() {
   }
 
   return (
-    <AdminLayout>
-      <div className="max-w-2xl">
-        <h1 className="mb-8 text-2xl font-semibold text-stone-900">Pengaturan Kontak</h1>
+    <div className="space-y-6">
+      <div className="mb-8">
+        <h1 className="text-3xl font-semibold text-stone-900">Pengaturan Kontak</h1>
+        <p className="mt-2 text-stone-600">Kelola informasi kontak dan peta untuk halaman kontak publik</p>
+      </div>
+      
+      <div className="grid grid-cols-1 gap-6">
         <ContactForm
           initialData={
             contactInfo
@@ -40,6 +43,6 @@ export default async function ContactSettingsPage() {
           }
         />
       </div>
-    </AdminLayout>
+    </div>
   );
 }

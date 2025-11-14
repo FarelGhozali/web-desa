@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
-import AdminLayout from '@/components/layout/AdminLayout';
 import Container from '@/components/ui/Container';
 import AttractionForm from '@/components/AttractionForm';
 import Link from 'next/link';
@@ -25,7 +24,7 @@ export default async function CreateAttractionPage() {
   }
 
   return (
-    <AdminLayout>
+    <>
       <Container>
         <div className="mx-auto max-w-4xl space-y-6">
           {/* Header */}
@@ -62,6 +61,6 @@ export default async function CreateAttractionPage() {
           </div>
         </div>
       </Container>
-    </AdminLayout>
+    </>
   );
 }

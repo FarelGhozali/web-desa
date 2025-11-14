@@ -14,7 +14,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const variants = {
       primary: 'bg-emerald-700 text-white hover:bg-emerald-800 focus-visible:ring-emerald-500 focus-visible:ring-offset-stone-100',
       secondary: 'bg-amber-500 text-stone-900 hover:bg-amber-400 focus-visible:ring-amber-500 focus-visible:ring-offset-stone-100',
-      outline: 'border-2 border-emerald-700 text-emerald-700 hover:bg-emerald-50 focus-visible:ring-emerald-500 focus-visible:ring-offset-stone-100',
+      outline: 'border-2 border-stone-400 text-stone-900 hover:bg-stone-100 hover:border-stone-500 focus-visible:ring-stone-400 focus-visible:ring-offset-stone-100',
       ghost: 'text-stone-700 hover:bg-emerald-50 focus-visible:ring-emerald-500 focus-visible:ring-offset-stone-100',
       danger: 'bg-rose-600 text-white hover:bg-rose-700 focus-visible:ring-rose-500 focus-visible:ring-offset-stone-100',
     };

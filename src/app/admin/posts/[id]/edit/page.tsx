@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
-import AdminLayout from '@/components/layout/AdminLayout';
 import EditPostPageContent from './content';
 
 export const metadata = {
@@ -23,8 +22,8 @@ export default async function EditPostPage({ params }: { params: { id: string } 
   }
 
   return (
-    <AdminLayout>
+    <>
       <EditPostPageContent postId={params.id} />
-    </AdminLayout>
+    </>
   );
 }

@@ -13,7 +13,7 @@ interface HeaderContentProps {
 
 const navLinks = [
   { href: '/homestays', label: 'Homestays' },
-  { href: '/attractions', label: 'Atraksi' },
+  { href: '/attractions', label: 'Destinasi' },
   { href: '/culinary', label: 'Kuliner' },
   { href: '/about', label: 'Tentang' },
   { href: '/contact', label: 'Hubungi' },
@@ -86,9 +86,6 @@ export default function HeaderContent({
             <div>
               <p className="text-xl font-semibold tracking-tight text-stone-900 group-hover:text-emerald-800">
                 Desa Asri
-              </p>
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-emerald-700/80">
-                Hidup seperti lokal
               </p>
             </div>
           </Link>

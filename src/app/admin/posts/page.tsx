@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import AdminLayout from '@/components/layout/AdminLayout';
 import AdminPageHeader from '@/components/admin/AdminPageHeader';
 import AdminToolbar from '@/components/admin/AdminToolbar';
 import { Card } from '@/components/ui/Card';
@@ -234,9 +233,8 @@ export default function PostsPage() {
   };
 
   return (
-    <AdminLayout>
-      <div className="space-y-6">
-        <AdminPageHeader
+    <div className="space-y-6">
+      <AdminPageHeader
           title="Konten Blog & Storytelling"
           description="Terbitkan cerita inspiratif, panduan wisata, dan konten SEO untuk menarik calon tamu."
           actions={
@@ -624,7 +622,6 @@ export default function PostsPage() {
             </Card>
           </>
         )}
-      </div>
-    </AdminLayout>
+    </div>
   );
 }
