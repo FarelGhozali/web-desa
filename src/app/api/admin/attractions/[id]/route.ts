@@ -6,9 +6,10 @@ import { prisma } from '@/lib/prisma';
 // GET - Get single attraction by ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session || session.user.role !== 'ADMIN') {
@@ -16,7 +17,7 @@ export async function GET(
     }
 
     const attraction = await prisma.attraction.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!attraction) {
@@ -36,9 +37,10 @@ export async function GET(
 // PATCH - Update attraction
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session || session.user.role !== 'ADMIN') {
@@ -90,7 +92,7 @@ export async function PATCH(
         where: { slug },
       });
 
-      if (existingAttraction && existingAttraction.id !== params.id) {
+      if (existingAttraction && existingAttraction.id !== id) {
         return NextResponse.json(
           { error: 'An attraction with this name already exists' },
           { status: 400 }
@@ -101,7 +103,7 @@ export async function PATCH(
     }
 
     const attraction = await prisma.attraction.update({
-      where: { id: params.id },
+      where: { id },
       data: updateData,
     });
 
@@ -118,9 +120,10 @@ export async function PATCH(
 // DELETE - Delete attraction
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session || session.user.role !== 'ADMIN') {
@@ -128,7 +131,7 @@ export async function DELETE(
     }
 
     await prisma.attraction.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ message: 'Attraction deleted successfully' });

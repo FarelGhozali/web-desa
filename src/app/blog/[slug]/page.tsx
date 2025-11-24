@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 import { prisma } from '@/lib/prisma';
 import Container from '@/components/ui/Container';
 import Badge from '@/components/ui/Badge';
@@ -86,9 +87,11 @@ export default async function BlogPostPage({ params }: Props) {
 
               <div className="flex items-center gap-3">
                 {post.author.image ? (
-                  <img
+                  <Image
                     src={post.author.image}
                     alt={post.author.name || 'Author'}
+                    width={48}
+                    height={48}
                     className="h-12 w-12 rounded-full object-cover"
                   />
                 ) : (
@@ -106,9 +109,11 @@ export default async function BlogPostPage({ params }: Props) {
             {/* Cover Image */}
             {post.coverImage && (
               <div className="rounded-3xl overflow-hidden h-96 bg-stone-200">
-                <img
+                <Image
                   src={post.coverImage}
                   alt={post.title}
+                  width={800}
+                  height={400}
                   className="h-full w-full object-cover"
                 />
               </div>

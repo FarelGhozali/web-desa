@@ -13,7 +13,7 @@ type PageParams = {
   params: { slug: string };
 };
 
-type CulinaryWithPhotos = Culinary & { photos: string[] };
+type CulinaryWithPhotos = Omit<Culinary, 'photos'> & { photos: string[] };
 
 async function getCulinaryBySlug(slug: string): Promise<CulinaryWithPhotos | null> {
   const culinary = await prisma.culinary.findUnique({ where: { slug } });

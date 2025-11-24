@@ -10,54 +10,54 @@ import { prisma } from '@/lib/prisma';
 const highlightFeatures = [
   {
     icon: '🏡',
-    title: 'Stay with Local Families',
-    description: 'Wake up to the aroma of freshly steamed rice and stories shared over morning coffee.',
+    title: 'Menginap Bersama Warga',
+    description: 'Rasakan kehangatan tinggal di rumah warga, bangun dengan aroma kopi pagi, dan berbagi cerita layaknya keluarga sendiri.',
   },
   {
     icon: '🌿',
-    title: 'Hands-on Experiences',
-    description: 'Join farmers in the fields, learn traditional crafts, and cook over wood-fired stoves.',
+    title: 'Pengalaman Langsung',
+    description: 'Ikut serta dalam keseharian desa: bertani di sawah, belajar kerajinan tangan, hingga memasak hidangan tradisional.',
   },
   {
     icon: '🪕',
-    title: 'Culture & Warmth',
-    description: 'Feel the rhythm of village music, evening fireflies, and heartfelt community gatherings.',
+    title: 'Budaya & Keramahan',
+    description: 'Nikmati alunan musik desa, suasana malam yang tenang, dan keakraban warga yang menyambut Anda dengan tangan terbuka.',
   },
 ];
 
 const experienceHighlights = [
   {
-    icon: '🌅',
-    title: 'Dawn Terraces Walk',
-    blurb: 'Follow our guides through emerald rice terraces and misty hillsides at sunrise.',
+    icon: '🌿',
+    title: 'Wisata Alam',
+    blurb: 'Nikmati keindahan pemandangan alam yang asri dan udara segar yang menenangkan.',
   },
   {
-    icon: '🥥',
-    title: 'Coconut Harvest',
-    blurb: 'Climb with local farmers, collect fresh coconuts, and enjoy sweet kelapa muda together.',
+    icon: '🎨',
+    title: 'Budaya & Tradisi',
+    blurb: 'Pelajari kearifan lokal dan tradisi unik yang masih dijaga oleh warga desa.',
   },
   {
-    icon: '🔥',
-    title: 'Night Bonfire Tales',
-    blurb: 'Gather around the fire for storytelling, traditional songs, and starlit skies.',
+    icon: '🍽️',
+    title: 'Kuliner Khas',
+    blurb: 'Cicipi hidangan lezat yang diolah dari bahan-bahan segar hasil bumi setempat.',
   },
 ];
 
 const weekendSchedule = [
   {
-    icon: '🌾',
-    title: 'Sabtu pagi',
-    description: 'Panen sayur organik & workshop memasak lalapan khas desa.',
+    icon: '☀️',
+    title: 'Pagi Hari',
+    description: 'Awali hari dengan berjalan santai menikmati udara sejuk dan pemandangan hijau.',
   },
   {
-    icon: '🚣',
-    title: 'Sabtu sore',
-    description: 'Susur sungai dengan perahu bambu ditemani anak-anak desa.',
+    icon: '🌤️',
+    title: 'Siang & Sore',
+    description: 'Isi waktu dengan kegiatan seru atau sekadar bersantai menikmati suasana desa.',
   },
   {
     icon: '🌙',
-    title: 'Minggu malam',
-    description: 'Api unggun, jagung bakar, dan pertunjukan angklung.',
+    title: 'Malam Hari',
+    description: 'Nikmati ketenangan malam desa sambil bercengkrama hangat bersama keluarga.',
   },
 ];
 
@@ -83,7 +83,7 @@ export default async function HomePage() {
   });
 
   return (
-    <div className="space-y-24">
+    <div>
       {/* Hero Section */}
       <section className="relative overflow-hidden min-h-[102vh] flex items-center justify-center -mt-24">
         <div
@@ -98,6 +98,7 @@ export default async function HomePage() {
               'radial-gradient(circle at 20% 20%, rgba(60,119,89,0.14) 0, rgba(60,119,89,0) 55%), radial-gradient(circle at 80% 0%, rgba(255,199,126,0.16) 0, rgba(255,199,126,0) 42%)',
           }}
         />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#fff9ec] to-transparent" aria-hidden />
         <div className="relative w-full px-4 sm:px-6 lg:px-8">
           <div className="mx-auto flex max-w-3xl flex-col items-center gap-8 text-emerald-900 text-center">
             <Badge className="bg-emerald-100/70 text-emerald-900 ring-emerald-300/40">
@@ -129,7 +130,7 @@ export default async function HomePage() {
       </section>
 
       {/* Features */}
-      <section>
+      <section className="relative py-16 bg-gradient-to-b from-[#fff9ec] to-[#fdf8f1]">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Mengapa memilih kami</p>
@@ -156,10 +157,8 @@ export default async function HomePage() {
       </section>
 
       {/* Featured Homestays */}
-      <section className="relative overflow-hidden py-20">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#fdf8f1] via-[#f1e1c8] to-[#e0caa4]" aria-hidden />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(255,255,255,0.65),transparent_55%)]" aria-hidden />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,rgba(37,88,58,0.18),transparent_60%)]" aria-hidden />
+      <section className="relative overflow-hidden py-24">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#fdf8f1] via-[#fdf8f1] to-[#ecfdf5]" aria-hidden />
         <Container className="relative">
           <div className="flex flex-col gap-6 text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Rekomendasi warga</p>
@@ -234,26 +233,25 @@ export default async function HomePage() {
       </section>
 
       {/* Experiences */}
-      <section>
+      <section className="relative py-24 text-emerald-900 bg-gradient-to-b from-[#ecfdf5] via-[#e6fcf0] to-[#fdf8f1]">
         <Container className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-center">
           <div className="space-y-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Pengalaman khas desa</p>
-            <h2 className="text-3xl md:text-4xl">Ikuti ritme alam dan budaya kami setiap hari.</h2>
-            <p className="text-emerald-50">
-              Dari bertani bersama warga hingga belajar menenun tikar pandan, kami menyiapkan rangkaian kegiatan yang
-              bisa Anda pilih sesuai minat. Semua aktivitas dipandu langsung oleh pelaku lokal.
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Destinasi Wisata</p>
+            <h2 className="text-3xl md:text-4xl text-emerald-950">Jelajahi Keindahan Alam dan Warisan Budaya.</h2>
+            <p className="text-emerald-800/80">
+              Kunjungi berbagai objek wisata menarik yang memanjakan mata dan menenangkan jiwa. Mulai dari panorama alam yang memukau, situs budaya yang bersejarah, hingga spot foto kekinian yang instagramable.
             </p>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
               {experienceHighlights.map((item) => (
-                <div key={item.title} className="flex flex-col gap-3 rounded-3xl bg-emerald-50/80 p-5">
+                <div key={item.title} className="flex flex-col gap-3 rounded-3xl bg-white/60 p-5">
                   <span className="text-2xl">{item.icon}</span>
                   <p className="text-sm font-semibold text-emerald-900">{item.title}</p>
                   <p className="text-sm text-emerald-800/80">{item.blurb}</p>
                 </div>
               ))}
             </div>
-            <Link href="/attractions" className="inline-flex text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
-              Jelajahi kegiatan lainnya →
+            <Link href="/attractions" className="inline-flex text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700 hover:text-emerald-600 transition-colors">
+              Lihat Semua Destinasi →
             </Link>
           </div>
 
@@ -277,8 +275,7 @@ export default async function HomePage() {
                 </span>
                 <h3 className="text-2xl font-semibold text-emerald-950">Rangkaian akhir pekan</h3>
                 <p className="max-w-lg text-sm leading-relaxed text-stone-600 sm:text-base">
-                  Ideal untuk keluarga atau komunitas kecil. Nikmati dua malam aktivitas fleksibel yang merangkum alam,
-                  kuliner, dan budaya desa.
+                  Cocok untuk siapa saja yang ingin melepas penat. Nikmati waktu santai dengan beragam aktivitas menarik yang menyatu dengan alam dan budaya.
                 </p>
               </div>
 
@@ -300,18 +297,15 @@ export default async function HomePage() {
                 ))}
               </div>
 
-              <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-emerald-800">2N</span>
-                <span>Cocok untuk keluarga dengan anak usia sekolah & komunitas kecil</span>
-              </div>
+
             </div>
           </Card>
         </Container>
       </section>
 
   {/* Stories */}
-  <section className="relative overflow-hidden py-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-white to-emerald-50" aria-hidden />
+  <section className="relative overflow-hidden py-24">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#fdf8f1] via-[#fff7ed] to-[#fff3d8]" aria-hidden />
         <Container className="relative">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Cerita terbaru</p>

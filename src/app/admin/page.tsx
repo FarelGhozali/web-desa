@@ -246,6 +246,12 @@ async function getDashboardStats(): Promise<DashboardStats> {
     .sort((a, b) => a.eventDate.getTime() - b.eventDate.getTime())
     .slice(0, 6);
 
+  // Convert featured homestays bigint to number
+  const convertedFeaturedHomestays = featuredHomestays.map((homestay) => ({
+    ...homestay,
+    pricePerNight: Number(homestay.pricePerNight),
+  }));
+
   const recentDrafts = [
     ...draftPosts.map((draft) => ({
       id: draft.id,
@@ -284,7 +290,7 @@ async function getDashboardStats(): Promise<DashboardStats> {
     recentUsers,
     bookingTrend,
     agendaEntries,
-    featuredHomestays,
+    featuredHomestays: convertedFeaturedHomestays,
     draftCounts: {
       posts: draftPostsCount,
       attractions: draftAttractionsCount,

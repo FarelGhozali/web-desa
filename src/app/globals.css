@@ -8,20 +8,8 @@
   --muted: #efe6d7;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #13120e;
-    --foreground: #f4f1ea;
-    --accent: #4aa770;
-    --accent-secondary: #eba74d;
-    --muted: #2b2a24;
-  }
-}
-
 html {
   background-color: var(--background);
-  background-image: radial-gradient(circle at 1px 1px, rgba(156, 131, 80, 0.12) 1px, transparent 0);
-  background-size: 32px 32px;
 }
 
 body {

@@ -6,9 +6,10 @@ import { prisma } from '@/lib/prisma';
 // GET - Get single culinary by ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session || session.user.role !== 'ADMIN') {
@@ -16,7 +17,7 @@ export async function GET(
     }
 
     const culinary = await prisma.culinary.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!culinary) {
@@ -36,9 +37,10 @@ export async function GET(
 // PATCH - Update culinary
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session || session.user.role !== 'ADMIN') {
@@ -91,7 +93,7 @@ export async function PATCH(
         where: { slug },
       });
 
-      if (existingCulinary && existingCulinary.id !== params.id) {
+      if (existingCulinary && existingCulinary.id !== id) {
         return NextResponse.json(
           { error: 'A culinary with this name already exists' },
           { status: 400 }
@@ -102,7 +104,7 @@ export async function PATCH(
     }
 
     const culinary = await prisma.culinary.update({
-      where: { id: params.id },
+      where: { id },
       data: updateData,
     });
 
@@ -119,9 +121,10 @@ export async function PATCH(
 // DELETE - Delete culinary
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session || session.user.role !== 'ADMIN') {
@@ -129,7 +132,7 @@ export async function DELETE(
     }
 
     await prisma.culinary.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ message: 'Culinary deleted successfully' });

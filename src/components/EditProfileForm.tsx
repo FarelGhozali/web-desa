@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Button from '@/components/ui/Button';
+import Image from 'next/image';
 
 interface EditProfileFormProps {
   initialName: string | null;
@@ -143,9 +144,11 @@ export default function EditProfileForm({
             <div className="mt-3 rounded-md bg-stone-50 p-4">
               <p className="mb-2 text-xs font-medium text-stone-700">Preview:</p>
               <div className="h-24 w-24 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 overflow-hidden">
-                <img 
+                <Image 
                   src={image} 
                   alt="Preview"
+                  width={96}
+                  height={96}
                   className="h-full w-full object-cover"
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = 'none';

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Container from '@/components/ui/Container';
-import Button from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import MapEmbedDisplay from '@/components/MapEmbedDisplay';
@@ -15,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function ContactPage() {
   // Fetch contact info from database
-  const contactInfo = await (prisma as any).contactInfo.findFirst().catch(() => null);
+  const contactInfo = await prisma.contactInfo.findFirst().catch(() => null);
   
   // Parse operating hours
   let operatingHours;

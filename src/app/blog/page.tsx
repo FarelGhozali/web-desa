@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Container from '@/components/ui/Container';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';

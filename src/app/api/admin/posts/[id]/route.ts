@@ -6,9 +6,10 @@ import { prisma } from '@/lib/prisma';
 // GET - Get single post by ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session || session.user.role !== 'ADMIN') {
@@ -16,7 +17,7 @@ export async function GET(
     }
 
     const post = await prisma.post.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         author: {
           select: {
@@ -52,9 +53,10 @@ export async function GET(
 // PATCH - Update post
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session || session.user.role !== 'ADMIN') {
@@ -113,7 +115,7 @@ export async function PATCH(
         where: { slug },
       });
 
-      if (existingPost && existingPost.id !== params.id) {
+      if (existingPost && existingPost.id !== id) {
         return NextResponse.json(
           { error: 'A post with this title already exists' },
           { status: 400 }
@@ -124,7 +126,7 @@ export async function PATCH(
     }
 
     const post = await prisma.post.update({
-      where: { id: params.id },
+      where: { id },
       data: updateData,
       include: {
         author: {
@@ -157,9 +159,10 @@ export async function PATCH(
 // DELETE - Delete post
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session || session.user.role !== 'ADMIN') {
@@ -167,7 +170,7 @@ export async function DELETE(
     }
 
     await prisma.post.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ message: 'Post deleted successfully' });

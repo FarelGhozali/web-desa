@@ -63,28 +63,26 @@ export default function EditHomestayPage() {
   }, [id]);
 
   return (
-    <AdminLayout>
-      <div className="space-y-6">
-        <AdminPageHeader
-          title="Edit Homestay"
-          description="Perbarui informasi homestay untuk meningkatkan performa dan menarik lebih banyak tamu."
-        />
+    <div className="space-y-6">
+      <AdminPageHeader
+        title="Edit Homestay"
+        description="Perbarui informasi homestay untuk meningkatkan performa dan menarik lebih banyak tamu."
+      />
 
-        {error && (
-          <Card className="border-rose-200 bg-rose-50 p-4">
-            <p className="text-sm text-rose-700">{error}</p>
-          </Card>
-        )}
+      {error && (
+        <Card className="border-rose-200 bg-rose-50 p-4">
+          <p className="text-sm text-rose-700">{error}</p>
+        </Card>
+      )}
 
-        {isLoading ? (
-          <Card className="flex flex-col items-center justify-center gap-2 px-8 py-20 text-center">
-            <div className="h-12 w-12 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
-            <p className="text-sm text-stone-500">Memuat data homestay…</p>
-          </Card>
-        ) : homestay ? (
-          <HomestayForm initialData={homestay} />
-        ) : null}
-      </div>
-    </AdminLayout>
+      {isLoading ? (
+        <Card className="flex flex-col items-center justify-center gap-2 px-8 py-20 text-center">
+          <div className="h-12 w-12 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
+          <p className="text-sm text-stone-500">Memuat data homestay…</p>
+        </Card>
+      ) : homestay ? (
+        <HomestayForm initialData={homestay} />
+      ) : null}
+    </div>
   );
 }

@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import Container from '@/components/ui/Container';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -134,9 +135,11 @@ export default async function ReviewsPage({ params }: Props) {
                   {/* Reviewer Info */}
                   <div className="mb-3 flex items-center gap-3">
                     {review.user.image ? (
-                      <img
+                      <Image
                         src={review.user.image}
                         alt={review.user.name || 'User'}
+                        width={40}
+                        height={40}
                         className="h-10 w-10 rounded-full object-cover"
                       />
                     ) : (
