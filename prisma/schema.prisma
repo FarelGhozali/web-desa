@@ -1,0 +1,232 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          UserRole  @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  accounts      Account[]
+  bookings      Booking[]
+  posts         Post[]
+  reviews       Review[]
+  sessions      Session[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId], map: "accounts_userId_fkey")
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], map: "sessions_userId_fkey")
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model Homestay {
+  id            String    @id @default(cuid())
+  name          String
+  slug          String    @unique
+  description   String    @db.Text
+  address       String
+  pricePerNight BigInt
+  maxGuests     Int
+  photos        String    @db.Text
+  featured      Boolean   @default(false)
+  published     Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  facilities    String    @db.Text
+  mapsEmbedCode String?   @db.Text
+  bookings      Booking[]
+  reviews       Review[]
+
+  @@map("homestays")
+}
+
+model Booking {
+  id               String        @id @default(cuid())
+  checkInDate      DateTime
+  checkOutDate     DateTime
+  totalPrice       BigInt
+  numberOfGuests   Int
+  status           BookingStatus @default(PENDING)
+  guestPhone       String?
+  specialRequests  String?       @db.Text
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  userId           String
+  homestayId       String
+  homestay         Homestay      @relation(fields: [homestayId], references: [id], onDelete: Cascade)
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([homestayId], map: "bookings_homestayId_fkey")
+  @@index([userId], map: "bookings_userId_fkey")
+  @@map("bookings")
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  rating     Int
+  comment    String   @db.Text
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  userId     String
+  homestayId String
+  homestay   Homestay @relation(fields: [homestayId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([homestayId], map: "reviews_homestayId_fkey")
+  @@index([userId], map: "reviews_userId_fkey")
+  @@map("reviews")
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  posts     Post[]
+
+  @@map("categories")
+}
+
+model Post {
+  id         String   @id @default(cuid())
+  title      String
+  slug       String   @unique
+  content    String   @db.Text
+  excerpt    String?  @db.Text
+  coverImage String?
+  published  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  authorId   String
+  categoryId String
+  author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@index([authorId], map: "posts_authorId_fkey")
+  @@index([categoryId], map: "posts_categoryId_fkey")
+  @@map("posts")
+}
+
+model Attraction {
+  id            String   @id @default(cuid())
+  name          String
+  slug          String   @unique
+  description   String   @db.Text
+  photos        String   @db.Text
+  location      String
+  latitude      Float?
+  longitude     Float?
+  featured      Boolean  @default(false)
+  published     Boolean  @default(true)
+  mapsEmbedCode String?  @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("attractions")
+}
+
+model Culinary {
+  id            String   @id @default(cuid())
+  name          String
+  slug          String   @unique
+  description   String   @db.Text
+  photos        String   @db.Text
+  location      String
+  latitude      Float?
+  longitude     Float?
+  priceRange    String?
+  featured      Boolean  @default(false)
+  published     Boolean  @default(true)
+  mapsEmbedCode String?  @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("culinary")
+}
+
+model ContactInfo {
+  id               String   @id @default(cuid())
+  email            String
+  phone            String
+  address          String   @db.Text
+  mapsEmbedCode    String?  @db.Text
+  operatingHours   String?  @db.Text
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("contact_info")
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String   @db.Text
+  status    String   @default("UNREAD")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@map("contact_messages")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}

@@ -1,13 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Village Homestay Reservation & Tourism Portal
 
-## Getting Started
+A comprehensive website built with Next.js, TypeScript, and Tailwind CSS for village homestay reservations and tourism content marketing.
 
-First, run the development server:
+## 🎯 Project Overview
 
-```bash
-npm run dev
-# or
-yarn dev
+This website serves as both a reservation platform for village homestays and a rich content portal showcasing the village's natural beauty, local cuisine, and cultural stories. The primary goal is to attract visitors through SEO-optimized content and convert them into homestay bookers.
+
+## 🛠️ Technology Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: PostgreSQL
+- **ORM**: Prisma
+- **Authentication**: NextAuth.js
+- **State Management**: Zustand
+
+## ✨ Features
+
+### 1. Homestay Reservation Module
+- **Homestay List**: Browse all available homestays with filters
+- **Homestay Detail**: View detailed information, photos, amenities, reviews
+- **Booking System**: Select dates, number of guests, and book
+- **User Dashboard**: Manage reservations and booking history
+
+### 2. Content & SEO Module
+- **Natural Attractions**: Gallery and details of tourist spots
+- **Local Cuisine**: Showcase traditional dishes and restaurants
+- **Blog System**: Articles with categories, tags, and SEO-friendly URLs
+
+### 3. General Pages
+- **Homepage**: Featured homestays, latest blog posts, and CTAs
+- **About**: Village history and characteristics
+- **Contact**: Contact form and information
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ installed
+- PostgreSQL database
+- pnpm, npm, or yarn package manager
+
+### Installation
+
+1. **Install dependencies**
+   ```bash
+   npm install
 # or
 pnpm dev
 # or

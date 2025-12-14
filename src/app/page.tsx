@@ -1,103 +1,359 @@
-import Image from "next/image";
 
-export default function Home() {
+import Link from 'next/link';
+import Image from 'next/image';
+import Container from '@/components/ui/Container';
+import Button from '@/components/ui/Button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import Badge from '@/components/ui/Badge';
+import { prisma } from '@/lib/prisma';
+
+const highlightFeatures = [
+  {
+    icon: '🏡',
+    title: 'Menginap Bersama Warga',
+    description: 'Rasakan kehangatan tinggal di rumah warga, bangun dengan aroma kopi pagi, dan berbagi cerita layaknya keluarga sendiri.',
+  },
+  {
+    icon: '🌿',
+    title: 'Pengalaman Langsung',
+    description: 'Ikut serta dalam keseharian desa: bertani di sawah, belajar kerajinan tangan, hingga memasak hidangan tradisional.',
+  },
+  {
+    icon: '🪕',
+    title: 'Budaya & Keramahan',
+    description: 'Nikmati alunan musik desa, suasana malam yang tenang, dan keakraban warga yang menyambut Anda dengan tangan terbuka.',
+  },
+];
+
+const experienceHighlights = [
+  {
+    icon: '🌿',
+    title: 'Wisata Alam',
+    blurb: 'Nikmati keindahan pemandangan alam yang asri dan udara segar yang menenangkan.',
+  },
+  {
+    icon: '🎨',
+    title: 'Budaya & Tradisi',
+    blurb: 'Pelajari kearifan lokal dan tradisi unik yang masih dijaga oleh warga desa.',
+  },
+  {
+    icon: '🍽️',
+    title: 'Kuliner Khas',
+    blurb: 'Cicipi hidangan lezat yang diolah dari bahan-bahan segar hasil bumi setempat.',
+  },
+];
+
+const weekendSchedule = [
+  {
+    icon: '☀️',
+    title: 'Pagi Hari',
+    description: 'Awali hari dengan berjalan santai menikmati udara sejuk dan pemandangan hijau.',
+  },
+  {
+    icon: '🌤️',
+    title: 'Siang & Sore',
+    description: 'Isi waktu dengan kegiatan seru atau sekadar bersantai menikmati suasana desa.',
+  },
+  {
+    icon: '🌙',
+    title: 'Malam Hari',
+    description: 'Nikmati ketenangan malam desa sambil bercengkrama hangat bersama keluarga.',
+  },
+];
+
+export default async function HomePage() {
+  // Featured homestays
+  const homestaysRaw = await prisma.homestay.findMany({
+    where: { published: true, featured: true },
+    orderBy: { createdAt: 'desc' },
+    take: 3,
+  });
+  const homestays = homestaysRaw.map((h) => ({
+    ...h,
+    photos: h.photos ? JSON.parse(h.photos) : [],
+    facilities: h.facilities ? JSON.parse(h.facilities) : [],
+  }));
+
+  // Latest blog posts
+  const posts = await prisma.post.findMany({
+    where: { published: true },
+    orderBy: { createdAt: 'desc' },
+    take: 3,
+    include: { category: true },
+  });
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden min-h-[102vh] flex items-center justify-center -mt-24">
+        <div
+          className="absolute inset-0 bg-gradient-to-br from-[#fff3d8] via-[#e6f4ec] to-[#fff9ec]"
+          aria-hidden
         />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        <div
+          className="absolute inset-0 opacity-70"
+          aria-hidden
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 20% 20%, rgba(60,119,89,0.14) 0, rgba(60,119,89,0) 55%), radial-gradient(circle at 80% 0%, rgba(255,199,126,0.16) 0, rgba(255,199,126,0) 42%)',
+          }}
+        />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#fff9ec] to-transparent" aria-hidden />
+        <div className="relative w-full px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-3xl flex-col items-center gap-8 text-emerald-900 text-center">
+            <Badge className="bg-emerald-100/70 text-emerald-900 ring-emerald-300/40">
+              Desa Harmoni, Jawa Barat
+            </Badge>
+            <h1 className="text-4xl leading-tight md:text-6xl">
+              Liburan desa yang menyatu dengan keseharian warga.
+            </h1>
+            <p className="text-lg text-stone-600 md:text-xl">
+              Kami merangkai perjalanan yang membuat Anda betah: tidur di rumah panggung yang hangat, bangun bersama
+              matahari, dan berbagi meja makan dengan keluarga tuan rumah.
+            </p>
+            <div className="flex flex-col gap-4 sm:flex-row justify-center">
+              <Link href="/homestays">
+                <Button size="lg">Cari Homestay</Button>
+              </Link>
+              <Link href="/about">
+                <Button
+                  size="lg"
+                  variant="ghost"
+                  className="bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                >
+                  Kenali Desa Kami
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Features */}
+      <section className="relative py-16 bg-gradient-to-b from-[#fff9ec] to-[#fdf8f1]">
+        <Container>
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Mengapa memilih kami</p>
+            <h2 className="mt-4 text-3xl md:text-4xl">
+              Setiap perjalanan adalah kolaborasi hangat antara tamu dan warga desa.
+            </h2>
+          </div>
+          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+            {highlightFeatures.map((feature) => (
+              <Card key={feature.title} hover className="bg-white">
+                <CardHeader className="flex flex-col gap-4">
+                  <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-2xl">
+                    {feature.icon}
+                  </span>
+                  <CardTitle>{feature.title}</CardTitle>
+                  <CardDescription className="text-stone-600">
+                    {feature.description}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Featured Homestays */}
+      <section className="relative overflow-hidden py-24">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#fdf8f1] via-[#fdf8f1] to-[#ecfdf5]" aria-hidden />
+        <Container className="relative">
+          <div className="flex flex-col gap-6 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Rekomendasi warga</p>
+            <h2 className="text-3xl md:text-4xl text-emerald-900">Homestay pilihan dengan keramahan khas pedesaan.</h2>
+            <p className="mx-auto max-w-2xl text-stone-600">
+              Semua homestay kami kurasi langsung bersama warga untuk memastikan kenyamanan, kebersihan, dan
+              pengalaman autentik.
+            </p>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+            {homestays.map((homestay) => (
+              <Card key={homestay.id} hover className="bg-white/90 backdrop-blur">
+                <div className="relative h-56 overflow-hidden rounded-3xl">
+                  {homestay.photos[0] && (
+                    <Image
+                      src={homestay.photos[0]}
+                      alt={homestay.name}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover"
+                      unoptimized
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(79,121,66,0.35),_rgba(79,121,66,0.06))]" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-700/30 via-emerald-500/10 to-transparent" />
+                  <div className="relative flex h-full flex-col justify-end p-6">
+                    <div className="rounded-2xl bg-white/90 p-4 text-stone-800 shadow-lg">
+                      <p className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-700">
+                        {homestay.name}
+                      </p>
+                      <p className="text-lg font-semibold">{homestay.description.slice(0, 40)}...</p>
+                      <p className="text-xs text-stone-500">{homestay.address}</p>
+                    </div>
+                  </div>
+                </div>
+                <CardContent>
+                  <div className="space-y-4 text-sm text-stone-600">
+                    <ul className="space-y-4 mt-4">
+                      {homestay.facilities?.slice(0, 3).map((perk: string) => (
+                        <li key={perk} className="flex items-center gap-2">
+                          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                            ✔
+                          </span>
+                          <span>{perk}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="flex items-center justify-between text-stone-700">
+                      <span className="text-lg font-semibold text-emerald-700">Rp {homestay.pricePerNight.toLocaleString('id-ID')} / malam</span>
+                      <Link
+                        href={`/homestays/${homestay.slug}`}
+                        className="inline-flex items-center gap-2 rounded-full border border-emerald-700 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700 transition hover:bg-emerald-700 hover:text-white"
+                      >
+                        Lihat Detail →
+                      </Link>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="mt-10 flex justify-center">
+            <Link href="/homestays">
+              <Button variant="outline" size="lg">
+                Lihat semua homestay
+              </Button>
+            </Link>
+          </div>
+        </Container>
+      </section>
+
+      {/* Experiences */}
+      <section className="relative py-24 text-emerald-900 bg-gradient-to-b from-[#ecfdf5] via-[#e6fcf0] to-[#fdf8f1]">
+        <Container className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+          <div className="space-y-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Destinasi Wisata</p>
+            <h2 className="text-3xl md:text-4xl text-emerald-950">Jelajahi Keindahan Alam dan Warisan Budaya.</h2>
+            <p className="text-emerald-800/80">
+              Kunjungi berbagai objek wisata menarik yang memanjakan mata dan menenangkan jiwa. Mulai dari panorama alam yang memukau, situs budaya yang bersejarah, hingga spot foto kekinian yang instagramable.
+            </p>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+              {experienceHighlights.map((item) => (
+                <div key={item.title} className="flex flex-col gap-3 rounded-3xl bg-white/60 p-5">
+                  <span className="text-2xl">{item.icon}</span>
+                  <p className="text-sm font-semibold text-emerald-900">{item.title}</p>
+                  <p className="text-sm text-emerald-800/80">{item.blurb}</p>
+                </div>
+              ))}
+            </div>
+            <Link href="/attractions" className="inline-flex text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700 hover:text-emerald-600 transition-colors">
+              Lihat Semua Destinasi →
+            </Link>
+          </div>
+
+          <Card className="relative overflow-hidden border border-emerald-100/70 bg-white/95 p-0 shadow-[0_36px_68px_-36px_rgba(15,118,110,0.45)]">
+            <div
+              className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-emerald-200/60 via-transparent to-transparent"
+              aria-hidden
+            />
+            <div
+              className="pointer-events-none absolute -left-20 top-10 h-40 w-40 rounded-full bg-emerald-300/20 blur-3xl"
+              aria-hidden
+            />
+            <div
+              className="pointer-events-none absolute -right-24 bottom-8 h-48 w-48 rounded-full bg-amber-200/30 blur-3xl"
+              aria-hidden
+            />
+            <div className="relative flex flex-col gap-8 p-8 sm:p-10">
+              <div className="space-y-4">
+                <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-800 shadow-sm">
+                  Weekend itinerary
+                </span>
+                <h3 className="text-2xl font-semibold text-emerald-950">Rangkaian akhir pekan</h3>
+                <p className="max-w-lg text-sm leading-relaxed text-stone-600 sm:text-base">
+                  Cocok untuk siapa saja yang ingin melepas penat. Nikmati waktu santai dengan beragam aktivitas menarik yang menyatu dengan alam dan budaya.
+                </p>
+              </div>
+
+              <div className="grid gap-4">
+                {weekendSchedule.map((item) => (
+                  <div
+                    key={item.title}
+                    className="relative flex items-start gap-4 rounded-2xl border border-emerald-100/80 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-emerald-200 hover:shadow-md"
+                  >
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-lg text-emerald-700">
+                      {item.icon}
+                    </span>
+                    <div className="space-y-1 text-sm sm:text-base">
+                      <p className="font-semibold text-emerald-950">{item.title}</p>
+                      <p className="text-stone-600">{item.description}</p>
+                    </div>
+                    <div className="absolute inset-y-0 left-0 w-1 rounded-l-2xl bg-gradient-to-b from-emerald-300 via-emerald-400 to-emerald-500" aria-hidden />
+                  </div>
+                ))}
+              </div>
+
+
+            </div>
+          </Card>
+        </Container>
+      </section>
+
+  {/* Stories */}
+  <section className="relative overflow-hidden py-24">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#fdf8f1] via-[#fff7ed] to-[#fff3d8]" aria-hidden />
+        <Container className="relative">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Cerita terbaru</p>
+            <h2 className="mt-4 text-3xl text-emerald-900 md:text-4xl">Cerita dari warga dan tamu yang pernah singgah.</h2>
+            <p className="mt-6 text-stone-700">
+              Blog kami berisi tips perjalanan, resep kuliner, kisah sukses UMKM desa, dan ritual adat yang masih
+              terjaga.
+            </p>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+            {posts.map((post) => (
+              <Card key={post.id} hover className="bg-white shadow-lg shadow-emerald-900/5 ring-1 ring-emerald-900/10">
+                {post.coverImage && (
+                  <div className="relative h-48 overflow-hidden rounded-3xl">
+                    <Image
+                      src={post.coverImage}
+                      alt={post.title}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
+                )}
+                <CardHeader className="space-y-4">
+                  <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-800">
+                    <span>{post.createdAt.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                    <span className="h-1 w-1 rounded-full bg-emerald-700" />
+                    <span>{post.category?.name || 'Kisah Desa'}</span>
+                  </div>
+                  <CardTitle className="text-emerald-900">{post.title}</CardTitle>
+                  <CardDescription className="text-stone-700">
+                    {post.excerpt || post.content.slice(0, 100) + '...'}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+
+          <div className="mt-10 flex justify-center">
+            <Link href="/blog">
+              <Button variant="ghost">Baca cerita lainnya</Button>
+            </Link>
+          </div>
+        </Container>
+      </section>
+
     </div>
   );
 }
